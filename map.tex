@@ -224,6 +224,33 @@ Ensuite nous voulons mettre en place une solution pour automatiser la configurat
 \includegraphics[width=25cm,angle=90]{images/gantt.png}
 
 \section{Lexique}
+\begin{description}
+\item[Virtualisation :] Technique permettant de faire fonctionner plusieurs systèmes d'exploitations en simultanés sur une même machine physique.
 
+\item[Cloud Computing :] Accès via le réseau, en libre-service, à des ressources informatiques virtualisées et mutualisées.
+
+\item[IaaS :] Infrastructure as a Service. Niveau le plus bas du cloud computing où un fournisseur expose une infrastructure informatique (serveurs, stockage, réseau) au client. Le client ne gère que les systèmes d'exploitation et logiciels qui vont fonctionner dessus.
+
+\item[OpenStack :] IaaS Open Source développé principalement par Rackspace (un grand hébergeur Américain) et la NASA.
+
+\item[NAS :] Network Attached Storage. Système de stockage de grande capacité (plusieurs To en général) accessible via le réseau.
+
+\item[SAN :] Storage Area Network. Semblable au NAS mais se caractérise pas un accès plus bas-niveau aux disques et donc à des performances accrues.
+
+\item[VT-x :] Technologie incluse dans les processeurs récents permettant aux machine virtuelles d'accéder directement au processeur, ce qui permet d'augmenter les performances.
+
+\item[KVM :] Kernel-based Virtual Machine. Système de virtualisation intégré dans le noyau Linux utilisant la virtualisation matérielle (VT-x) et donc très performant. Il est capable de faire fonctionner aussi bien des systèmes basés sur un noyau Linux, que BSD ou Windows.
+
+\item[LXC :] Linux Containers. Système de virtualisation léger ne nécessitant pas VT-x au contraire de KVM ou Xen par exemple. Il ne supporte que les systèmes basés sur un noyau Linux. Semblable aux Jails de BSD.
+
+\item[Xen :] Hyperviseur open-source
+
+\item[Hyper-V :] Hyperviseur basé sur le noyau de Windows Server
+
+\item[Nœud (OpenStack) :]
+
+\item[Puppet :] Gestionnaire de configuration Open-Source. Permet
+\end{description}
+ 
 
 \end{document}
