@@ -43,7 +43,7 @@ Faciliter les migrations site-à-site. Il est beaucoup plus facile de transfére
 Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmis les plus connus on pourra citer VMWare ESX ou VirtualBox.
 
 \subsection{Le Cloud Computing}
-L’inconvénient de ces logiciels utilisés seuls est qu’ils ne proposent pas une gestion globale de l’infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne sont pas adaptés si on veut utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant par plusieurs personnes.
+Ces logiciels ne conviennent pas à notre utilisation car ils ne proposent pas de gestion globale de l’infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne sont donc pas adaptés si on veut utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
 On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnotemark[1] dans ce cas là d’IaaS (Infrastructure as a Service).
 L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
@@ -51,7 +51,7 @@ L’utilisateur final ne se préoccupe pas de savoir où est physiquement le sto
 \footnotetext[1]{Pour simplifier nous avons concentré notre explication sur la virtualisation de bas-niveau (systèmes d’exploitations), mais il existe des niveaux d’abstractions supplémentaires comme la virtualisation d’applications. Dans le cas du Cloud Computing (ressource partagés par le réseau) on parlera de PaaS (Platform as a Service) ou de SaaS (Software as a service).}
 
 \subsection{OpenStack}
-Il existe plusieurs solutions permettant le création d’une IaaS, nous avons choisi d’utiliser OpenStack car c’est un projet Open source (les sources sont disponibles gratuitement sur Internet) très actif.
+Il existe plusieurs solutions permettant le création d’une IaaS, nous avons choisi d’utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
 Il peut être considérée comme mature pour une utilisation en production car il est utilisé entre autre par Rackspace (un très gros hébergeur et fournisseur de solutions de Cloud Computing Américain), la NASA, et Intel.
 
 \section{Matériel nécessaire}
