@@ -50,22 +50,40 @@ L’utilisateur final ne se préoccupe pas de savoir où est physiquement le sto
 
 \footnotetext[1]{Pour simplifier nous avons concentré notre explication sur la virtualisation de bas-niveau (systèmes d’exploitations), mais il existe des niveaux d’abstractions supplémentaires comme la virtualisation d’applications. Dans le cas du Cloud Computing (ressource partagés par le réseau) on parlera de PaaS (Platform as a Service) ou de SaaS (Software as a service).}
 
+\newpage
 \subsection{OpenStack}
 Il existe plusieurs solutions permettant le création d’une IaaS, nous avons choisi d’utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
 Il peut être considérée comme mature pour une utilisation en production car il est utilisé entre autre par Rackspace (un très gros hébergeur et fournisseur de solutions de Cloud Computing Américain), la NASA, et Intel.
+OpenStack est constitué de différents services permettant .....
+\subsubsection{Keystone}
+Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.
 
+\subsubsection{Nova}
+C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc\footnotemark[2].
+
+\subsubsection{Swift}
+Swift est le système de stockage objet\footnotemark[3] d'OpenStack.
+
+\subsubsection{Glance}
+Glance s'occupe des images virtuelles\footnotemark[4]. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
+
+\footnotetext[2]{Le stockage bloc permet aux machines virtuelles de disposer d'un stockage à haute performance.}
+\footnotetext[3]{Le stockage objet permet de stocker des données statiques (images virtuelles, photos, emails, sauvegardes, ...) de façon redondante et sécurisé, au prix de performances moindres.}
+\footnotetext[4]{Une image est le modèle d'après lequelle serons créer les machines.}
+
+\newpage
 \section{Matériel nécessaire}
 \subsection{Cas idéal}
-Une IaaS mettant en commun différentes ressources physiques nous aurions besoin, en théorie, de plusieurs ordinateurs, de systèmes de stockages (NAS\footnotemark[2], SAN\footnotemark[3]), et d'une infrastructure réseau.
+Une IaaS mettant en commun différentes ressources physiques nous aurions besoin, en théorie, de plusieurs ordinateurs, de systèmes de stockages (NAS\footnotemark[5], SAN\footnotemark[6]), et d'une infrastructure réseau.
 
-\footnotetext[2]{NAS: Network Attached Storage. Système de stockage de grande capacité (plusieurs To en général) accessible via le réseau.}
-\footnotetext[3]{SAN: Storage Area Network. Semblable au NAS mais se caractérise pas un accès plus bas-niveau aux disques et donc à des performances accrues.}
+\footnotetext[5]{NAS: Network Attached Storage. Système de stockage de grande capacité (plusieurs To en général) accessible via le réseau.}
+\footnotetext[6]{SAN: Storage Area Network. Semblable au NAS mais se caractérise pas un accès plus bas-niveau aux disques et donc à des performances accrues.}
 
 \subsection{La virtualisation virtualisée}
-Toutes ces ressources coûtant cher et n'étant pas forcément facile à manipuler nous allons les créer virtuellement. Autrement dit nous allons mettre en place notre IaaS sur des machines virtuelles. Ce n'est bien sûr pas le cas idéal car nous perdons le support de la virtualisation au niveau du processeur (VT-x\footnotemark[4]) et serons donc limités à utiliser LXC\footnotemark[5] comme système de virtualisation au sein de notre cloud.
+Toutes ces ressources coûtant cher et n'étant pas forcément facile à manipuler nous allons les créer virtuellement. Autrement dit nous allons mettre en place notre IaaS sur des machines virtuelles. Ce n'est bien sûr pas le cas idéal car nous perdons le support de la virtualisation au niveau du processeur (VT-x\footnotemark[7]) et serons donc limités à utiliser LXC\footnotemark[8] comme système de virtualisation au sein de notre cloud.
 
-\footnotetext[4]{VT-x: Technologie incluse dans les processeurs récents permettant aux machine virtuelles d'accéder directement au processeur, ce qui permet d'augmenter les performances.}
-\footnotetext[5]{LXC: Linux Containers. Système de virtualisation léger ne nécessitant pas VT-x au contraire de KVM ou Xen par exemple. Il ne supporte que les systèmes basés sur un noyau Linux. Semblable aux Jails de BSD.}
+\footnotetext[7]{VT-x: Technologie incluse dans les processeurs récents permettant aux machine virtuelles d'accéder directement au processeur, ce qui permet d'augmenter les performances.}
+\footnotetext[8]{LXC: Linux Containers. Système de virtualisation léger ne nécessitant pas VT-x au contraire de KVM ou Xen par exemple. Il ne supporte que les systèmes basés sur un noyau Linux. Semblable aux Jails de BSD.}
 
 \chapter{Cahier des charges}
 \section{Objectifs}
@@ -88,10 +106,9 @@ Ensuite nous voulons mettre en place une solution pour automatiser la configurat
 \item Noeuds de virtualisations supplémentaires avec Xen, LXC, voir Hyper-V
 \item Migration automatique des VMs après la chute d'un noeud
 \end{itemize}
-
 \chapter{Tâches}
 \section{Tableau}
-\includegraphics[width=20cm,angle=90]{images/liste.png}
+\includegraphics[width=19cm,angle=90]{images/liste.png}
 
 \section{Liste détailée}
 \subsection*{Tâche 2 : Dimensionnement}
