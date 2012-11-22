@@ -54,7 +54,7 @@ L’utilisateur final ne se préoccupe pas de savoir où est physiquement le sto
 \subsection{OpenStack}
 Il existe plusieurs solutions permettant le création d’une IaaS, nous avons choisi d’utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
 Il peut être considérée comme mature pour une utilisation en production car il est utilisé entre autre par Rackspace (un très gros hébergeur et fournisseur de solutions de Cloud Computing Américain), la NASA, et Intel.
-OpenStack est constitué de différents services permettant .....
+OpenStack est constitué de différents services gérant chacun une composante spécifique de l'IaaS.
 \subsubsection{Keystone}
 Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.
 
@@ -62,19 +62,22 @@ Ce service est indispensable, il permet de coordonnée l'authentification et l'a
 C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc\footnotemark[2].
 
 \subsubsection{Swift}
-Swift est le système de stockage objet\footnotemark[3] d'OpenStack.
+Swift est le système de stockage objet\footnotemark[3] d'OpenStack. Il gère toutes spécificités de ce type de stockage (voir note de bas de page).
 
 \subsubsection{Glance}
 Glance s'occupe des images virtuelles\footnotemark[4]. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
 
-\footnotetext[2]{Le stockage bloc permet aux machines virtuelles de disposer d'un stockage à haute performance.}
-\footnotetext[3]{Le stockage objet permet de stocker des données statiques (images virtuelles, photos, emails, sauvegardes, ...) de façon redondante et sécurisé, au prix de performances moindres.}
-\footnotetext[4]{Une image est le modèle d'après lequelle serons créer les machines.}
+\subsubsection{Dashboard}
+C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles.
 
-\newpage
+\footnotetext[2]{Le stockage bloc permet aux machines virtuelles de disposer d'un stockage à haute performance. Originellement ce système de stockage est inclus dans Nova mais depuis la version Folsom il s'agit d'un service séparé: Cinder.}
+\footnotetext[3]{Le stockage objet permet de stocker des données statiques (images virtuelles, photos, emails, sauvegardes, ...) de façon redondante et sécurisé, au prix de performances moindres.}
+\footnotetext[4]{Une image est le modèle d'après lequel serons créer les machines.}
+
 \subsection{Puppet}
 Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines. Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
 
+\newpage
 \section{Matériel nécessaire}
 \subsection{Cas idéal}
 Une IaaS mettant en commun différentes ressources physiques nous aurions besoin, en théorie, de plusieurs ordinateurs, de systèmes de stockages (NAS\footnotemark[5], SAN\footnotemark[6]), et d'une infrastructure réseau.
@@ -87,6 +90,9 @@ Toutes ces ressources coûtant cher et n'étant pas forcément facile à manipul
 
 \footnotetext[7]{VT-x: Technologie incluse dans les processeurs récents permettant aux machine virtuelles d'accéder directement au processeur, ce qui permet d'augmenter les performances.}
 \footnotetext[8]{LXC: Linux Containers. Système de virtualisation léger ne nécessitant pas VT-x au contraire de KVM ou Xen par exemple. Il ne supporte que les systèmes basés sur un noyau Linux. Semblable aux Jails de BSD.}
+
+\chapter{Schéma synoptique}
+\includegraphics[width=19cm,angle=180]{images/schema.png}
 
 \chapter{Cahier des charges}
 \section{Objectifs}
@@ -106,7 +112,7 @@ Ensuite nous voulons mettre en place une solution pour automatiser la configurat
 \begin{itemize}
 \item Haute-disponibilité, tolérance de pannes
 \item Monitoring des machines physiques
-\item Noeuds de virtualisations supplémentaires avec Xen, LXC, voir Hyper-V
+\item Nœuds de virtualisations supplémentaires avec Xen, LXC, voir Hyper-V
 \item Migration automatique des VMs après la chute d'un noeud
 \end{itemize}
 \chapter{Tâches}
@@ -243,6 +249,47 @@ Ensuite nous voulons mettre en place une solution pour automatiser la configurat
 \section{GANTT}
 \includegraphics[width=25cm,angle=90]{images/gantt.png}
 
+\section{Tableau des tâches}
+\begin{tabular}{|l|l|l|}
+\hline
+Id & Tâche & Antécédents immédiats \tabularnewline
+\hline
+2 & Dimensionnement & \tabularnewline
+\hline
+4 & Installation de Keystone & 2 \tabularnewline
+\hline
+5 & Préparation à l'installation de Nova & 2 \tabularnewline
+\hline
+6 & Installation de Glance & 4 \tabularnewline
+\hline
+7 & Installation de Nova & 5 \tabularnewline
+\hline
+8 & Installation de Swift & 4 \tabularnewline
+\hline
+9 & Installation du Dashboard & 8 \tabularnewline
+\hline
+11 & Installation de Puppet & 6,7,9 \tabularnewline
+\hline
+12 & Stockage des configurations Puppet & 11 \tabularnewline
+\hline
+14 & Installation de Keystone & 6 \tabularnewline
+\hline
+15 & Création d'un serveur LDAP de test & 2 \tabularnewline
+\hline
+17 & Développement d'une interface de création de configurations & 2 \tabularnewline
+\hline
+19 & Test du fonctionnement d'OpenStack & 14 \tabularnewline
+\hline
+20 & Test du fonctionnement de Puppet & 12 \tabularnewline
+\hline
+21 & Test du Cloud & 14,16,17,20 \tabularnewline
+\hline
+\end{tabular}
+
+\section{MPM}
+\includegraphics[height=19cm,angle=180]{images/mpm.png}
+
+\newpage
 \section{Lexique}
 \begin{description}
 \item[Virtualisation :] Technique permettant de faire fonctionner plusieurs systèmes d'exploitations en simultanés sur une même machine physique.
