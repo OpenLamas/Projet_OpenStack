@@ -43,7 +43,7 @@ Faciliter les migrations site-à-site. Il est beaucoup plus facile de transfére
 Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmis les plus connus on pourra citer VMWare ESX ou VirtualBox.
 
 \subsection{Le Cloud Computing}
-Ces logiciels ne conviennent pas à notre utilisation car ils ne proposent pas de gestion globale de l’infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne sont donc pas adaptés si on veut utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
+Ces logiciels conviennent à la virtuatisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
 On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnotemark[1] dans ce cas là d’IaaS (Infrastructure as a Service).
 L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
@@ -72,6 +72,9 @@ Glance s'occupe des images virtuelles\footnotemark[4]. Il enregistre leur caract
 \footnotetext[4]{Une image est le modèle d'après lequelle serons créer les machines.}
 
 \newpage
+\subsection{Puppet}
+Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines. Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
+
 \section{Matériel nécessaire}
 \subsection{Cas idéal}
 Une IaaS mettant en commun différentes ressources physiques nous aurions besoin, en théorie, de plusieurs ordinateurs, de systèmes de stockages (NAS\footnotemark[5], SAN\footnotemark[6]), et d'une infrastructure réseau.
