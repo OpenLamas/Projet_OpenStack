@@ -67,12 +67,24 @@ L’utilisateur final ne se préoccupe pas de savoir où est physiquement le sto
 \chapter{Matériel}
 
 \section{Serveur dédié OVH}
+Nous avons réalisé la première partie de notre projet sur un serveur dédié Kimsufi d'OVH. Il était équipé d'un processeur 64 bits à 3,4Ghz avec les extensions VT-x (Intel Core i3), de 8Go de RAM, et de 2x1To de stockage en RAID 0.
+
+Il s'agit de la configuration minimale pour faire fonctionner une installation de développement d'OpenStack.
 
 \section{BladeCenter HP}
+Une fois notre projet fonctionnel sur le serveur dédié nous avons déployé une nouvelle installation d'OpenStack sur quatre lames du BladeCenter dont dispose notre département au sein de l'IUT.
+
+La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du Cloud Computing.
+
+\subsection{Configuration matérielle}
+Nous disposions de trois lames équipés chacune de deux processeurs AMD Opteron 250 (2,4GHz / 64 bits) et de 4Go de RAM, ainsi que d'une lame équipé de deux Opteron 275 (2,2GHz / 64 bits) et de 8Go de RAM.\newline
+Toutes les lames possèdent une carte Fibre Channel QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
+Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un SAN HP StorageWorks relié en FC.
 
 \subsection{Réseau}
+Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin d'obtenir une bande passante de 2Gbit/s entre elles. Sauf sur une lame, faisant office de Routeur/NAT, connecté à 1Gbit/s au réseau de l'IUT et à 1Gbit/s aux autres lames.
 
 \chapter{Logiciels}
 \section{OpenStack}
@@ -115,5 +127,25 @@ Une fois la ou les machines virtualisées, il faut les configurer et installer d
 
 
 \chapter{Problèmes rencontrés}
+
+\appendix
+
+\chapter{Fichiers de configuration OpenStack}
+\section{Keystone}
+\subsection{keystone.conf}
+
+\section{Glance}
+
+\section{Swift}
+
+\section{Nova}
+
+\chapter{Fichiers de configuration Solaris}
+\section{NAT}
+\subsection{ipf.conf}
+
+\chapter{Recettes Puppet}
+
+
 
 \end{document}
