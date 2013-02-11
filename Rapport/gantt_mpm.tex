@@ -1,0 +1,42 @@
+\section{GANTT}
+\includegraphics[width=25cm,angle=90]{images/gantt.png}
+
+\section{Tableau des tâches}
+\begin{tabular}{|l|l|l|}
+\hline
+Id & Tâche & Antécédents immédiats \tabularnewline
+\hline
+2 & Dimensionnement & \tabularnewline
+\hline
+4 & Installation de Keystone & 2 \tabularnewline
+\hline
+5 & Préparation à l'installation de Nova & 2 \tabularnewline
+\hline
+6 & Installation de Glance & 4 \tabularnewline
+\hline
+7 & Installation de Nova & 5 \tabularnewline
+\hline
+8 & Installation de Swift & 4 \tabularnewline
+\hline
+9 & Installation du Dashboard & 8 \tabularnewline
+\hline
+11 & Installation de Puppet & 6,7,9 \tabularnewline
+\hline
+12 & Stockage des configurations Puppet & 11 \tabularnewline
+\hline
+14 & Installation de Keystone & 6 \tabularnewline
+\hline
+15 & Création d'un serveur LDAP de test & 2 \tabularnewline
+\hline
+17 & Développement d'une interface de création de configurations & 2 \tabularnewline
+\hline
+19 & Test du fonctionnement d'OpenStack & 14 \tabularnewline
+\hline
+20 & Test du fonctionnement de Puppet & 12 \tabularnewline
+\hline
+21 & Test du Cloud & 14,16,17,20 \tabularnewline
+\hline
+\end{tabular}
+
+\section{MPM}
+\includegraphics[height=19cm,angle=180]{images/mpm.png}

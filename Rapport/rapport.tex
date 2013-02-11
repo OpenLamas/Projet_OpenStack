@@ -1,0 +1,39 @@
+\documentclass{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[top=1cm, bottom=1.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{titlesec}
+
+\title{Rapport \\ \og Cloud privé avec OpenStack \fg}
+\author{Julien Brun, Maxime Mouchet \\ Fréderic Pourraz (tuteur)}
+\date{RT2 2012-13}
+
+\titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{}
+
+\begin{document}
+
+\begin{figure}
+\includegraphics[width=5cm]{images/iut.png}\hfill
+\includegraphics[width=5.5cm]{images/rt.png}
+\end{figure}
+
+\maketitle
+
+\renewcommand{\contentsname}{Sommaire}
+\tableofcontents
+
+\include{introduction}
+
+\include{cahier_charges}
+
+\include{schemasyn}
+
+\include{gantt_mpm}
+\newpage
+\include{lexique}
+
+
+\end{document}
