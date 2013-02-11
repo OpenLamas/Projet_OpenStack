@@ -22,18 +22,95 @@
 
 \maketitle
 
+\clearpage
+\thispagestyle{empty}
+\null\newpage
+
+\chapter*{Remerciements}
+\thispagestyle{empty}
+Nous remercions 
+
 \renewcommand{\contentsname}{Sommaire}
 \tableofcontents
 
-\include{introduction}
+\chapter{Introduction}
+\section{Choix du sujet}
+La virtualisation et le Cloud Computing sont des solutions d'avenir pour les entreprises grâce à des coûts réduits et une maintenance simplifiée. Nous trouvons ces technologies passionnantes et mettre en place un Cloud Privé nous permet de les aborder tout en approfondissant les thématiques étudiées durant notre formation.
 
-\include{cahier_charges}
+\section{Contexte}
+\subsection{La virtualisation}
+Le principe de base de la virtualisation est de permettre le fonctionnement de plusieurs système d’exploitations (Windows, Linux, …) en simultané sur un ordinateur.
+Les intérêts sont multiples, on peut citer principalement :\newline
 
-\include{schemasyn}
+Augmenter la disponibilité grâce à une redondance et réduire les coûts. Par exemple on peut imaginer avoir deux serveurs mails sur une même machine physique et utiliser l’un ou l’autre en fonction de leur charge ou en cas de panne. On réduit par la même occasion les coûts puisqu’on n’utilisera qu’une seule machine physique pour ces deux serveurs.
 
-\include{gantt_mpm}
+Un dimensionnement plus facile. La virtualisation ajoutant une couche d’abstraction entre le système d’exploitation (logiciel) et le matériel (ordinateur) on peut aisément augmenter la puissance de calcul en ajoutant, par exemple, de la mémoire sur un ordinateur sans impacter le fonctionnement des systèmes virtuels.
+
+Faciliter les migrations site-à-site. Il est beaucoup plus facile de transférer un serveur d’un site physique à un autre en transférant une image virtuelle par le réseau plutôt qu’en transportant un serveur physique.\newline
+
+Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmis les plus connus on pourra citer VMWare ESX ou VirtualBox.
+
+\subsection{Le Cloud Computing}
+Ces logiciels conviennent à la virtuatisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
+
+On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnotemark[1] dans ce cas là d’IaaS (Infrastructure as a Service).
+L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
+
+\footnotetext[1]{Pour simplifier nous avons concentré notre explication sur la virtualisation de bas-niveau (systèmes d’exploitations), mais il existe des niveaux d’abstractions supplémentaires comme la virtualisation d’applications. Dans le cas du Cloud Computing (ressource partagés par le réseau) on parlera de PaaS (Platform as a Service) ou de SaaS (Software as a service).}
+
 \newpage
-\include{lexique}
+\subsection{Panorama des IaaS}
 
+\chapter{Matériel}
+
+\section{Serveur dédié OVH}
+
+\section{BladeCenter HP}
+
+\subsection{Stockage}
+
+\subsection{Réseau}
+
+\chapter{Logiciels}
+\section{OpenStack}
+Parmis ces différents solutions nous avons choisi d’utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
+Il peut être considérée comme mature pour une utilisation en production car il est utilisé entre autre par Rackspace (un très gros hébergeur et fournisseur de solutions de Cloud Computing Américain), la NASA, et Intel.
+
+\subsection{La fondation OpenStack}
+
+
+\subsection{Les services}
+OpenStack est constitué de différents services gérant chacun une composante spécifique de l'IaaS.
+\subsubsection{Keystone}
+Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.
+
+\subsubsection{Nova}
+C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc\footnotemark[2].
+
+\subsubsection{Swift}
+Swift est le système de stockage objet\footnotemark[3] d'OpenStack. Il gère toutes spécificités de ce type de stockage (voir note de bas de page).
+
+\subsubsection{Glance}
+Glance s'occupe des images virtuelles\footnotemark[4]. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
+
+\subsubsection{Dashboard}
+C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles.
+
+\footnotetext[2]{Le stockage bloc permet aux machines virtuelles de disposer d'un stockage à haute performance. Originellement ce système de stockage est inclus dans Nova mais depuis la version Folsom il s'agit d'un service séparé: Cinder.}
+\footnotetext[3]{Le stockage objet permet de stocker des données statiques (images virtuelles, photos, emails, sauvegardes, ...) de façon redondante et sécurisé, au prix de performances moindres.}
+\footnotetext[4]{Une image est le modèle d'après lequel serons créer les machines.}
+
+\section{Puppet}
+Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines. Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
+
+\section{Varnish}
+
+\chapter{Systèmes d'exploitations}
+\section{Solaris}
+
+\subsection{Les zones}
+
+
+\chapter{Problèmes rencontrés}
 
 \end{document}
