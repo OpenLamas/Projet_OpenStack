@@ -56,10 +56,8 @@ Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmis le
 \subsection{Le Cloud Computing}
 Ces logiciels conviennent à la virtuatisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
-On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnotemark[1] dans ce cas là d’IaaS (Infrastructure as a Service).
+On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnote{Pour simplifier nous avons concentré notre explication sur la virtualisation de bas-niveau (systèmes d’exploitations), mais il existe des niveaux d’abstractions supplémentaires comme la virtualisation d’applications. Dans le cas du Cloud Computing (ressource partagés par le réseau) on parlera de PaaS (Platform as a Service) ou de SaaS (Software as a service).} dans ce cas là d’IaaS (Infrastructure as a Service).
 L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
-
-\footnotetext[1]{Pour simplifier nous avons concentré notre explication sur la virtualisation de bas-niveau (systèmes d’exploitations), mais il existe des niveaux d’abstractions supplémentaires comme la virtualisation d’applications. Dans le cas du Cloud Computing (ressource partagés par le réseau) on parlera de PaaS (Platform as a Service) ou de SaaS (Software as a service).}
 
 \newpage
 \subsection{Panorama des IaaS}
@@ -78,7 +76,7 @@ Il s'agit de la configuration minimale pour faire fonctionner une installation d
 \section{BladeCenter HP}
 Une fois notre projet fonctionnel sur le serveur dédié nous avons déployé une nouvelle installation d'OpenStack sur quatre lames du BladeCenter dont dispose notre département au sein de l'IUT.
 
-La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du Cloud Computing.
+La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du Cloud Computing\footnote{fff}.
 
 \subsection{Configuration matérielle}
 Nous disposions de trois lames équipés chacune de deux processeurs AMD Opteron 250 (2,4GHz / 64 bits) et de 4Go de RAM, ainsi que d'une lame équipé de deux Opteron 275 (2,2GHz / 64 bits) et de 8Go de RAM.\newline
@@ -104,20 +102,16 @@ OpenStack est constitué de différents services gérant chacun une composante s
 Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.
 
 \subsubsection{Nova}
-C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc\footnotemark[2].
+C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc\footnote{Le stockage bloc permet aux machines virtuelles de disposer d'un stockage à haute performance. Originellement ce système de stockage est inclus dans Nova mais depuis la version Folsom il s'agit d'un service séparé: Cinder.}.
 
 \subsubsection{Swift}
-Swift est le système de stockage objet\footnotemark[3] d'OpenStack. Il gère toutes spécificités de ce type de stockage (voir note de bas de page).
+Swift est le système de stockage objet\footnote{Le stockage objet permet de stocker des données statiques (images virtuelles, photos, emails, sauvegardes, ...) de façon redondante et sécurisé, au prix de performances moindres.} d'OpenStack. Il gère toutes spécificités de ce type de stockage (voir note de bas de page).
 
 \subsubsection{Glance}
-Glance s'occupe des images virtuelles\footnotemark[4]. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
+Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créer les machines.}. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
 
 \subsubsection{Dashboard}
 C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles.
-
-\footnotetext[2]{Le stockage bloc permet aux machines virtuelles de disposer d'un stockage à haute performance. Originellement ce système de stockage est inclus dans Nova mais depuis la version Folsom il s'agit d'un service séparé: Cinder.}
-\footnotetext[3]{Le stockage objet permet de stocker des données statiques (images virtuelles, photos, emails, sauvegardes, ...) de façon redondante et sécurisé, au prix de performances moindres.}
-\footnotetext[4]{Une image est le modèle d'après lequel serons créer les machines.}
 
 \section{Puppet}
 Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines. Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
