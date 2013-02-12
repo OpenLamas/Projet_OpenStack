@@ -38,7 +38,7 @@ De manière générale nous remercions tout les professeurs pour leurs enseignem
 
 \chapter{Introduction}
 \section{Choix du sujet}
-La virtualisation et le Cloud Computing sont des solutions d'avenir pour les entreprises grâce à des coûts réduits et une maintenance simplifiée. Nous trouvons ces technologies passionnantes et mettre en place un Cloud Privé nous permet de les aborder tout en approfondissant les thématiques étudiées durant notre formation.
+La virtualisation et le Cloud Computing sont des solutions d'avenir pour les entreprises grâce à des coûts réduits, une maintenance simplifiée, et une montée en charge aisée. Nous trouvons ces technologies passionnantes et mettre en place un Cloud Privé nous permet de les aborder tout en approfondissant les thématiques étudiées durant notre formation.
 
 \section{Contexte}
 \subsection{La virtualisation}
@@ -54,14 +54,30 @@ Faciliter les migrations site-à-site. Il est beaucoup plus facile de transfére
 Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmis les plus connus on pourra citer VMWare ESX ou VirtualBox.
 
 \subsection{Le Cloud Computing}
-Ces logiciels conviennent à la virtuatisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
+\subsubsection{Vue d'ensemble}
+Ces logiciels conviennent à la virtualisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
 On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnote{Pour simplifier nous avons concentré notre explication sur la virtualisation de bas-niveau (systèmes d’exploitations), mais il existe des niveaux d’abstractions supplémentaires comme la virtualisation d’applications. Dans le cas du Cloud Computing (ressource partagés par le réseau) on parlera de PaaS (Platform as a Service) ou de SaaS (Software as a service).} dans ce cas là d’IaaS (Infrastructure as a Service).
 L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
 
+\subsubsection{Cloud public vs. Cloud privé}
+La différence majeure entre un Cloud dit \og public \fg, d'un Cloud dit \og privé \fg est la partage de l'infrastructure. Dans le premier cas plusieurs clients se partagent l'infrastructure, tandis que dans le second seul une entreprise utilise l'infrastructure.\newline
+Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un Cloud privé pourra être installé chez le client. Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
+
+\subsubsection{Le stockage dans le cloud}
+On distingue deux types de stockages dans le cloud : le stockage bloc, et le stockage objet. Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau. Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
+Le stockage objet, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés. Il est généralement plus lent que le stockage bloc mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
 \newpage
 \subsection{Panorama des IaaS}
 \subsubsection{Amazon EC2}
+Amazon a lancé EC2 (pour Elastic Compute Cloud) durant l'été 2006. Il s'agit d'un Cloud Public, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une API et une interface Web, moyennant un paiement par heures d'utilisation.
+
+Les instances, allant de 1 à 244Go de RAM et de 1 coeur virtuel à 32 coeurs physiques, sont virtualisés grâce à l'hyperviseur Open Source Xen. EC2 supporte Linux, *BSD, Solaris, et Windows comme systèmes d'exploitations invités.
+
+Le stockage bloc est fourni par Amazon EBS (pour Elastic Block Store) tandis que le stockage objet est fourni par Amazon S3 (pour Simple Storage Service). Chacun de ces service possède sa propre API, permettant de les utiliser indépendamment les uns des autres.
+
+A titre informatif, EC2 est utilisé, entre autres, par Netflix, Instagram, et Shazam, tandis que la plupart des services de stockage en ligne grand public, comme Dropbox, utilisent S3.
+
 \subsubsection{CloudStack}
 \subsubsection{OpenStack}
 
@@ -76,17 +92,19 @@ Il s'agit de la configuration minimale pour faire fonctionner une installation d
 \section{BladeCenter HP}
 Une fois notre projet fonctionnel sur le serveur dédié nous avons déployé une nouvelle installation d'OpenStack sur quatre lames du BladeCenter dont dispose notre département au sein de l'IUT.
 
-La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du Cloud Computing\footnote{fff}.
+La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du Cloud Computing\footnote{Toutefois, bien que le BladeCenter possède une puissance importante, ses composants sont assez anciens et ne supportent pas les technologies de virtualisation matérielle (VT-x, VT-d, AMD-V), ce qui limite le nombre de systèmes invités possibles.}.
 
 \subsection{Configuration matérielle}
 Nous disposions de trois lames équipés chacune de deux processeurs AMD Opteron 250 (2,4GHz / 64 bits) et de 4Go de RAM, ainsi que d'une lame équipé de deux Opteron 275 (2,2GHz / 64 bits) et de 8Go de RAM.\newline
-Toutes les lames possèdent une carte Fibre Channel QLogic Q2312 pour le stockage.
+Toutes les lames possèdent une carte Fibre Channel (FC) QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
-Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un SAN HP StorageWorks relié en FC.
+Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un SAN HP StorageWorks relié en FC. Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur FC.
 
 \subsection{Réseau}
 Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin d'obtenir une bande passante de 2Gbit/s entre elles. Sauf sur une lame, faisant office de Routeur/NAT, connecté à 1Gbit/s au réseau de l'IUT et à 1Gbit/s aux autres lames.
+
+La séparation des réseaux est permise par le taggage des trames Ethernet avec un numéro de VLAN (encapsulation 802.1Q).
 
 \chapter{Logiciels}
 \section{OpenStack}
