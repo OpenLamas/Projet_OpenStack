@@ -33,7 +33,7 @@ Nous remercions M. Gaëtan Ferez pour nous avoir mis à disposition le matériel
 
 De manière générale nous remercions tout les professeurs pour leurs enseignements durant ces deux années de DUT.
 
-\renewcommand{\contentsname}{Sommaire (swap Logiciel et OS)}
+\renewcommand{\contentsname}{Sommaire}
 \tableofcontents
 
 \chapter{Introduction}
@@ -106,6 +106,17 @@ Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin d'obten
 
 La séparation des réseaux est permise par le taggage des trames Ethernet avec un numéro de VLAN (encapsulation 802.1Q).
 
+
+\chapter{Systèmes d'exploitations hôtes}
+\section{Ubuntu Server}
+
+\section{CentOS}
+
+\section{Solaris}
+
+\subsection{Les zones}
+
+
 \chapter{Logiciels}
 \section{OpenStack}
 Parmis ces différents solutions nous avons choisi d’utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
@@ -143,17 +154,6 @@ Un reverse proxy permet aussi de mettre en cache les ressources statique d'un si
 Il existe plusieurs programme qui permette de faire du reverse proxy. Le mieux, de par sa communauté, la finesse de ces règles, et ces performances est, à notre avis, Varnish\footnote{https://www.varnish-cache.org/}. C'est un logiciel libre utilisé par example par Facebook. Cependant, nous n'avons pas pu l'utiliser pour les raisons détaillé dans la partie dédié.
 
 Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le serveur web le plus utilisé\footnote{D'après le site netcraft.com, en Février 2013, Apache est utilisé par près de 55\% des sites actif. (IIS de Microsoft et Nginx sont eux à 12\%)} dans le monde, à l'heure actuel. Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
-
-
-\chapter{Systèmes d'exploitations hôtes}
-\section{Ubuntu Server}
-
-\section{CentOS}
-
-\section{Solaris}
-
-\subsection{Les zones}
-
 
 
 \chapter{Mise en place}
