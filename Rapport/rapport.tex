@@ -145,6 +145,8 @@ C'est l'interface graphique qui permet à l'utilisateur final de gérer ses inst
 \section{Puppet}
 Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines. Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
 
+Puppet utilise des recettes pour configurer les machines. Nous avons choisi de les stocker sur un serveur git afin de mieux gérer les différentes révisions et l'édition distante.
+
 \section{Reverse Proxy}
 Nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul ip disponible sur le réseau de l'iut) et de facilité de mise en œuvre (configuration du pare-feu simplifié). De cette manière, la zone qui abrite le dashboard n'est connecté qu'au LAN interne des lames. De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple. En effet, la translation ne nous autorise qu'une seul redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de crée autant de sous domaine que l'on veux et de les rediriger vers n'importe quel ip et port.}.
 
@@ -155,6 +157,10 @@ Il existe plusieurs programme qui permette de faire du reverse proxy. Le mieux, 
 
 Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le serveur web le plus utilisé\footnote{D'après le site netcraft.com, en Février 2013, Apache est utilisé par près de 55\% des sites actif. (IIS de Microsoft et Nginx sont eux à 12\%)} dans le monde, à l'heure actuel. Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
 
+\section{Supervision}
+Afin d'être sur que le réseau fonctionne bien, il existe des logiciels de supervision qui, en s'appuyant sur le protocole snmp, vérifie en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels, de la place restante sur les disques jusqu'à l'état des interface des switchs en passant par le nombre de clients connecté à la base MySQL et envoie des alerte (par mail par example) lorsque d'un problème est détecté.
+
+Les principaux se nomme Zabbix, Nagios ou encore Cacti. Nous avons choisi pour notre part d'utiliser Shinken. Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et donc de bénéficier de sa communauté.
 
 \chapter{Mise en place}
 \section{OVH....}
