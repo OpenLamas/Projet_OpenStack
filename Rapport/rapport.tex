@@ -67,7 +67,6 @@ Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un Clou
 \subsubsection{Le stockage dans le cloud}
 On distingue deux types de stockages dans le cloud : le stockage bloc, et le stockage objet. Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau. Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
 Le stockage objet, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés. Il est généralement plus lent que le stockage bloc mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
-\newpage
 \subsection{Panorama des IaaS}
 \subsubsection{Amazon EC2}
 Amazon a lancé EC2 (pour Elastic Compute Cloud) durant l'été 2006. Il s'agit d'un Cloud Public, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une API et une interface Web, moyennant un paiement par heures d'utilisation.
@@ -166,14 +165,28 @@ Le marché de la supervision est à la fois occupé par de grand constructeur co
 \section{OVH....}
 
 \section{Déploiement sur un BladeCenter}
+Par soucie de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement. Les nom sont donné dans le schemas global (Annexe A.1). Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appelerons par son nom.
+
 \subsection{Installation des systèmes}
 
 \subsubsection{Configuration du stockage}
 Parler du multipath etc..
 
 \subsubsection{Configuration du réseau}
+Comme expliqué précédement, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un Vlan dédié et non-relié à l'exterieur. Fuji, quand à elle, a une interface sur le réseau exterieur (réseau de iut avec accés à internet) et l'autre dans le LAN inter-lames. De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
+
+Afin de donner accès à internet au lames du réseau interne, nous avons mis en place une translation d'address sur Fuji (NAT). Sur Solaris, le pare-feu par défaut est ipfilter. La configuration (donné en annexe B.1) permet de translater l'adresse locale (192.168.1.0/24) vers l'adress public (10.102.75.190).
+
+Maintenent que nos machine on accès à internet, il faut qu'on rende disponible depuis l'exterieur les interfaces web des different services disponible (Le dashboard, le panel Shinken et l'interface de configuration de Puppet). Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédement). Une fois apache installé, il faut ajouer au fichier de configuration d'apache (httpd.conf) les directive de l'annexe B.2. Celle-ci renvoie tous le trafic qui arrive à apache vers la machine qui a l'ip 192.168.1.3 et sur sont port 80.
 
 \subsubsection{Environnement de travail}
+Afin de rendre l'utilisation des machines plus agréable et plus facile à configurer, nous avons ajouté plusieurs programe et modifié plusieurs configuration.
+
+Nous avons commencé par installer un gestionnaire de paquet. Soaris posède sont propre gestionaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible. Une communauté ses alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour solaris. Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Grâce à OpenCSW, nous avons pu installer plein de progamme dont nous avions l'habitude sous linux sans avoir à les compiler avec toutes leurs dépandances. 
+
+Zsh
+
+Connection ssh clé privé et sshd-banner
 
 \subsection{Installation des zones}
 
@@ -187,6 +200,9 @@ Parler du multipath etc..
 \chapter{Problèmes rencontrés}
 
 \appendix
+\chapter{Diagrammes Réseau et schemas de principe}
+\section{Schemas global}
+Rappel partie réseau
 
 \chapter{Fichiers de configuration OpenStack}
 \section{Keystone}
@@ -201,6 +217,9 @@ Parler du multipath etc..
 \chapter{Fichiers de configuration Solaris}
 \section{NAT}
 \subsection{ipf.conf}
+Rappel partie config réseau
+\section{Revese Apache}
+Rappel partie réseau
 
 \chapter{Recettes Puppet}
 
