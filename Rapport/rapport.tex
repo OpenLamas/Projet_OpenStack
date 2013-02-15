@@ -28,10 +28,10 @@
 
 \chapter*{Remerciements}
 \thispagestyle{empty}
-Nous remercions M. Frédéric Pourraz pour nous avoir permis de réaliser ce projet.\newline
-Nous remercions M. Gaëtan Ferez pour nous avoir mis à disposition le matériel et son aide sur celui-ci.
+\noindent Nous remercions M. Frédéric Pourraz pour nous avoir permis de réaliser ce projet.\newline
+\noindent Nous remercions M. Gaëtan Ferez pour nous avoir mis à disposition le matériel et son aide sur celui-ci.
 
-De manière générale nous remercions tout les professeurs pour leurs enseignements durant ces deux années de DUT.
+\noindent De manière générale nous remercions tout les professeurs pour leurs enseignements durant ces deux années de DUT.
 
 \renewcommand{\contentsname}{Sommaire}
 \tableofcontents
@@ -165,13 +165,27 @@ Il peut être considérée comme mature pour une utilisation en production car i
 \subsection{Les services}
 OpenStack est constitué de différents services gérant chacun une composante spécifique de l'IaaS.
 \subsubsection{Keystone}
-Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.
+Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.\newline
+Il expose une API HTTP(S) sur deux endpoints, un public sur le port 5000, permettant l'authentification des utilisateurs, et un autre dit privé sur le port 35357 permettant les tâches administratives tels que la gestion des utilisateurs et des terminaisons de services.
+Il supporte différents backends pour l'authentification, certains permettant la persistance et l'édition des données comme SQL ou LDAP, d'autres en lecture-seule comme PAM.\newline
 
 \subsubsection{Nova}
-C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc\footnote{Le stockage bloc permet aux machines virtuelles de disposer d'un stockage à haute performance. Originellement ce système de stockage est inclus dans Nova mais depuis la version Folsom il s'agit d'un service séparé: Cinder.}.
+C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc si Cinder n'est pas utilisé, et le réseau si Quantum n'est pas utilisé.\newline
+Il utilise Keystone pour l'authentification.
+
+
+\subsubsection{Quantum}
+
+
+\subsubsection{Cinder}
+Depuis la version Folsom le stockage bloc possède son propre service indépendant 
+
+
 
 \subsubsection{Swift}
-Swift est le système de stockage objet\footnote{Le stockage objet permet de stocker des données statiques (images virtuelles, photos, emails, sauvegardes, ...) de façon redondante et sécurisé, au prix de performances moindres.} d'OpenStack. Il gère toutes spécificités de ce type de stockage (voir note de bas de page).
+Swift est le système de stockage objet.
+
+Il supporte deux systèmes d'authentification, Swauth hérité de Rackspace, et Keystone.
 
 \subsubsection{Glance}
 Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créer les machines.}. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
