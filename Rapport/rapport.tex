@@ -195,7 +195,7 @@ Il existe plusieurs programme qui permette de faire du reverse proxy. Le mieux, 
 Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le serveur web le plus utilisé\footnote{D'après le site netcraft.com, en Février 2013, Apache est utilisé par près de 55\% des sites actif. (IIS de Microsoft et Nginx sont eux à 12\%)} dans le monde, à l'heure actuel. Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
 
 \section{Supervision}
-Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelé logiciel ou platforme de supervision qui, en s'appuyant sur le protocole snmp, vérifie en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installé sur les machines. Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connecté à la base MySQL. Lorsque un problème est détécté, une alerte est émise\footnote{Soit par mail, soit par sms... Tout dépend du logiciel de supervision et de sa configuration.}
+Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelé logiciel ou plateforme de supervision qui, en s'appuyant sur le protocole snmp, vérifie en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installé sur les machines. Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connecté à la base MySQL. Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par sms... Tout dépend du logiciel de supervision et de sa configuration.}
 
 Le marché de la supervision est à la fois occupé par de grand constructeur comme HP avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios. Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}. Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
 
@@ -207,7 +207,8 @@ Nous avons réalisé une première installation d'OpenStack et des services asso
 
 
 \section{Déploiement sur un BladeCenter}
-Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement. Les nom sont donné dans le schemas global (Annexe A.1). Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appelerons par son nom.
+
+Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement. Les nom sont donné dans le schemas global (Annexe A.1). Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
 \subsection{Installation des systèmes}
 
@@ -215,20 +216,20 @@ Par souci de simplicité, nous avons décidé de donner un nom (hostname) à cha
 Parler du multipath etc..
 
 \subsubsection{Configuration du réseau}
-Comme expliqué précédement, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un Vlan dédié et non-relié à l'exterieur. Fuji, quand à elle, a une interface sur le réseau exterieur (réseau de iut avec accés à internet) et l'autre dans le LAN inter-lames. De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
+Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un Vlan dédié et non-relié à l'extérieur. Fuji, quand à elle, a une interface sur le réseau extérieur (réseau de IUT avec accès à internet) et l'autre dans le LAN inter-lames. De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
 
-Afin de donner accès à internet au lames du réseau interne, nous avons mis en place une translation d'address sur Fuji (NAT). Sur Solaris, le pare-feu par défaut est ipfilter. La configuration (donné en annexe B.1) permet de translater l'adresse locale (192.168.1.0/24) vers l'adress public (10.102.75.190).
+Afin de donner accès à internet au lames du réseau interne, nous avons mis en place une translation d'adresse sur Fuji (NAT). Sur Solaris, le pare-feu par défaut est ipfilter. La configuration (donné en annexe B.1) permet de translater l'adresse locale (192.168.1.0/24) vers l'adresse public (10.102.75.190).
 
-Maintenent que nos machine on accès à internet, il faut qu'on rende disponible depuis l'exterieur les interfaces web des different services disponible (Le dashboard, le panel Shinken et l'interface de configuration de Puppet). Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédement). Une fois apache installé, il faut ajouer au fichier de configuration d'apache (httpd.conf) les directive de l'annexe B.2. Celle-ci renvoie tous le trafic qui arrive à apache vers la machine qui a l'ip 192.168.1.3 et sur sont port 80.
+Maintenant que nos machine on accès à internet, il faut qu'on rende disponible depuis l'extérieur les interfaces web des différent services disponible (Le dashboard, le panel Shinken et l'interface de configuration de Puppet). Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédemment). Une fois apache installé, il faut ajouter au fichier de configuration d'apache (httpd.conf) les directive de l'annexe B.2. Celle-ci renvoie tous le trafic qui arrive à apache vers la machine qui a l'ip 192.168.1.3 et sur sont port 80.
 
 \subsubsection{Environnement de travail}
-Afin de rendre l'utilisation des machines plus agréable et plus facile à configurer, nous avons ajouté plusieurs programe et modifié plusieurs configuration.
+Afin de rendre l'utilisation des machines plus agréable et plus facile à configurer, nous avons ajouté plusieurs programme et modifié plusieurs configuration.
 
-Nous avons commencé par installer un gestionnaire de paquet. Soaris posède sont propre gestionaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible. Une communauté ses alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour solaris. Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Grâce à OpenCSW, nous avons pu installer plein de progamme dont nous avions l'habitude sous linux sans avoir à les compiler avec toutes leurs dépandances. 
+Nous avons commencé par installer un gestionnaire de paquet. Solaris possède sont propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible. Une communauté ses alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour Solaris. Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Grâce à OpenCSW, nous avons pu installer plein de programme dont nous avions l'habitude sous linux sans avoir à les compiler avec toutes leurs dépendances. 
 
 Zsh
 
-Connection ssh clé privé et sshd-banner
+Pour pouvoir configurer nos différente machines, nous nous connectons à elle via le protocole ssh.
 
 \subsection{Installation des zones}
 
@@ -251,8 +252,8 @@ Il suffit de préciser INSTALLATION MULTIPATH!
 Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement et supporte le multipath/boot on SAN nativement.
 
 \appendix
-\chapter{Diagrammes Réseau et schemas de principe}
-\section{Schemas global}
+\chapter{Diagrammes Réseau et schémas de principe}
+\section{Schémas global}
 Rappel partie réseau
 
 \chapter{Fichiers de configuration OpenStack}
@@ -269,7 +270,7 @@ Rappel partie réseau
 \section{NAT}
 \subsection{ipf.conf}
 Rappel partie config réseau
-\section{Revese Apache}
+\section{Reverse Apache}
 Rappel partie réseau
 
 \chapter{Recettes Puppet}
