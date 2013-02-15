@@ -39,62 +39,78 @@
 
 \chapter{Introduction}
 \section{Choix du sujet}
-La virtualisation et le Cloud Computing sont des solutions d'avenir pour les entreprises grâce à des coûts réduits, une maintenance simplifiée, et une montée en charge aisée. Nous trouvons ces technologies passionnantes et mettre en place un Cloud Privé nous permet de les aborder tout en approfondissant les thématiques étudiées durant notre formation.
+La virtualisation et le Cloud Computing sont des solutions d'avenir pour les entreprises grâce à des coûts réduits, une maintenance simplifiée, et une montée en charge aisée.
+Nous trouvons ces technologies passionnantes et mettre en place un Cloud Privé nous permet de les aborder tout en approfondissant les thématiques étudiées durant notre formation.
 
 \section{Contexte}
 \subsection{La virtualisation}
 Le principe de base de la virtualisation est de permettre le fonctionnement de plusieurs système d’exploitations (Windows, Linux, …) en simultané sur un ordinateur.
 Les intérêts sont multiples, on peut citer principalement :\newline
 
-Augmenter la disponibilité grâce à une redondance et réduire les coûts. Par exemple on peut imaginer avoir deux serveurs mails sur une même machine physique et utiliser l’un ou l’autre en fonction de leur charge ou en cas de panne. On réduit par la même occasion les coûts puisqu’on n’utilisera qu’une seule machine physique pour ces deux serveurs.
+Augmenter la disponibilité grâce à une redondance et réduire les coûts.
+Par exemple on peut imaginer avoir deux serveurs mails sur une même machine physique et utiliser l’un ou l’autre en fonction de leur charge ou en cas de panne.
+On réduit par la même occasion les coûts puisqu’on n’utilisera qu’une seule machine physique pour ces deux serveurs.
 
 Un dimensionnement plus facile. La virtualisation ajoutant une couche d’abstraction entre le système d’exploitation (logiciel) et le matériel (ordinateur) on peut aisément augmenter la puissance de calcul en ajoutant, par exemple, de la mémoire sur un ordinateur sans impacter le fonctionnement des systèmes virtuels.
 
-Faciliter les migrations site-à-site. Il est beaucoup plus facile de transférer un serveur d’un site physique à un autre en transférant une image virtuelle par le réseau plutôt qu’en transportant un serveur physique.\newline
+Faciliter les migrations site-à-site.
+Il est beaucoup plus facile de transférer un serveur d’un site physique à un autre en transférant une image virtuelle par le réseau plutôt qu’en transportant un serveur physique.\newline
 
-Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmis les plus connus on pourra citer VMWare ESX ou VirtualBox.
+Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmi les plus connus on pourra citer VMWare ESX ou VirtualBox.
 
 \subsection{Le Cloud Computing}
 \subsubsection{Vue d'ensemble}
-Ces logiciels conviennent à la virtualisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
+Ces logiciels conviennent à la virtualisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur.
+Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
-On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnote{Voir \og IaaS, PaaS, et autres *aaS \fg ci-dessous.} dans ce cas là d’IaaS (Infrastructure as a Service).
-L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
+On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau.
+On parle de Cloud Computing et plus précisément\footnote{Voir \og IaaS, PaaS, et autres *aaS \fg ci-dessous.} dans ce cas là d’IaaS (Infrastructure as a Service).
+L'utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d'exploitation.
 
 \subsubsection{IaaS, PaaS, et autres *aaS}
-Dans le domaine du Cloud Computing il existe plusieurs niveaux d'abstractions, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services.
+Dans le domaine du Cloud Computing il existe plusieurs niveaux d’abstractions, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services.
 Leur nom prend la forme Sth- as a Service.
 
 Les trois modèles les plus courants sont l'IaaS, le PaaS, et le SaaS.
 Ce dernier, signifiant Software as a Service, représente le plus haut niveau d'abstraction.\newline
-Dans ce modèle les clients paient un abonnement pour utiliser un logiciel dont ils n'auront pas à gérer l'installation et la maintenance. Les applications courantes sont les CRM\footnote{Customer Relationship Management}, la visioconférence, et les emails.
+Dans ce modèle les clients paient un abonnement pour utiliser un logiciel dont ils n'auront pas à gérer l'installation et la maintenance.
+Les applications courantes sont les CRM\footnote{Customer Relationship Management}, la visioconférence, et les emails.
 On peut citer pour exemple Google Apps for Business ou Salesforce Sales Cloud.
 
 Vient ensuite le PaaS, signifiant Platform as a Service, où les applications fonctionnent également sur une plateforme externalisée (dans le Cloud) mais, à la différence du SaaS, elles sont développés par le client.\newline
 Celà permet aux entreprises de disposer d'un environnement d'exécution pour leur applications internes rapidement.
-Par exemple, Heroku, le PaaS de Salesforce est capable d'éxecuter de nombreux languages, tels que PHP, Ruby, Node.js, Python, Java, ou Scala.
+Par exemple, Heroku, le PaaS de Salesforce est capable d'exécuter de nombreux langages, tels que PHP, Ruby, Node.js, Python, Java, ou Scala.
 On peut aussi citer Google App Engine ou Microsoft Azure, qui offrent des fonctionnalités similaires.
 
-Enfin vient l'IaaS, pour Infrastructure as a Service, qui est le plus bas niveau d'abstraction. Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique.
+Enfin vient l'IaaS, pour Infrastructure as a Service, qui est le plus bas niveau d'abstraction. 
+Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique.
 Il gère donc la configuration des systèmes d'exploitations et des logiciels qui s'y exécutent.
 
 C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc détailler, dans la section suivante, les différentes solutions existantes avant de voir celle que nous avons retenu.
 
 \subsubsection{Le stockage dans le cloud}
-Dans le cas des IaaS on distingue deux types de stockages dans le cloud : le stockage bloc, et le stockage objet. Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau. Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
-Le stockage objet, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés. Il est généralement plus lent que le stockage bloc mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
+Dans le cas des IaaS on distingue deux types de stockages dans le cloud : le stockage bloc, et le stockage objet.
+Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau.
+Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
+Le stockage objet, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés.
+Il est généralement plus lent que le stockage bloc mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
 
 \subsubsection{Cloud public vs. Cloud privé}
-La différence majeure entre un Cloud dit \og public \fg, d'un Cloud dit \og privé \fg est la partage de l'infrastructure. Dans le premier cas plusieurs clients se partagent l'infrastructure, tandis que dans le second seul une entreprise utilise l'infrastructure.\newline
-Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un Cloud privé pourra être installé dans l'entreprise et géré par elle-même. Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
+La différence majeure entre un Cloud dit \og public \fg, d'un Cloud dit \og privé \fg est la partage de l'infrastructure.
+Dans le premier cas plusieurs clients se partagent l'infrastructure, tandis que dans le second seul une entreprise utilise l'infrastructure.\newline
+Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un Cloud privé pourra être installé dans l'entreprise et géré par elle-même.
+Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
 
 \subsection{Panorama des IaaS}
 \subsubsection{Amazon EC2}
-Amazon a lancé EC2 (pour Elastic Compute Cloud) durant l'été 2006. Il s'agit d'un Cloud Public, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une API et une interface Web, moyennant un paiement par heures d'utilisation.
+Amazon a lancé EC2 (pour Elastic Compute Cloud) durant l'été 2006.
+Il s'agit d'un Cloud Public, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une API et une interface Web, moyennant un paiement par heures d'utilisation.
 
-Les instances, allant de 1 à 244Go de RAM et de 1 coeur virtuel à 32 coeurs physiques, sont virtualisés grâce à l'hyperviseur Open Source Xen. EC2 supporte Linux, *BSD, Solaris, et Windows comme systèmes d'exploitations invités.
+Les instances, allant de 1 à 244Go de RAM et de 1 coeur virtuel à 32 coeurs physiques, sont virtualisés grâce à l'hyperviseur Open Source Xen.
+EC2 supporte Linux, *BSD, Solaris, et Windows comme systèmes d'exploitations invités.
 
-Le stockage bloc est fourni par Amazon EBS (pour Elastic Block Store) tandis que le stockage objet est fourni par Amazon S3 (pour Simple Storage Service). Chacun de ces service possède sa propre API, permettant de les utiliser indépendamment les uns des autres.
+Le stockage bloc est fourni par Amazon EBS (pour Elastic Block Store) tandis que le stockage objet est fourni par Amazon S3 (pour Simple Storage Service).
+Chacun de ces service possède sa propre API, permettant de les utiliser indépendamment les uns des autres.
 
 A titre informatif, EC2 est utilisé, entre autres, par Netflix, Instagram, et Shazam, tandis que la plupart des services de stockage en ligne grand public, comme Dropbox, utilisent S3.
 
@@ -109,9 +125,11 @@ Il appartient désormais à la fondation Apache et est donc Open Source sous la 
 
 \section{Rappel du cahier des charges}
 \subsubsection{Objectifs}
-Dans un premier temps nous voulions mettre en place un cloud privé sous la forme d'une IaaS avec OpenStack. L'objectif était de permettre à des utilisateurs (des élèves par exemple) de créer des machines virtuelles très rapidement même sur des machines disposant de peu de ressources.\\
+Dans un premier temps nous voulions mettre en place un cloud privé sous la forme d'une IaaS avec OpenStack.
+L'objectif était de permettre à des utilisateurs (des élèves par exemple) de créer des machines virtuelles très rapidement même sur des machines disposant de peu de ressources.\\
 
-Ensuite nous avons voulu mettre en place une solution pour automatiser la configuration des instances. L'objectif était de permettre à un/des administrateur(s) de modifier une configuration ou de rajouter une application même après qu'une image ait été créé.
+Ensuite nous avons voulu mettre en place une solution pour automatiser la configuration des instances.
+L'objectif était de permettre à un/des administrateur(s) de modifier une configuration ou de rajouter une application même après qu'une image ait été créé.
 
 \subsubsection{Fonctionnalités à implémenter}
 \begin{itemize}
@@ -133,7 +151,8 @@ Ensuite nous avons voulu mettre en place une solution pour automatiser la config
 \chapter{Matériel}
 
 \section{Serveur dédié OVH}
-Nous avons réalisé la première partie de notre projet sur un serveur dédié Kimsufi d'OVH. Il était équipé d'un processeur 64 bits à 3,4Ghz avec les extensions VT-x (Intel Core i3), de 8Go de RAM, et de 2x1To de stockage en RAID 0.
+Nous avons réalisé la première partie de notre projet sur un serveur dédié Kimsufi d'OVH.
+Il était équipé d'un processeur 64 bits à 3,4Ghz avec les extensions VT-x (Intel Core i3), de 8Go de RAM, et de 2x1To de stockage en RAID 0.
 
 Il s'agit de la configuration minimale pour faire fonctionner une installation de développement d'OpenStack.
 
@@ -147,12 +166,14 @@ Nous disposions de trois lames équipés chacune de deux processeurs AMD Opteron
 Toutes les lames possèdent une carte Fibre Channel (FC) QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
-Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un SAN HP StorageWorks relié en FC. Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur FC.
+Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un SAN HP StorageWorks relié en FC.
+Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur FC.
 
 \subsection{Réseau}
-Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin d'obtenir une bande passante de 2Gbit/s entre elles. Sauf sur une lame, faisant office de Routeur/NAT, connecté à 1Gbit/s au réseau de l'IUT et à 1Gbit/s aux autres lames.
+Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin d'obtenir une bande passante de 2Gbit/s entre elles.
+Sauf sur une lame, faisant office de Routeur/NAT, connecté à 1Gbit/s au réseau de l'IUT et à 1Gbit/s aux autres lames.
 
-La séparation des réseaux est permise par le taggage des trames Ethernet avec un numéro de VLAN (encapsulation 802.1Q).
+La séparation des réseaux est permise par l'ajout de tag sur des trames Ethernet avec un numéro de VLAN (encapsulation 802.1Q).
 
 
 \chapter{Systèmes d'exploitations hôtes}
@@ -167,7 +188,7 @@ La séparation des réseaux est permise par le taggage des trames Ethernet avec 
 
 \chapter{Logiciels}
 \section{OpenStack}
-Parmis ces différents solutions nous avons choisi d’utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
+Parmi ces différents solutions nous avons choisi d'utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
 Il peut être considérée comme mature pour une utilisation en production car il est utilisé entre autre par Rackspace (un très gros hébergeur et fournisseur de solutions de Cloud Computing Américain), la NASA, et Intel.
 
 \subsection{La fondation OpenStack}
@@ -181,7 +202,8 @@ Il expose une API HTTP(S) sur deux endpoints, un public sur le port 5000, permet
 Il supporte différents backends pour l'authentification, certains permettant la persistance et l'édition des données comme SQL ou LDAP, d'autres en lecture-seule comme PAM.\newline
 
 \subsubsection{Nova}
-C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...). Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc si Cinder n'est pas utilisé, et le réseau si Quantum n'est pas utilisé.\newline
+C'est le service qui va gérer les systèmes de virtualisation (KVM, Xen, ...).
+Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc si Cinder n'est pas utilisé, et le réseau si Quantum n'est pas utilisé.\newline
 Il utilise Keystone pour l'authentification.
 
 
@@ -199,7 +221,8 @@ Swift est le système de stockage objet.
 Il supporte deux systèmes d'authentification, Swauth hérité de Rackspace, et Keystone.
 
 \subsubsection{Glance}
-Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créer les machines.}. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
+Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créer les machines.}.
+Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
 
 Il utilise Keystone pour l'authentification et peut, en plus du système de fichier local, utiliser Swift pour stocker les images.
 
@@ -207,58 +230,83 @@ Il utilise Keystone pour l'authentification et peut, en plus du système de fich
 C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles.
 
 \section{Puppet}
-Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines. Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
+Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
+Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
 
-Puppet utilise des recettes pour configurer les machines. Nous avons choisi de les stocker sur un serveur git afin de mieux gérer les différentes révisions et l'édition distante.
+Puppet utilise des recettes pour configurer les machines.
+Nous avons choisi de les stocker sur un serveur git afin de mieux gérer les différentes révisions et l'édition distante.
 
 \section{Reverse Proxy}
-Nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul ip disponible sur le réseau de l'iut) et de facilité de mise en œuvre (configuration du pare-feu simplifié). De cette manière, la zone qui abrite le dashboard n'est connecté qu'au LAN interne des lames. De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple. En effet, la translation ne nous autorise qu'une seul redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de crée autant de sous domaine que l'on veux et de les rediriger vers n'importe quel ip et port.}.
+Nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifié).
+De cette manière, la zone qui abrite le dashboard n'est connecté qu'au LAN interne des lames.
+De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple.
+En effet, la translation ne nous autorise qu'une seul redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de crée autant de sous domaine que l'on veux et de les rediriger vers n'importe quel ip et port.}.
 
-Un reverse proxy est un serveur qui permet de réécrire les requêtes HTTP afin, par example, de cacher à l'utilisateur l'architecture interne du réseau. Grâce à lui, nous pouvons rediriger les requêtes vers notre serveur web.
+Un reverse proxy est un serveur qui permet de réécrire les requêtes HTTP afin, par example, de cacher à l'utilisateur l'architecture interne du réseau.
+Grâce à lui, nous pouvons rediriger les requêtes vers notre serveur web.
 Un reverse proxy permet aussi de mettre en cache les ressources statique d'un site pour l'accélérer et soulager les serveurs web ou encore répartir la charge entre plusieurs serveurs.
 
-Il existe plusieurs programme qui permette de faire du reverse proxy. Le mieux, de par sa communauté, la finesse de ces règles, et ces performances est, à notre avis, Varnish\footnote{https://www.varnish-cache.org/}. C'est un logiciel libre utilisé par example par Facebook. Cependant, nous n'avons pas pu l'utiliser pour les raisons détaillé dans la partie dédié.
+Il existe plusieurs programme qui permette de faire du reverse proxy.
+Le mieux, de par sa communauté, la finesse de ces règles, et ces performances est, à notre avis, Varnish\footnote{https://www.varnish-cache.org/}.
+C'est un logiciel libre utilisé par example par Facebook. Cependant, nous n'avons pas pu l'utiliser pour les raisons détaillé dans la partie dédié.
 
-Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le serveur web le plus utilisé\footnote{D'après le site netcraft.com, en Février 2013, Apache est utilisé par près de 55\% des sites actif. (IIS de Microsoft et Nginx sont eux à 12\%)} dans le monde, à l'heure actuel. Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
+Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le serveur web le plus utilisé\footnote{D'après le site netcraft.com, en Février 2013, Apache est utilisé par près de 55\% des sites actif. (IIS de Microsoft et Nginx sont eux à 12\%)} dans le monde, à l'heure actuel.
+Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
 
 \section{Supervision}
-Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelé logiciel ou plateforme de supervision qui, en s'appuyant sur le protocole snmp, vérifie en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installé sur les machines. Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connecté à la base MySQL. Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par sms... Tout dépend du logiciel de supervision et de sa configuration.}
+Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelé logiciel ou plateforme de supervision qui, en s'appuyant sur le protocole snmp, vérifie en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installé sur les machines.
+Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connecté à la base MySQL.
+Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par sms... Tout dépend du logiciel de supervision et de sa configuration.}
 
-Le marché de la supervision est à la fois occupé par de grand constructeur comme HP avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios. Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}. Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
+Le marché de la supervision est à la fois occupé par de grand constructeur comme HP avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios.
+Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
+Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
 
 \chapter{Mise en place}
 \section{Installation de développement sur un serveur dédié}
-Nous avons réalisé une première installation d'OpenStack et des services associés sur un serveur dédié afin d'étudier le fonctionnement global. Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'OpenStack qui sera abordé dans la section suivante sur le BladeCenter.
+Nous avons réalisé une première installation d'OpenStack et des services associés sur un serveur dédié afin d'étudier le fonctionnement global.
+Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'OpenStack qui sera abordé dans la section suivante sur le BladeCenter.
 
 \subsection{Environnement de test}
 
 
 \section{Déploiement sur un BladeCenter}
 
-Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement. Les nom sont donné dans le schemas global (Annexe A.1). Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
+Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement.
+Les nom sont donné dans le schémas global (Annexe \ref{sch:glob}).
+Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
 \subsection{Installation des systèmes}
 Nous avons choisi d'installer Solaris 11 sur Fuji, Iyo, et Tenjin, et CentOS 6 sur Raijin.
 Pour plus d'informations sur ce choix voir \ref{sec:compatblade}.
 
 \subsubsection{Démarrage de l'installateur}
-L'installation des systèmes est classique à l'exception du multipath qui requiert un paramètre de boot spécial sur CentOS afin d'être détecté. Au prompt boot de l'installateur il faut taper : linux mpath.\newline
+L'installation des systèmes est classique à l'exception du multipath qui requiert un paramètre de boot spécial sur CentOS afin d'être détecté.
+Au prompt boot de l'installateur il faut taper : linux mpath.\newline
 Sur Solaris il n'y a rien à faire de spécial.
 
 \subsubsection{Configuration du stockage}
 Parler du multipath etc..
 
 \subsubsection{Configuration du réseau}
-Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un Vlan dédié et non-relié à l'extérieur. Fuji, quand à elle, a une interface sur le réseau extérieur (réseau de IUT avec accès à internet) et l'autre dans le LAN inter-lames. De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
+Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un Vlan dédié et non-relié à l'extérieur.
+Fuji, quand à elle, a une interface sur le réseau extérieur (réseau de IUT avec accès à internet) et l'autre dans le LAN inter-lames.
+De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
 
-Afin de donner accès à internet au lames du réseau interne, nous avons mis en place une translation d'adresse sur Fuji (NAT). Sur Solaris, le pare-feu par défaut est ipfilter. La configuration (donné en annexe B.1) permet de translater l'adresse locale (192.168.1.0/24) vers l'adresse public (10.102.75.190).
+Afin de donner accès à internet au lames du réseau interne, nous avons mis en place une translation d'adresse sur Fuji (NAT).
+Sur Solaris, le pare-feu par défaut est ipfilter. La configuration (donné en annexe \ref{conf:NAT}) permet de translater l'adresse locale (192.168.1.0/24) vers l'adresse public (10.102.75.190).
 
-Maintenant que nos machine on accès à internet, il faut qu'on rende disponible depuis l'extérieur les interfaces web des différent services disponible (Le dashboard, le panel Shinken et l'interface de configuration de Puppet). Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédemment). Une fois apache installé, il faut ajouter au fichier de configuration d'apache (httpd.conf) les directive de l'annexe B.2. Celle-ci renvoie tous le trafic qui arrive à apache vers la machine qui a l'ip 192.168.1.3 et sur sont port 80.
+Maintenant que nos machine on accès à internet, il faut qu'on rende disponible depuis l'extérieur les interfaces web des différent services disponible (Le dashboard, le panel Shinken et l'interface de configuration de Puppet).
+Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédemment). Une fois apache installé, il faut ajouter au fichier de configuration d'apache (httpd.conf) les directive de l'annexe \ref{conf:apacheProxy}.
+Celle-ci renvoie tous le trafic qui arrive à apache vers la machine qui a l'ip 192.168.1.3 et sur sont port 80.
 
 \subsubsection{Environnement de travail}
 Afin de rendre l'utilisation des machines plus agréable et plus facile à configurer, nous avons ajouté plusieurs programme et modifié plusieurs configuration.
 
-Nous avons commencé par installer un gestionnaire de paquet. Solaris possède sont propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible. Une communauté ses alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour Solaris. Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Grâce à OpenCSW, nous avons pu installer plein de programme dont nous avions l'habitude sous linux sans avoir à les compiler avec toutes leurs dépendances. 
+Nous avons commencé par installer un gestionnaire de paquet.
+Solaris possède sont propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible.
+Une communauté ses alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour Solaris.
+Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Grâce à OpenCSW, nous avons pu installer plein de programme dont nous avions l'habitude sous linux sans avoir à les compiler avec toutes leurs dépendances. 
 
 Zsh
 
@@ -287,8 +335,7 @@ Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement
 
 \appendix
 \chapter{Diagrammes Réseau et schémas de principe}
-\section{Schémas global}
-Rappel partie réseau
+\section{Schémas global} \label{sch:glob}
 
 \chapter{Fichiers de configuration OpenStack}
 \section{Keystone}
@@ -302,10 +349,8 @@ Rappel partie réseau
 
 \chapter{Fichiers de configuration Solaris}
 \section{NAT}
-\subsection{ipf.conf}
-Rappel partie config réseau
-\section{Reverse Apache}
-Rappel partie réseau
+\subsection{ipf.conf} \label{conf:NAT}
+\section{Reverse Apache} \label{conf:apacheProxy}
 
 \chapter{Recettes Puppet}
 
