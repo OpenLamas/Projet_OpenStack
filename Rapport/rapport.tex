@@ -34,6 +34,7 @@
 \noindent De manière générale nous remercions tout les professeurs pour leurs enseignements durant ces deux années de DUT.
 
 \renewcommand{\contentsname}{Sommaire}
+\setcounter{tocdepth}{1}
 \tableofcontents
 
 \chapter{Introduction}
@@ -61,14 +62,21 @@ On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de
 L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
 
 \subsubsection{IaaS, PaaS, et autres *aaS}
-Dans le domaine du Cloud Computing il existe plusieurs niveaux d'abstractions, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services. Leur nom prend la forme Sth- as a Service.
+Dans le domaine du Cloud Computing il existe plusieurs niveaux d'abstractions, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services.
+Leur nom prend la forme Sth- as a Service.
 
-Les trois modèles les plus courants sont l'IaaS, le PaaS, et le SaaS. Ce dernier, signifiant Software as a Service, représente le plus haut niveau d'abstraction.\newline Dans ce modèle les clients paient un abonnement pour utiliser un logiciel dont ils n'auront pas à gérer l'installation et la maintenance. Les applications courantes sont les CRM\footnote{Customer Relationship Management}, la visioconférence, et les emails. On peut citer pour exemple Google Apps for Business ou Salesforce Sales Cloud.
+Les trois modèles les plus courants sont l'IaaS, le PaaS, et le SaaS.
+Ce dernier, signifiant Software as a Service, représente le plus haut niveau d'abstraction.\newline
+Dans ce modèle les clients paient un abonnement pour utiliser un logiciel dont ils n'auront pas à gérer l'installation et la maintenance. Les applications courantes sont les CRM\footnote{Customer Relationship Management}, la visioconférence, et les emails.
+On peut citer pour exemple Google Apps for Business ou Salesforce Sales Cloud.
 
 Vient ensuite le PaaS, signifiant Platform as a Service, où les applications fonctionnent également sur une plateforme externalisée (dans le Cloud) mais, à la différence du SaaS, elles sont développés par le client.\newline
-Celà permet aux entreprises de disposer d'un environnement d'exécution pour leur applications internes rapidement. Par exemple, Heroku, le PaaS de Salesforce est capable d'éxecuter de nombreux languages, tels que PHP, Ruby, Node.js, Python, Java, ou Scala. On peut aussi citer Google App Engine ou Microsoft Azure, qui offrent des fonctionnalités similaires.
+Celà permet aux entreprises de disposer d'un environnement d'exécution pour leur applications internes rapidement.
+Par exemple, Heroku, le PaaS de Salesforce est capable d'éxecuter de nombreux languages, tels que PHP, Ruby, Node.js, Python, Java, ou Scala.
+On peut aussi citer Google App Engine ou Microsoft Azure, qui offrent des fonctionnalités similaires.
 
-Enfin vient l'IaaS, pour Infrastructure as a Service, qui est le plus bas niveau d'abstraction. Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique. Il gère donc la configuration des systèmes d'exploitations et des logiciels qui s'y exécutent.
+Enfin vient l'IaaS, pour Infrastructure as a Service, qui est le plus bas niveau d'abstraction. Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique.
+Il gère donc la configuration des systèmes d'exploitations et des logiciels qui s'y exécutent.
 
 C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc détailler, dans la section suivante, les différentes solutions existantes avant de voir celle que nous avons retenu.
 
@@ -92,9 +100,12 @@ A titre informatif, EC2 est utilisé, entre autres, par Netflix, Instagram, et S
 
 Il faut noter que l'IaaS d'Amazon est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
 
-\subsubsection{CloudStack}
-
 \subsubsection{OpenStack}
+
+\subsubsection{CloudStack}
+CloudStack est un système de création d'IaaS originellement développé par Cloud.com pui racheté par Citrix à l'été 2011.
+Il appartient désormais à la fondation Apache et est donc Open Source sous la licence correspondante.\newline
+
 
 \section{Rappel du cahier des charges}
 \subsubsection{Objectifs}
@@ -183,12 +194,14 @@ Depuis la version Folsom le stockage bloc possède son propre service indépenda
 
 
 \subsubsection{Swift}
-Swift est le système de stockage objet.
+Swift est le système de stockage objet. 
 
 Il supporte deux systèmes d'authentification, Swauth hérité de Rackspace, et Keystone.
 
 \subsubsection{Glance}
 Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créer les machines.}. Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
+
+Il utilise Keystone pour l'authentification et peut, en plus du système de fichier local, utiliser Swift pour stocker les images.
 
 \subsubsection{Dashboard}
 C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles.
@@ -225,6 +238,12 @@ Nous avons réalisé une première installation d'OpenStack et des services asso
 Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement. Les nom sont donné dans le schemas global (Annexe A.1). Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
 \subsection{Installation des systèmes}
+Nous avons choisi d'installer Solaris 11 sur Fuji, Iyo, et Tenjin, et CentOS 6 sur Raijin.
+Pour plus d'informations sur ce choix voir \ref{sec:compatblade}.
+
+\subsubsection{Démarrage de l'installateur}
+L'installation des systèmes est classique à l'exception du multipath qui requiert un paramètre de boot spécial sur CentOS afin d'être détecté. Au prompt boot de l'installateur il faut taper : linux mpath.\newline
+Sur Solaris il n'y a rien à faire de spécial.
 
 \subsubsection{Configuration du stockage}
 Parler du multipath etc..
@@ -256,12 +275,13 @@ Pour pouvoir configurer nos différente machines, nous nous connectons à elle v
 
 \chapter{Problèmes rencontrés}
 \section{Compatibilité des systèmes d'exploitations sur le BladeCenter}
+\label{sec:compatblade}
 L'installation des systèmes d'exploitation sur les lames fût plus compliquée que prévu, étant donné la configuration bi-processeur et les cartes Fibre Channel.
 
 Après de multiples installations infructueuses, un appel au support HP et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents ($ > 2.6 $) sont trop instables.
 
 Sans que nous puissions fournir d'explications, CentOS, dans sa dernière version (6.3), fonctionne parfaitement sur la lame équipée d'Opteron 275, alors qu'aucun autre système Linux (Debian, Ubuntu, Suse) n'y fonctionne.
-Il suffit de préciser INSTALLATION MULTIPATH!
+Il suffit de préciser linux mpath au prompt boot de l'installateur.
 
 Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement et supporte le multipath/boot on SAN nativement.
 
