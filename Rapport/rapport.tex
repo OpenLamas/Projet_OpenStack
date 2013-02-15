@@ -57,16 +57,29 @@ Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmis le
 \subsubsection{Vue d'ensemble}
 Ces logiciels conviennent à la virtualisation de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur. Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
-On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnote{Pour simplifier nous avons concentré notre explication sur la virtualisation de bas-niveau (systèmes d’exploitations), mais il existe des niveaux d’abstractions supplémentaires comme la virtualisation d’applications. Dans le cas du Cloud Computing (ressource partagés par le réseau) on parlera de PaaS (Platform as a Service) ou de SaaS (Software as a service).} dans ce cas là d’IaaS (Infrastructure as a Service).
+On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de virtualisation) via un réseau. On parle de Cloud Computing et plus précisément\footnote{Voir \og IaaS, PaaS, et autres *aaS \fg ci-dessous.} dans ce cas là d’IaaS (Infrastructure as a Service).
 L’utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de virtualisation, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d’exploitation.
+
+\subsubsection{IaaS, PaaS, et autres *aaS}
+Dans le domaine du Cloud Computing il existe plusieurs niveaux d'abstractions, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services. Leur nom prend la forme Sth- as a Service.
+
+Les trois modèles les plus courants sont l'IaaS, le PaaS, et le SaaS. Ce dernier, signifiant Software as a Service, représente le plus haut niveau d'abstraction.\newline Dans ce modèle les clients paient un abonnement pour utiliser un logiciel dont ils n'auront pas à gérer l'installation et la maintenance. Les applications courantes sont les CRM\footnote{Customer Relationship Management}, la visioconférence, et les emails. On peut citer pour exemple Google Apps for Business ou Salesforce Sales Cloud.
+
+Vient ensuite le PaaS, signifiant Platform as a Service, où les applications fonctionnent également sur une plateforme externalisée (dans le Cloud) mais, à la différence du SaaS, elles sont développés par le client.\newline
+Celà permet aux entreprises de disposer d'un environnement d'exécution pour leur applications internes rapidement. Par exemple, Heroku, le PaaS de Salesforce est capable d'éxecuter de nombreux languages, tels que PHP, Ruby, Node.js, Python, Java, ou Scala. On peut aussi citer Google App Engine ou Microsoft Azure, qui offrent des fonctionnalités similaires.
+
+Enfin vient l'IaaS, pour Infrastructure as a Service, qui est le plus bas niveau d'abstraction. Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique. Il gère donc la configuration des systèmes d'exploitations et des logiciels qui s'y exécutent.
+
+C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc détailler, dans la section suivante, les différentes solutions existantes avant de voir celle que nous avons retenu.
+
+\subsubsection{Le stockage dans le cloud}
+Dans le cas des IaaS on distingue deux types de stockages dans le cloud : le stockage bloc, et le stockage objet. Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau. Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
+Le stockage objet, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés. Il est généralement plus lent que le stockage bloc mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
 
 \subsubsection{Cloud public vs. Cloud privé}
 La différence majeure entre un Cloud dit \og public \fg, d'un Cloud dit \og privé \fg est la partage de l'infrastructure. Dans le premier cas plusieurs clients se partagent l'infrastructure, tandis que dans le second seul une entreprise utilise l'infrastructure.\newline
-Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un Cloud privé pourra être installé chez le client. Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
+Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un Cloud privé pourra être installé dans l'entreprise et géré par elle-même. Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
 
-\subsubsection{Le stockage dans le cloud}
-On distingue deux types de stockages dans le cloud : le stockage bloc, et le stockage objet. Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau. Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
-Le stockage objet, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés. Il est généralement plus lent que le stockage bloc mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
 \subsection{Panorama des IaaS}
 \subsubsection{Amazon EC2}
 Amazon a lancé EC2 (pour Elastic Compute Cloud) durant l'été 2006. Il s'agit d'un Cloud Public, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une API et une interface Web, moyennant un paiement par heures d'utilisation.
@@ -77,8 +90,33 @@ Le stockage bloc est fourni par Amazon EBS (pour Elastic Block Store) tandis que
 
 A titre informatif, EC2 est utilisé, entre autres, par Netflix, Instagram, et Shazam, tandis que la plupart des services de stockage en ligne grand public, comme Dropbox, utilisent S3.
 
+Il faut noter que l'IaaS d'Amazon est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
+
 \subsubsection{CloudStack}
+
 \subsubsection{OpenStack}
+
+\section{Rappel du cahier des charges}
+\subsubsection{Objectifs}
+Dans un premier temps nous voulions mettre en place un cloud privé sous la forme d'une IaaS avec OpenStack. L'objectif était de permettre à des utilisateurs (des élèves par exemple) de créer des machines virtuelles très rapidement même sur des machines disposant de peu de ressources.\\
+
+Ensuite nous avons voulu mettre en place une solution pour automatiser la configuration des instances. L'objectif était de permettre à un/des administrateur(s) de modifier une configuration ou de rajouter une application même après qu'une image ait été créé.
+
+\subsubsection{Fonctionnalités à implémenter}
+\begin{itemize}
+\item Un noeud de virtualisation avec KVM
+\item Authentification \& Autorisations avec un LDAP
+\item Interface simple d'utilisation pour la création d'images
+\item Personnalisation des instances au lancement suivant l'utilisateur (montage des disques, ...)
+\end{itemize}
+
+\subsubsection{Perspectives}
+\begin{itemize}
+\item Haute-disponibilité, tolérance de pannes
+\item Monitoring des machines physiques
+\item Nœuds de virtualisations supplémentaires avec Xen, LXC, voir Hyper-V
+\item Migration automatique des VMs après la chute d'un noeud
+\end{itemize}
 
 
 \chapter{Matériel}
@@ -162,10 +200,15 @@ Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les 
 Le marché de la supervision est à la fois occupé par de grand constructeur comme HP avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios. Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}. Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
 
 \chapter{Mise en place}
-\section{OVH....}
+\section{Installation de développement sur un serveur dédié}
+Nous avons réalisé une première installation d'OpenStack et des services associés sur un serveur dédié afin d'étudier le fonctionnement global. Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'OpenStack qui sera abordé dans la section suivante sur le BladeCenter.
+
+\subsection{Environnement de test}
+
 
 \section{Déploiement sur un BladeCenter}
-Par soucie de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement. Les nom sont donné dans le schemas global (Annexe A.1). Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
+
+Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement. Les nom sont donné dans le schemas global (Annexe A.1). Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
 \subsection{Installation des systèmes}
 
@@ -186,7 +229,7 @@ Nous avons commencé par installer un gestionnaire de paquet. Solaris possède s
 
 Zsh
 
-Pour pouvoir configurer nos différente machines, nous nous connectons à elle via le protocole ssh. $ < $
+Pour pouvoir configurer nos différente machines, nous nous connectons à elle via le protocole ssh.
 
 \subsection{Installation des zones}
 
@@ -198,6 +241,10 @@ Pour pouvoir configurer nos différente machines, nous nous connectons à elle v
 \subsubsection{Installation du service d'images}
 
 \chapter{Problèmes rencontrés}
+\section{Compatibilité des systèmes d'exploitations sur le BladeCenter}
+L'installation des systèmes d'exploitation sur les lames fût plus compliquée que prévu, étant donné la configuration bi-processeur et les cartes Fibre Channel.
+
+Après de multiples installations infructueuses, un appel au support HP et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents (> 2.6) sont trop instables. 
 
 \appendix
 \chapter{Diagrammes Réseau et schémas de principe}
