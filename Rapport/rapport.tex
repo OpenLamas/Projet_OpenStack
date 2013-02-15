@@ -243,7 +243,12 @@ Connection ssh clé privé et sshd-banner
 \section{Compatibilité des systèmes d'exploitations sur le BladeCenter}
 L'installation des systèmes d'exploitation sur les lames fût plus compliquée que prévu, étant donné la configuration bi-processeur et les cartes Fibre Channel.
 
-Après de multiples installations infructueuses, un appel au support HP et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents (> 2.6) sont trop instables. 
+Après de multiples installations infructueuses, un appel au support HP et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents ($ > 2.6 $) sont trop instables.
+
+Sans que nous puissions fournir d'explications, CentOS, dans sa dernière version (6.3), fonctionne parfaitement sur la lame équipée d'Opteron 275, alors qu'aucun autre système Linux (Debian, Ubuntu, Suse) n'y fonctionne.
+Il suffit de préciser INSTALLATION MULTIPATH!
+
+Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement et supporte le multipath/boot on SAN nativement.
 
 \appendix
 \chapter{Diagrammes Réseau et schemas de principe}
