@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{titlesec}
+\usepackage{minted}
 
 \title{Rapport \\ \og Cloud privé avec OpenStack \fg}
 \author{Julien Brun, Maxime Mouchet \\ Fréderic Pourraz (tuteur)}
@@ -22,9 +23,15 @@
 
 \maketitle
 
+% La page vide après le titre
 \clearpage
 \thispagestyle{empty}
 \null\newpage
+
+% Le résumé
+\begin{abstract}
+
+\end{abstract}
 
 \chapter*{Remerciements}
 \thispagestyle{empty}
@@ -333,9 +340,44 @@ Il suffit de préciser linux mpath au prompt boot de l'installateur.
 
 Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement et supporte le multipath/boot on SAN nativement.
 
+\chapter{Conclusion}
+Parler des versions pas stables (master) d'OpenStack
+
 \appendix
 \chapter{Diagrammes Réseau et schémas de principe}
 \section{Schémas global} \label{sch:glob}
+
+\chapter{Scripts d'automatisation}
+\section{Solaris}
+\subsection{nataddrule.sh}
+\begin{minted}[frame=single,fontfamily=courier,linenos,mathescape]{bash}
+#!/bin/bash
+
+if [ $# -ne 3 ]; then
+  echo "Usage: $0 IF NET_SRC IP_DST"
+  exit 1
+fi
+
+if [[ $1 =~ ^[a-z]+[0-9]$ ]]; then if=$1; else
+  echo "$1 doesn't seem to be a valid interface"
+  exit 1
+fi
+
+if [[ $2 =~ ^([0-9]{1,3}\.?){4}\/[0-9]{1,2}$ ]]; then net_src=$2; else
+  echo "$2 doesn't seem to be a valid network range"
+  exit 1
+fi
+
+if [[ $3 =~ ^([0-9]{1,3}\.?){4}$ ]]; then ip_dst=$3; else
+  echo "$3 doesn't seem to be a valid ip"
+  exit 1
+fi
+
+rule="map $if $net_src -> $ip_dst"
+
+echo $rule
+echo $rule >> /etc/ipf/ipf.conf
+\end{minted}
 
 \chapter{Fichiers de configuration OpenStack}
 \section{Keystone}
