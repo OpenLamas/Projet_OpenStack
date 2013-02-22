@@ -271,8 +271,7 @@ Dans cette section nous ne détaillerons que les configurations des systèmes d'
 
 \subsection{Environnement de test}
 
-
-\section{Déploiement sur un BladeCenter}
+\section{Déploiement sur un BladeCenter avec Solaris}
 
 Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement.
 Les nom sont donné dans le schémas global (Annexe \ref{sch:glob}).
@@ -323,6 +322,9 @@ Pour pouvoir configurer nos différente machines, nous nous connectons à elle v
 
 \subsubsection{Installation du service d'images}
 
+\section{Déploiement sur un BladeCenter avec ...}
+
+
 \chapter{Problèmes rencontrés}
 \section{Compatibilité des systèmes d'exploitations sur le BladeCenter}
 \label{sec:compatblade}
@@ -342,6 +344,67 @@ Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement
 Parler des versions pas stables (master) d'OpenStack
 
 \appendix
+\chapter{Installation des systèmes d'exploitations sur les lames}
+Les lames du BladeCenter ne disposant pas de lecteur optique et l'accès physique n'étant pas toujours faisable, il est possible de réaliser l'installation des systèmes d'exploitation à distance. Nous détaillerons ici les fonctionnalités intégrés aux lames permettant de les gérer à distance, ainsi que l'installation des différents systèmes que nous avons utilisés.
+
+\section{Integrated Lights-Out}
+Chaque lame possède un serveur de gestion intégré, iLO\footnote{Integrated Lights-Out}, permettant de gérer l'alimentation (allumage, extinction, reset), de connecter des médias virtuels, et fournissant un KVM\footnote{Keyboard, Video, Mouse} dans le navigateur.
+Les iLO sont sur un réseau privé en 10.100.100.0/24 qui est accessible depuis un serveur TSE à l'adresse manap.rt.iut-acy.local (10.102.75.190).
+
+\subsection{Connexion}
+\subsubsection{Serveur TSE}
+Le serveur TSE manap.rt.iut-acy.local est accessible depuis tout poste de l'IUT à l'adresse 10.102.75.190:3389. Windows XP,Vista,7 et 8 possèdent un client RDP nommé "Connexion Bureau à distance". Sur Linux on pourra utiliser Remmina qui intègre le tunneling SSH (voir paragraphe suivant).
+
+
+Depuis l'extérieur (WiFi, maison) il est nécessaire d'utiliser le VPN\footnote{Le téléchargement et l'installation du client VPN sont détaillés sur vpn.univ-savoie.fr} mais, celui-ci bloquant les ports peu utilisés (pour des raisons de sécurité), il faut également mettre en place un tunnel SSH\footnote{NANANANNA}.
+Pour ce faire il faut d'abord demander un accès à srv-dev.iut-acy.local à la DSI puis configurer son client SSH.\newline
+Sur Windows on utilisera Putty\footnote{Les instructions de configuration du tunnel SSH sous Windows sont disponibles à l'adresse https://w3.iut-acy.univ-savoie.fr/institutionnel/service-informatique/faq/tunnel-ssh/} tandis que sur Linux, à défaut de client gérant le tunneling comme Remmina, on utilisera la commande ssh comme suit pour mapper le port local 10389 sur le port 3389 du serveur TSE:
+\begin{verbatim}
+ssh -L 10389:localhost:10.102.75.190:3389 login@srv-dev.iut-acy.local
+\end{verbatim}
+Il suffira alors d'indiquer l'adresse 127.0.0.1:10389 dans le client RDP pour se connecter.
+
+Le serveur, fonctionnant sous Windows Server 2003, possède Firefox comme navigateur Internet, et plusieurs autres logiciels utiles, comme le client VMWare vCenter pour la gestion d'ESXi.
+
+\subsubsection{iLO}
+Il suffit d'indiquer l'adresse IP correspondant à l'iLO de la lame dans le navigateur et d'entrer ses identifiants.
+
+\subsection{Principales fonctionnalités}
+\subsubsection{Gestion de l'alimentation}
+
+\subsubsection{Média virtuel}
+
+\subsubsection{Console distante}
+
+\section{Systèmes d'exploitations supportés}
+
+\section{Installation de CentOS}
+\subsection{Média d'installation}
+On réalisera ici une installation par le réseau, plus rapide et permettant d'obtenir les dernières versions des paquets.
+Les images ISOs peuvent être obtenus de plusieurs miroirs mais on préférera celui de l'IN2P3, connecté directement au réseau RENATER et qui offre donc d'excellents débits (de l'ordre de la dizaine de Mo/s).\newline
+On téléchargera l'image ISO netinstall à l'adresse suivante:
+\begin{verbatim}
+http://mirror.in2p3.fr/linux/CentOS/[version]/isos/{i386,x86_64}/
+\end{verbatim}
+
+\noindent Le dossier contenant l'image d'installation est quand à lui situé à l'adresse:
+\begin{verbatim}
+http://mirror.in2p3.fr/linux/CentOS/[version]/os/{i386,x86_64}/
+\end{verbatim}
+
+\subsection{Options de boot}
+Afin qu'Anaconda, l'installateur de CentOS, détecte correctement les cartes FC et le multipath et que l'installation se fasse en mode texte, il est nécessaire d'entrer la ligne suivante au prompt boot :
+\begin{verbatim} linux mpath text \end{verbatim}
+
+\subsection{Configuration générale}
+
+
+\section{Installation de Solaris}
+
+\section{Installation de Xen Cloud Platform}
+
+\section{Installation de VMWare ESXi}
+
 \chapter{Diagrammes Réseau et schémas de principe}
 \section{Schémas global} \label{sch:glob}
 
