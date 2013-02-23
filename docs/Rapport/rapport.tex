@@ -309,12 +309,19 @@ Afin de rendre l'utilisation des machines plus agréable et plus facile à confi
 
 Nous avons commencé par installer un gestionnaire de paquet.
 Solaris possède sont propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible.
-Une communauté ses alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour Solaris.
-Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Grâce à OpenCSW, nous avons pu installer plein de programme dont nous avions l'habitude sous linux sans avoir à les compiler avec toutes leurs dépendances. 
+Une communauté s'est alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour Solaris.
+Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Nous avons pu grâce à OpenCSW, installer de nombreux paquets comme Zsh, Apache ou encore Tmux\footnote{Tmux est un multiplexeur de terminaux
+Il permet d'avoir plusieurs terminaux dans la même fenêtre (et donc sur la même connexion ssh dans notre cas)} sans avoir à les compiler avec toutes leurs dépendances. 
+
 
 Zsh
 
-Pour pouvoir configurer nos différente machines, nous nous connectons à elle via le protocole ssh.
+
+Pour pouvoir configurer nos différente machines, nous nous connectons à elle via le protocole ssh. 
+C'est un protocole de communication sécurisé qui permet d'avoir un terminal distant sur une machine.
+Notre configuration réseau nous permet d'accéder depuis le réseau de l'IUT seulement à Fuji.
+Nous nous connectons donc depuis notre ordinateur personnel sur Fuji puis de Fuji vers une autre machine du réseau local.
+Il est aussi possible de faire des tunnel Ssh (voir \ref{tunnelingSsh})
 
 \subsection{Installation des zones}
 
@@ -364,6 +371,7 @@ Le serveur TSE manap.rt.iut-acy.local est accessible depuis tout poste de l'IUT 
 Depuis l'extérieur (WiFi, maison) il est nécessaire d'utiliser le VPN\footnote{Le téléchargement et l'installation du client VPN sont détaillés sur vpn.univ-savoie.fr} mais, celui-ci bloquant les ports peu utilisés (pour des raisons de sécurité), il faut également mettre en place un tunnel SSH\footnote{NANANANNA}.
 Pour ce faire il faut d'abord demander un accès à srv-dev.iut-acy.local à la DSI puis configurer son client SSH.\newline
 Sur Windows on utilisera Putty\footnote{Les instructions de configuration du tunnel SSH sous Windows sont disponibles à l'adresse https://w3.iut-acy.univ-savoie.fr/institutionnel/service-informatique/faq/tunnel-ssh/} tandis que sur Linux, à défaut de client gérant le tunneling comme Remmina, on utilisera la commande ssh comme suit pour mapper le port local 10389 sur le port 3389 du serveur TSE:
+\label{tunnelingSsh}
 \begin{verbatim}
 ssh -L 10389:localhost:10.102.75.190:3389 login@srv-dev.iut-acy.local
 \end{verbatim}
