@@ -52,7 +52,7 @@ Nous trouvons ces technologies passionnantes et mettre en place un \gls{cloudpri
 
 \section{Contexte}
 \subsection{La \gls{virtualisation}}
-Le principe de base de la \gls{virtualisation} est de permettre le fonctionnement de plusieurs \glspl{se} (Windows, Linux, …) en simultané sur un ordinateur.
+Le principe de base de la \gls{virtualisation} est de permettre le fonctionnement de plusieurs \glspl{se} (\gls{windows}, \gls{linux}, …) en simultané sur un ordinateur.
 Les intérêts sont multiples, on peut citer principalement :\newline
 
 Augmenter la disponibilité grâce à une redondance et réduire les coûts.
@@ -68,7 +68,7 @@ Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmi les
 
 \subsection{Le \gls{cloudcomputing}}
 \subsubsection{Vue d'ensemble}
-Ces logiciels conviennent à la \gls{virtualisation} de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d’exploitations sur un seul ordinateur.
+Ces logiciels conviennent à la \gls{virtualisation} de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs \glspl{se} sur un seul ordinateur.
 Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
 On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de \gls{virtualisation}) via un réseau.
@@ -87,9 +87,9 @@ Les applications courantes sont les \gls{crm}, la visioconférence, et les email
 On peut citer pour exemple \gls{gapps} ou \gls{sforcecloud}.
 
 Vient ensuite le \gls{paas}, où les applications fonctionnent également sur une plateforme externalisée (dans le Cloud) mais, à la différence du \gls{saas}, elles sont développés par le client.\newline
-Celà permet aux entreprises de disposer d'un environnement d'exécution pour leur applications internes rapidement.
+Cela permet aux entreprises de disposer d'un environnement d'exécution pour leur applications internes rapidement.
 Par exemple, \gls{heroku}, le \gls{paas} de \gls{sforce} est capable d'exécuter de nombreux langages, tels que \gls{php}, \gls{ruby}, \gls{nodejs}, \gls{python}, \gls{java}, ou \gls{scala}.
-On peut aussi citer Google App Engine ou Microsoft Azure, qui offrent des fonctionnalités similaires.
+On peut aussi citer \gls{gappengine} ou \gls{msazure}, qui offrent des fonctionnalités similaires.
 
 Enfin vient l'\gls{iaas}, qui est le plus bas niveau d'abstraction. 
 Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique.
@@ -98,32 +98,32 @@ Il gère donc la configuration des systèmes d'exploitations et des logiciels qu
 C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc détailler, dans la section suivante, les différentes solutions existantes avant de voir celle que nous avons retenu.
 
 \subsubsection{Le stockage dans le cloud}
-Dans le cas des IaaS on distingue deux types de stockages dans le cloud : le stockage bloc, et le stockage objet.
+Dans le cas des \gls{iaas} on distingue deux types de stockages dans le cloud : le \gls{stockagebloc}, et le \gls{stockageobjet}.
 Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau.
 Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
-Le stockage objet, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés.
-Il est généralement plus lent que le stockage bloc mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
+Le \gls{stockageobjet}, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés.
+Il est généralement plus lent que le \gls{stockagebloc} mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
 
 \subsubsection{Cloud public vs. \gls{cloudprive}}
-La différence majeure entre un Cloud dit \og public \fg, d'un Cloud dit \og privé \fg est la partage de l'infrastructure.
+La différence majeure entre un Cloud dit \og public \fg, d'un Cloud dit \og privé \fg est le partage de l'infrastructure.
 Dans le premier cas plusieurs clients se partagent l'infrastructure, tandis que dans le second seul une entreprise utilise l'infrastructure.\newline
 Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un \gls{cloudprive} pourra être installé dans l'entreprise et géré par elle-même.
 Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
 
 \subsection{Panorama des IaaS}
-\subsubsection{Amazon EC2}
-Amazon a lancé EC2 (pour Elastic Compute Cloud) durant l'été 2006.
+\subsubsection{\gls{amazon} EC2}
+\gls{amazon} a lancé \gls{ec2} durant l'été 2006.
 Il s'agit d'un Cloud Public, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une API et une interface Web, moyennant un paiement par heures d'utilisation.
 
 Les instances, allant de 1 à 244Go de RAM et de 1 coeur virtuel à 32 coeurs physiques, sont virtualisés grâce à l'hyperviseur Open Source Xen.
-EC2 supporte Linux, *BSD, Solaris, et Windows comme systèmes d'exploitations invités.
+\gls{ec2} supporte Linux, *BSD, Solaris, et \gls{windows} comme systèmes d'exploitations invités.
 
-Le stockage bloc est fourni par Amazon EBS (pour Elastic Block Store) tandis que le stockage objet est fourni par Amazon S3 (pour Simple Storage Service).
+Le \gls{stockagebloc} est fourni par \gls{amazon} \gls{ebs} tandis que le \gls{stockageobjet} est fourni par \gls{amazon} \gls{s3}.
 Chacun de ces service possède sa propre API, permettant de les utiliser indépendamment les uns des autres.
 
-A titre informatif, EC2 est utilisé, entre autres, par Netflix, Instagram, et Shazam, tandis que la plupart des services de stockage en ligne grand public, comme Dropbox, utilisent S3.
+A titre informatif, \gls{ec2} est utilisé, entre autres, par \gls{netflix}\footnote{En 2011, aux heures de pointes, Netflix était responsable de 29\% du trafic Internet en Amérique du Nord \cite{NetflixTrafic}. D'où la nécessité d'une infrastructure robuste et scalable.}, \gls{instagram}, et \gls{shazam}, tandis que la plupart des services de stockage en ligne grand public, comme \gls{dropbox}, utilisent \gls{s3}.
 
-Il faut noter que l'IaaS d'Amazon est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
+Il faut noter que l'\gls{iaas} d'\gls{amazon} est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
 
 \subsubsection{OpenStack}
 
@@ -220,12 +220,12 @@ Il utilise Keystone pour l'authentification.
 
 
 \subsubsection{Cinder}
-Depuis la version Folsom le stockage bloc possède son propre service indépendant 
+Depuis la version Folsom le \gls{stockagebloc} possède son propre service indépendant 
 
 
 
 \subsubsection{Swift}
-Swift est le système de stockage objet. 
+Swift est le système de \gls{stockageobjet}. 
 
 Il supporte deux systèmes d'authentification, Swauth hérité de Rackspace, et Keystone.
 
@@ -369,19 +369,19 @@ Les \gls{ilo} sont sur un réseau privé en 10.100.100.0/24 qui est accessible d
 
 \subsection{Connexion}
 \subsubsection{Serveur TSE}
-Le serveur TSE manap.rt.iut-acy.local est accessible depuis tout poste de l'IUT à l'adresse 10.102.75.190:3389. Windows XP,Vista,7 et 8 possèdent un client RDP nommé "Connexion Bureau à distance". Sur Linux on pourra utiliser Remmina qui intègre le tunneling SSH (voir paragraphe suivant).
+Le serveur TSE manap.rt.iut-acy.local est accessible depuis tout poste de l'IUT à l'adresse 10.102.75.190:3389. \gls{windows} XP,Vista,7 et 8 possèdent un client RDP nommé "Connexion Bureau à distance". Sur Linux on pourra utiliser Remmina qui intègre le tunneling SSH (voir paragraphe suivant).
 
 
 Depuis l'extérieur (WiFi, maison) il est nécessaire d'utiliser le VPN\footnote{Le téléchargement et l'installation du client VPN sont détaillés sur vpn.univ-savoie.fr} mais, celui-ci bloquant les ports peu utilisés (pour des raisons de sécurité), il faut également mettre en place un \gls{tunnelssh}\footnote{NANANANNA}.
 Pour ce faire il faut d'abord demander un accès à srv-dev.iut-acy.local à la DSI puis configurer son client \gls{ssh}.\newline
-Sur Windows on utilisera Putty\footnote{Les instructions de configuration du \gls{tunnelssh} sous Windows sont disponibles à l'adresse https://w3.iut-acy.univ-savoie.fr/institutionnel/service-informatique/faq/tunnel-ssh/} tandis que sur Linux, à défaut de client gérant le tunneling comme Remmina, on utilisera la commande ssh comme suit pour mapper le port local 10389 sur le port 3389 du serveur TSE:
+Sur \gls{windows} on utilisera Putty\footnote{Les instructions de configuration du \gls{tunnelssh} sous \gls{windows} sont disponibles à l'adresse https://w3.iut-acy.univ-savoie.fr/institutionnel/service-informatique/faq/tunnel-ssh/} tandis que sur Linux, à défaut de client gérant le tunneling comme Remmina, on utilisera la commande ssh comme suit pour mapper le port local 10389 sur le port 3389 du serveur TSE:
 \label{tunnelingSsh}
 \begin{verbatim}
 ssh -L 10389:localhost:10.102.75.190:3389 login@srv-dev.iut-acy.local
 \end{verbatim}
 Il suffira alors d'indiquer l'adresse 127.0.0.1:10389 dans le client RDP pour se connecter.
 
-Le serveur, fonctionnant sous Windows Server 2003, possède Firefox comme navigateur Internet, et plusieurs autres logiciels utiles, comme le client VMWare vCenter pour la gestion d'ESXi.
+Le serveur, fonctionnant sous \gls{windowsserver} 2003, possède Firefox comme navigateur Internet, et plusieurs autres logiciels utiles, comme le client VMWare vCenter pour la gestion d'ESXi.
 
 \subsubsection{iLO}
 Il suffit d'indiquer l'adresse IP correspondant à l'iLO de la lame dans le navigateur et d'entrer ses identifiants.
