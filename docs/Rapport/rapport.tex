@@ -142,7 +142,7 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 
 \subsubsection{Fonctionnalités à implémenter}
 \begin{itemize}
-\item Un noeud de \gls{virtualisation} avec KVM
+\item Un noeud de \gls{virtualisation} avec \gls{kvm}
 \item Authentification \& Autorisations avec un LDAP
 \item Interface simple d'utilisation pour la création d'images
 \item Personnalisation des instances au lancement suivant l'utilisateur (montage des disques, ...)
@@ -152,9 +152,15 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 \begin{itemize}
 \item Haute-disponibilité, tolérance de pannes
 \item Monitoring des machines physiques
-\item Nœuds de \gls{virtualisation}s supplémentaires avec Xen, LXC, voir Hyper-V
+\item Nœuds de \gls{virtualisation} supplémentaires avec Xen, LXC, voir Hyper-V
 \item Migration automatique des VMs après la chute d'un noeud
 \end{itemize}
+
+\section{Démarche}
+Initialement notre projet devait comporter deux grandes étapes: la mise en place d'une installation de développement, et le déploiement sur un BladeCenter. Après cette dernière étape et discussion avec notre tuteur, nous avons décidé de modifier l'installation que nous avions réalisé sur le BladeCenter afin de maximiser les possibilités de virtualisation et de simplifier l'administration.\newline
+Au final ce sont donc ces trois grandes étapes que nous détaillons dans le chapitre \ref{cha:miseenplace}.
+
+De plus la majorité de notre travail a été effectué à deux en simultané DETAILLER CA-------------
 
 
 \chapter{Matériel}
@@ -204,14 +210,14 @@ Il peut être considérée comme mature pour une utilisation en production car i
 
 
 \subsection{Les services}
-OpenStack est constitué de différents services gérant chacun une composante spécifique de l'IaaS.
+OpenStack est constitué de différents services gérant chacun une composante spécifique de l'\gls{iaas}.
 \subsubsection{Keystone}
 Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.\newline
-Il expose une API HTTP(S) sur deux endpoints, un public sur le port 5000, permettant l'authentification des utilisateurs, et un autre dit privé sur le port 35357 permettant les tâches administratives tels que la gestion des utilisateurs et des terminaisons de services.
-Il supporte différents backends pour l'authentification, certains permettant la persistance et l'édition des données comme SQL ou LDAP, d'autres en lecture-seule comme PAM.\newline
+Il expose une \gls{api} HTTP(S) sur deux endpoints, un public sur le port 5000, permettant l'authentification des utilisateurs, et un autre dit privé sur le port 35357 permettant les tâches administratives tels que la gestion des utilisateurs et des terminaisons de services.
+Il supporte différents backends pour l'authentification, certains permettant la persistance et l'édition des données comme \gls{sql} ou \gls{ldap}, d'autres en lecture-seule comme \gls{pam}.\newline
 
 \subsubsection{Nova}
-C'est le service qui va gérer les systèmes de \gls{virtualisation} (KVM, Xen, ...).
+C'est le service qui va gérer les systèmes de \gls{virtualisation} (\gls{kvm}, \gls{xen}, ...).
 Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc si Cinder n'est pas utilisé, et le réseau si Quantum n'est pas utilisé.\newline
 Il utilise Keystone pour l'authentification.
 
@@ -271,7 +277,7 @@ Le marché de la supervision est à la fois occupé par de grand constructeur co
 Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
 Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
 
-\chapter{Mise en place}
+\chapter{Mise en place} \label{cha:miseenplace}
 \section{Installation de développement sur un serveur dédié}
 Nous avons réalisé une première installation d'OpenStack et des services associés sur un serveur dédié afin d'étudier le fonctionnement global.
 Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'OpenStack qui sera abordé dans la section suivante sur le BladeCenter.
@@ -363,8 +369,27 @@ Les lames du BladeCenter ne disposant pas de lecteur optique et l'accès physiqu
 Nous détaillerons ici les fonctionnalités intégrés aux lames permettant de les gérer à distance, ainsi que l'installation des différents systèmes que nous avons utilisés.\newline
 Note: les installations détaillés sont spécifiques au BladeCenter et correspondent à la configuration minimum pour faire fonctionner OpenStack. Des documentations plus exhaustives sont disponibles sur les sites respectifs des OS.
 
+\section{Systèmes d'exploitations supportés}
+\subsubsection{Systèmes officiellement supportés}
+D'après HP les systèmes d'exploitations supporté sur les lames BL35p sont:
+\begin{itemize}
+\item Red Hat Enterprise Linux (RHEL) 5
+\item Suse Linux Enterprise Server (SLES) 10
+\item VMware ESX 2.5.5
+\item Solaris 10
+\end{itemize}
+
+\subsubsection{Systèmes que nous avons testés}
+Après de multiples essais nous avons conclus que les systèmes suivants sont stables et supportent le multipath en natif sur les lames:
+\begin{itemize}
+\item Solaris 11
+\item CentOS 6.3 (uniquement sur les lames à base d'Opteron 275)
+\item VMware ESXi 4.1 (dernière version installable, les versions suivantes requièrent les extensions processeurs LAHF et SAHF)
+\item Xen Cloud Platform 1.6
+\end{itemize}
+
 \section{Integrated Lights-Out}
-Chaque lame possède un serveur de gestion intégré, \gls{ilo}, permettant de gérer l'alimentation (allumage, extinction, reset), de connecter des médias virtuels, et fournissant un KVM\footnote{Keyboard, Video, Mouse} dans le navigateur.
+Chaque lame possède un serveur de gestion intégré, \gls{ilo}, permettant de gérer l'alimentation (allumage, extinction, reset), de connecter des médias virtuels, et fournissant un \gls{kvmphys} dans le navigateur.
 Les \gls{ilo} sont sur un réseau privé en 10.100.100.0/24 qui est accessible depuis un serveur TSE à l'adresse manap.rt.iut-acy.local (10.102.75.190).
 
 \subsection{Connexion}
@@ -406,25 +431,6 @@ Peut éteindre les autres serveurs présents dans le même rack.
 \subsubsection{Média virtuel}
 
 \subsubsection{Console distante}
-
-\section{Systèmes d'exploitations supportés}
-\subsubsection{Systèmes officiellement supportés}
-D'après HP les systèmes d'exploitations supporté sur les lames BL35p sont:
-\begin{itemize}
-\item Red Hat Enterprise Linux (RHEL) 5
-\item Suse Linux Enterprise Server (SLES) 10
-\item VMware ESX 2.5.5
-\item Solaris 10
-\end{itemize}
-
-\subsubsection{Systèmes que nous avons testés}
-Après de multiples essais nous avons conclus que les systèmes suivants sont stables et supportent le multipath en natif sur les lames:
-\begin{itemize}
-\item Solaris 11
-\item CentOS 6.3 (uniquement sur les lames à base d'Opteron 275)
-\item VMware ESXi 4.1 (dernière version installable, les versions suivantes requièrent les extensions processeurs LAHF et SAHF)
-\item Xen Cloud Platform 1.6
-\end{itemize}
 
 \section{Installation de CentOS}
 \subsection{Média d'installation} \label{sec:installmediacentos}

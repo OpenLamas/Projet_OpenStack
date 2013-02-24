@@ -1,15 +1,79 @@
-\newacronym{saas}{SaaS}{Software as a Service}
-\newacronym{paas}{PaaS}{Platform as a Service}
-\newacronym{iaas}{IaaS}{Infrastructure as a Service}
+% as a Service
+\newacronym[
+description={
+Software as a Service. Modèle du Cloud Computing où l'on paye un abonnement pour utiliser un logiciel qui peut ne pas être présent physiquement sur notre ordinateur
+}]{saas}{SaaS}{Software as a Service}
 
-\newacronym{ec2}{EC2}{Elastic Compute Cloud}
-\newacronym{ebs}{EBS}{Elastic Block Store}
-\newacronym{s3}{S3}{Simple Storage Service}
+\newacronym[
+description={
+Platform as a Service. Modèle du Cloud Computing où un environnement d'exécution est mis à disposition du client pour ses propres applications
+}]{paas}{PaaS}{Platform as a Service}
 
+\newacronym[
+description={
+Infrastructure as a Service. Modèle du Cloud Computing où une infrastructure, potentiellement externe, est mis à disposition du client
+}]{iaas}{IaaS}{Infrastructure as a Service}
+
+% Services Amazon
+\newacronym[
+description={
+Elastic Compute Cloud. IaaS d'Amazon
+}]{ec2}{EC2}{Elastic Compute Cloud}
+
+\newacronym[
+description={
+Elastic Block Store. Service de stockage bloc d'Amazon pour son IaaS, EC2
+}]{ebs}{EBS}{Elastic Block Store}
+
+\newacronym[
+description={
+Simple Storage Service. Service de stockage objet d'Amazon. Offre une stockage virtuellement illimité dans le cloud
+}]{s3}{S3}{Simple Storage Service}
+
+% HP
+\newacronym[
+description={
+Integrated Lights-Out. Système de gestion \emph{out-of-band} d'HP pour ses serveurs
+}]{ilo}{iLO}{Integrated Lights-Out}
+
+% Protocoles
+\newacronym[
+description={
+Secure SHell. Protocole de communication sécurisé permettant le transfert de fichiers entre ordinateurs ou l'administration de serveurs à distance
+}]{ssh}{SSH}{Secure SHell}
+
+\newacronym[
+description={
+Lightweight Directory Access Protocol. Protocole de communication avec les annuaires respectant la norme du même nom. Généralement utilisé pour l'authentification des utilisateurs
+}]{ldap}{LDAP}{Lightweight Directory Access Protocol}
+
+\newacronym[
+description={
+Structured Query Language. Language permettant d'effectuer des requêtes sur des bases de données.
+}]{sql}{SQL}{Structured Query Language}
+
+\newacronym[
+description={
+Pluggable Authentication Modules. Système permettant d'intégrer différent schémas d'authentification à un système UNIX/Linux de façon transparente pour les applications
+}]{pam}{PAM}{Pluggable Authentication Modules}
+
+% Virtualisation
+\newacronym[
+description={
+Kernel-based Virtual Machine. Système de virtualisation libre intégré au noyau Linux
+}]{kvm}{KVM}{Kernel-based Virtual Machine}
+
+\newglossaryentry{xen}{
+name = {Xen},
+description={Logiciel de virtualisation libre}
+}
+
+% Divers
+\newacronym{api}{API}{Application Programming Interface}
 \newacronym{crm}{CRM}{Customer Relationship Management}
+\newacronym{kvmphys}{KVM}{Keyboard, Video, Mouse}
 
-\newacronym{ilo}{iLO}{Integrated Lights-Out}
-\newacronym{ssh}{SSH}{Secure SHell}
+
 
 \newglossaryentry{se}{
 name = {système d'exploitation},
@@ -50,34 +114,34 @@ description={Service de streaming de films sur Internet}
 
 \newglossaryentry{shazam}{
 name = {Shazam},
-description={...}
+description={Logiciel de reconnaissance musicale}
 }
 
 \newglossaryentry{windows}{
 name = {Windows},
-description={...}
+description={Système d'exploitation de Microsoft}
 }
 
 \newglossaryentry{windowsserver}{
 name = {Windows Server},
-description={...}
+description={Version serveur du système d'exploitation de Microsoft}
 }
 
 \newglossaryentry{gappengine}{
 name = {Google App Engine},
-description={...}
+description={PaaS de Google. Supporte le Python, le Java, et le Go}
 }
 
 \newglossaryentry{msazure}{
 name = {Microsoft Azure},
-description={...}
+description={PaaS de Microsoft}
 }
 
 
 
 \newglossaryentry{linux}{
 name = {Linux},
-description={...}
+description={Système d'exploitation libre basé sur le noyau éponyme}
 }
 
 \newglossaryentry{cloudcomputing}{
