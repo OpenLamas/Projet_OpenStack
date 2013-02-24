@@ -288,7 +288,7 @@ Dans cette section nous ne détaillerons que les configurations des systèmes d'
 \section{Déploiement sur un BladeCenter avec Solaris}
 
 Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement.
-Les nom sont donné dans le schémas global (Annexe \ref{sch:glob}).
+Les noms sont donné dans le schémas global (Annexe \ref{sch:glob}).
 Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
 \subsection{Installation des systèmes}
@@ -500,7 +500,7 @@ A partir de ce moment il est possible d'accéder à la machine en \gls{ssh}.
 \section{Installation de VMWare ESXi}
 
 \chapter{Diagrammes Réseau et schémas de principe}
-\section{Les differant services d'OpenStack}
+\section{Les différents services d'OpenStack}
 \noindent 1. L'utilisateur demande la création d'une ou plusieurs instance.\\
 2. OpenStack se charge de les crées et retourne les informations pour y accéder à l'utilisateur\\
 3. L'utilisateur peut utiliser son instance\\
@@ -508,7 +508,12 @@ L'utilisateur final ne peut accéder qu'au dashboard.
 \begin{center}
 \includegraphics[scale=0.8,angle=90]{images/principeOpenStack-crop.pdf}
 \end{center}
-\section{Schémas global} \label{sch:glob}
+\section{Schémas global serveur dédié}
+\section{Schémas global BladeCenter avec Solaris} \label{sch:glob}
+\begin{center}
+\includegraphics[scale=0.8,angle=90]{images/topoBladeSolaris-crop.pdf}
+\end{center}
+\section{Schémas global BladeCenter avec ESXi}
 
 \chapter{Scripts d'automatisation}
 \section{Solaris}
