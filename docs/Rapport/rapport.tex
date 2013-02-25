@@ -65,7 +65,7 @@ Un dimensionnement plus facile. La \gls{virtualisation} ajoutant une couche d’
 Faciliter les migrations site-à-site.
 Il est beaucoup plus facile de transférer un serveur d’un site physique à un autre en transférant une image virtuelle par le réseau plutôt qu’en transportant un serveur physique.\newline
 
-Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmi les plus connus on pourra citer \gls{vmwareesx} ou \gls{vbox}.
+Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmi les plus connus on pourra citer \gls{parallelsd} ou \gls{vbox}.
 
 \subsection{Le \gls{cloudcomputing}}
 \subsubsection{Vue d'ensemble}
@@ -77,7 +77,7 @@ On parle de \gls{cloudcomputing} et plus précisément\footnote{Voir \og IaaS, P
 L'utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de \gls{virtualisation}, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d'exploitation.
 
 \subsubsection{IaaS, PaaS, et autres *aaS}
-\glsreset{iaas}
+\glsreset{iaas} \glsreset{paas} \glsreset{saas}
 Dans le domaine du \gls{cloudcomputing} il existe plusieurs niveaux d’abstractions, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services.
 Leur nom prend la forme Sth- as a Service.
 
@@ -102,7 +102,7 @@ C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc dét
 Dans le cas des \gls{iaas} on distingue deux types de stockages dans le cloud : le \gls{stockagebloc}, et le \gls{stockageobjet}.
 Le premier est proche du matériel physique, limitant les couches d'abstractions, et offre des performances de haut-niveau.
 Il est exposé aux instances virtuelles comme un disque physique natif, ce qui permet au système d'exploitation de démarrer dessus.\newline
-Le \gls{stockageobjet}, au contraire, est dit \og haut-niveau \fg car il est accessible via une API et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés.
+Le \gls{stockageobjet}, au contraire, est dit \og haut-niveau \fg car il est accessible via une \gls{api} et l'utilisateur final ne se préoccupe pas de savoir où, ni comment, ses données seront stockés.
 Il est généralement plus lent que le \gls{stockagebloc} mais disponible en plus grande quantité et redondé, il est donc utilisé pour les données qui changent peu (images de machines virtuelles, sauvegardes, photos, ...).
 
 \subsubsection{Cloud public vs. \gls{cloudprive}}
@@ -114,28 +114,28 @@ Il en résulte alors un contrôle complet de l'infrastructure et une sécurité 
 \subsection{Panorama des IaaS}
 \subsubsection{\gls{amazon} EC2}
 \gls{amazon} a lancé \gls{ec2} durant l'été 2006.
-Il s'agit d'un Cloud Public, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une API et une interface Web, moyennant un paiement par heures d'utilisation.
+Il s'agit d'un \gls{cloudpublic}, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une \gls{api} et une interface Web, moyennant un paiement par heures d'utilisation.
 
-Les instances, allant de 1 à 244Go de RAM et de 1 coeur virtuel à 32 coeurs physiques, sont virtualisés grâce à l'hyperviseur Open Source Xen.
-\gls{ec2} supporte \gls{linux}, *BSD, Solaris, et \gls{windows} comme systèmes d'exploitations invités.
+Les instances, allant de 1 à 244Go de RAM et de 1 \gls{coeur} virtuel à 32 \glspl{coeur} physiques, sont virtualisés grâce à l'hyperviseur Open Source \gls{xen}.
+\gls{ec2} supporte \gls{linux}, \gls{bsd}, \gls{solaris}, et \gls{windows} comme \glspl{se} invités.
 
 Le \gls{stockagebloc} est fourni par \gls{amazon} \gls{ebs} tandis que le \gls{stockageobjet} est fourni par \gls{amazon} \gls{s3}.
-Chacun de ces service possède sa propre API, permettant de les utiliser indépendamment les uns des autres.
+Chacun de ces service possède sa propre \gls{api}, permettant de les utiliser indépendamment les uns des autres.
 
-A titre informatif, \gls{ec2} est utilisé, entre autres, par \gls{netflix}\footnote{En 2011, aux heures de pointes, Netflix était responsable de 29\% du trafic Internet en Amérique du Nord \cite{NetflixTrafic}. D'où la nécessité d'une infrastructure robuste et scalable.}, \gls{instagram}, et \gls{shazam}, tandis que la plupart des services de stockage en ligne grand public, comme \gls{dropbox}, utilisent \gls{s3}.
+A titre informatif, \gls{ec2} est utilisé, entre autres, par \gls{netflix}\footnote{En 2011, aux heures de pointes, \gls{netflix} était responsable de 29\% du trafic Internet en Amérique du Nord \cite{NetflixTrafic}. D'où la nécessité d'une infrastructure robuste et scalable.}, \gls{instagram}, et \gls{shazam}, tandis que la plupart des services de stockage en ligne grand public, comme \gls{dropbox}, utilisent \gls{s3}.
 
 Il faut noter que l'\gls{iaas} d'\gls{amazon} est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
 
 \subsubsection{OpenStack}
 
 \subsubsection{CloudStack}
-CloudStack est un système de création d'IaaS originellement développé par Cloud.com puis racheté par Citrix à l'été 2011.
-Il appartient désormais à la fondation Apache et est donc Open Source sous la licence correspondante.\newline
+\gls{cloudstack} est un système de création d'\gls{iaas} originellement développé par \gls{cloudcom} puis racheté par \gls{citrix} à l'été 2011.
+Il appartient désormais à la \gls{fondationapache} et est donc \gls{opensource} sous la licence correspondante\footnote{La \gls{licenceapache}}.\newline
 
 
 \section{Rappel du cahier des charges}
 \subsubsection{Objectifs}
-Dans un premier temps nous voulions mettre en place un \gls{cloudprive} sous la forme d'une IaaS avec OpenStack.
+Dans un premier temps nous voulions mettre en place un \gls{cloudprive} sous la forme d'une \gls{iaas} avec \gls{openstack}.
 L'objectif était de permettre à des utilisateurs (des élèves par exemple) de créer des machines virtuelles très rapidement même sur des machines disposant de peu de ressources.\\
 
 Ensuite nous avons voulu mettre en place une solution pour automatiser la configuration des instances.
@@ -144,7 +144,7 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 \subsubsection{Fonctionnalités à implémenter}
 \begin{itemize}
 \item Un noeud de \gls{virtualisation} avec \gls{kvm}
-\item Authentification \& Autorisations avec un LDAP
+\item Authentification \& Autorisations avec un serveur \gls{ldap}
 \item Interface simple d'utilisation pour la création d'images
 \item Personnalisation des instances au lancement suivant l'utilisateur (montage des disques, ...)
 \end{itemize}
@@ -153,43 +153,46 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 \begin{itemize}
 \item Haute-disponibilité, tolérance de pannes
 \item Monitoring des machines physiques
-\item Nœuds de \gls{virtualisation} supplémentaires avec Xen, LXC, voir Hyper-V
+\item Nœuds de \gls{virtualisation} supplémentaires avec \gls{xen}, \gls{lxc}, voir \gls{hyperv}
 \item Migration automatique des VMs après la chute d'un noeud
 \end{itemize}
 
 \section{Démarche}
-Initialement notre projet devait comporter deux grandes étapes: la mise en place d'une installation de développement, et le déploiement sur un BladeCenter. Après cette dernière étape et discussion avec notre tuteur, nous avons décidé de modifier l'installation que nous avions réalisé sur le BladeCenter afin de maximiser les possibilités de virtualisation et de simplifier l'administration.\newline
+Initialement notre projet devait comporter deux grandes étapes: la mise en place d'une installation de développement, et le déploiement sur un \gls{bladecenter}. Après cette dernière étape et discussion avec notre tuteur, nous avons décidé de modifier l'installation que nous avions réalisé sur le \gls{bladecenter} afin de maximiser les possibilités de \gls{virtualisation} et de simplifier l'administration.\newline
 Au final ce sont donc ces trois grandes étapes que nous détaillons dans le chapitre \ref{cha:miseenplace}.
 
 De plus la majorité de notre travail a été effectué à deux en simultané DETAILLER CA-------------
+
+Dans la suite de ce rapport nous commencerons par détailler le matériel et les logiciels utilisés, puis nous verrons comment nous les avons assemblés afin d'obtenir notre \gls{cloudprive}.
 
 
 \chapter{Matériel}
 
 \section{Serveur dédié OVH}
 Nous avons réalisé la première partie de notre projet sur un serveur dédié Kimsufi d'OVH.
-Il était équipé d'un processeur 64 bits à 3,4Ghz avec les extensions VT-x (Intel Core i3), de 8Go de RAM, et de 2x1To de stockage en RAID 0.
+Il était équipé d'un processeur 64 bits à 3,4Ghz avec les extensions VT-x (Intel Core i3), de 8Go de RAM, et de 2x1To de stockage en \gls{raid0}.
 
-Il s'agit de la configuration minimale pour faire fonctionner une installation de développement d'OpenStack.
+Il s'agit de la configuration minimale pour faire fonctionner une installation de développement d'\gls{openstack}.
 
 \section{BladeCenter HP}
-Une fois notre projet fonctionnel sur le serveur dédié nous avons déployé une nouvelle installation d'OpenStack sur quatre lames du BladeCenter dont dispose notre département au sein de l'IUT.
+Une fois notre projet fonctionnel sur le serveur dédié nous avons déployé une nouvelle installation d'\gls{openstack} sur quatre lames du \gls{bladecenter} dont dispose notre département au sein de l'IUT.
 
-La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du \gls{cloudcomputing}\footnote{Toutefois, bien que le BladeCenter possède une puissance importante, ses composants sont assez anciens et ne supportent pas les technologies de \gls{virtualisation} matérielle (VT-x, VT-d, AMD-V), ce qui limite le nombre de systèmes invités possibles.}.
+La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du \gls{cloudcomputing}\footnote{Toutefois, bien que le \gls{bladecenter} possède une puissance importante, ses composants sont assez anciens et ne supportent pas les technologies de \gls{virtualisation} matérielle (VT-x, VT-d, AMD-V), ce qui limite le nombre de systèmes invités possibles.}.
 
 \subsection{Configuration matérielle}
 Nous disposions de trois lames équipés chacune de deux processeurs AMD Opteron 250 (2,4GHz / 64 bits) et de 4Go de RAM, ainsi que d'une lame équipé de deux Opteron 275 (2,2GHz / 64 bits) et de 8Go de RAM.\newline
-Toutes les lames possèdent une carte Fibre Channel (FC) QLogic Q2312 pour le stockage.
+Toutes les lames possèdent deux cartes \gls{fc} QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
-Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un SAN HP StorageWorks relié en FC.
-Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur FC.
+Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un \gls{san} HP StorageWorks relié en \gls{fc}.
+Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur \gls{fc}.
+
+PARLER DU MULTIPATH----------------
 
 \subsection{Réseau}
-Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin d'obtenir une bande passante de 2Gbit/s entre elles.
-Sauf sur une lame, faisant office de Routeur/NAT, connecté à 1Gbit/s au réseau de l'IUT et à 1Gbit/s aux autres lames.
+Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de faire du load balancing et du failover. Celà présente deux avantages: dans le meilleur cas on obtient une bande passante totale de 2Gbit/s, dans le pire cas (chute d'un lien) le trafic continue de fonctionner (à 1Gbit/s).
 
-La séparation des réseaux est permise par l'ajout de tag sur des trames Ethernet avec un numéro de VLAN (encapsulation 802.1Q).
+La séparation des réseaux est permise par l'ajout de tag sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q).
 
 
 \chapter{Systèmes d'exploitations hôtes}
@@ -204,14 +207,14 @@ La séparation des réseaux est permise par l'ajout de tag sur des trames Ethern
 
 \chapter{Logiciels}
 \section{OpenStack}
-Parmi ces différents solutions nous avons choisi d'utiliser OpenStack car c’est un projet Open source (le code source est disponibles gratuitement sur Internet) très actif.
+Parmi ces différents solutions nous avons choisi d'utiliser \gls{openstack} car c’est un projet \gls{opensource} très actif.
 Il peut être considérée comme mature pour une utilisation en production car il est utilisé entre autre par Rackspace (un très gros hébergeur et fournisseur de solutions de \gls{cloudcomputing} Américain), la NASA, et Intel.
 
 \subsection{La fondation OpenStack}
 
 
 \subsection{Les services}
-OpenStack est constitué de différents services gérant chacun une composante spécifique de l'\gls{iaas}.
+\gls{openstack} est constitué de différents services gérant chacun une composante spécifique de l'\gls{iaas}.
 \subsubsection{Keystone}
 Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.\newline
 Il expose une \gls{api} HTTP(S) sur deux endpoints, un public sur le port 5000, permettant l'authentification des utilisateurs, et un autre dit privé sur le port 35357 permettant les tâches administratives tels que la gestion des utilisateurs et des terminaisons de services.
@@ -278,33 +281,40 @@ Le marché de la supervision est à la fois occupé par de grand constructeur co
 Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
 Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
 
+\section{Haute disponibilité}
+\subsection{Heartbeat}
+
+\subsection{Pacemaker}
+
 \chapter{Mise en place} \label{cha:miseenplace}
 \section{Installation de développement sur un serveur dédié}
-Nous avons réalisé une première installation d'OpenStack et des services associés sur un serveur dédié afin d'étudier le fonctionnement global.
-Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'OpenStack qui sera abordé dans la section suivante sur le BladeCenter.
+Nous avons réalisé une première installation d'\gls{openstack} et des services associés sur un serveur dédié afin d'étudier le fonctionnement global.
+Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'\gls{openstack} qui sera abordé dans la section suivante sur le \gls{bladecenter}.
 
 \subsection{Environnement de test}
+Afin de simuler plusieurs serveurs physiques nous avons installés \gls{proxmox} sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et \gls{openvz} à une interface web afin de permettre la création rapide de machines virtuelles.
 
-\section{Déploiement sur un BladeCenter avec Solaris}
+A l'aide de \gls{proxmox} nous avons donc créés deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir installé Ubuntu Server 
 
-Par souci de simplicité, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement.
-Les noms sont donné dans le schémas global (Annexe \ref{sch:glob}).
+\subsection{Conclusion}
+
+\section{Déploiement sur un BladeCenter avec Solaris} \label{sec:depsolaris}
+
+Par souci de clarté, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement.
+Les noms sont donnés dans le schéma global (Annexe \ref{sch:glob}).
 Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
-\subsection{Installation des systèmes}
+\subsection{Préliminaires}
 Nous avons choisi d'installer Solaris 11 sur Fuji, Iyo, et Tenjin, et CentOS 6 sur Raijin.
 Pour plus d'informations sur ce choix voir \ref{sec:compatblade}.
 
-\subsubsection{Démarrage de l'installateur}
-L'installation des systèmes est classique à l'exception du multipath qui requiert un paramètre de boot spécial sur CentOS afin d'être détecté.
-Au prompt boot de l'installateur il faut taper : linux mpath.\newline
-Sur Solaris il n'y a rien à faire de spécial.
+L'installation des systèmes est détaillé dans les annexes \ref{sec:installcentos} et \ref{sec:installsolaris}.
 
 \subsubsection{Configuration du stockage}
 Parler du multipath etc..
 
 \subsubsection{Configuration du réseau}
-Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un Vlan dédié et non-relié à l'extérieur.
+Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un VLAN dédié et non-relié à l'extérieur.
 Fuji, quand à elle, a une interface sur le réseau extérieur (réseau de IUT avec accès à internet) et l'autre dans le LAN inter-lames.
 De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
 
@@ -343,7 +353,29 @@ Il est aussi possible de faire des tunnel \gls{ssh} (voir \ref{tunnelingSsh})
 
 \subsubsection{Installation du service d'images}
 
-\section{Déploiement sur un BladeCenter avec ...}
+\subsection{Conclusion}
+S'agissant de notre premier contact avec un BladeCenter un certains nombre de concept étaient nouveaux pour nous (\gls{fc}, \gls{san}, multipath) et nous manquions de recul sur le dimensionnement de notre installation.
+C'est pourquoi, après discussion avec notre tuteur, nous avons décidé de reprendre l'installation de manière beaucoup plus propre.
+
+En effet bien que Solaris fonctionne parfaitement sur les lames son administration diffère beaucoup des systèmes Linux et la pérennité de l'installation n'est donc pas garantie.\newline
+De plus notre configuration réseau nous obligeait à faire du NAT pour accéder aux machines virtuelles et ce n'est pas une configuration idéale, surtout dans le cas où les utilisateurs ont besoins d'accéder plusieurs ports sur une machine virtuelle.
+
+
+\section{Déploiement sur un BladeCenter avec VMware ESXi}
+Comme dans la section \ref{sec:depsolaris} nous avons donné des noms (hostname) aux lames afin de les différencier plus facilement que par leur IP.
+Ces noms sont indiqués ...-----------
+
+Cette-fois nous avons installé VMware ESXi sur toutes les lames puis nous avons virtualisé OpenStack par-dessus.
+Ceci présente plusieurs avantages: ....
+
+Parler du réseau etc.....
+
+\subsection{Préliminaires}
+L'installation de VMware ESXi est détaillé dans l'annexe \ref{sec:installesxi}.
+
+
+
+\subsection{Conclusion}
 
 
 \chapter{Problèmes rencontrés}
@@ -361,11 +393,12 @@ Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement
 \section{Versions de librairies incompatible sur Solaris}
 \label{sec:libsolaris}
 
-\chapter{Conclusion}
+\chapter{Conclusion finale}
+
 Parler des versions pas stables (master) d'OpenStack
 
 \appendix
-\chapter{Installation des systèmes d'exploitations sur les lames}
+\chapter{Installation des systèmes d'exploitations sur les lames} \label{sec:installos}
 Les lames du BladeCenter ne disposant pas de lecteur optique et l'accès physique n'étant pas toujours faisable, il est possible de réaliser l'installation des systèmes d'exploitation à distance.
 Nous détaillerons ici les fonctionnalités intégrés aux lames permettant de les gérer à distance, ainsi que l'installation des différents systèmes que nous avons utilisés.\newline
 Note: les installations détaillés sont spécifiques au BladeCenter et correspondent à la configuration minimum pour faire fonctionner OpenStack. Des documentations plus exhaustives sont disponibles sur les sites respectifs des OS.
@@ -386,7 +419,6 @@ Après de multiples essais nous avons conclus que les systèmes suivants sont st
 \item Solaris 11
 \item CentOS 6.3 (uniquement sur les lames à base d'Opteron 275)
 \item VMware ESXi 4.1 (dernière version installable, les versions suivantes requièrent les extensions processeurs LAHF et SAHF)
-\item Xen Cloud Platform 1.6
 \end{itemize}
 
 \section{Integrated Lights-Out}
@@ -433,7 +465,7 @@ Peut éteindre les autres serveurs présents dans le même rack.
 
 \subsubsection{Console distante}
 
-\section{Installation de CentOS}
+\section{Installation de CentOS} \label{sec:installcentos}
 \subsection{Média d'installation} \label{sec:installmediacentos}
 On réalisera ici une installation par le réseau, plus rapide et permettant d'obtenir les dernières versions des paquets.
 Les images ISOs peuvent être obtenus de plusieurs miroirs\footnote{La liste à jour de tout les mirroirs de CentOS est disponible à l'adresse http://www.centos.org/modules/tinycontent/index.php?id=30} mais on préférera celui de l'IN2P3, connecté directement au réseau RENATER et qui offre donc d'excellents débits (de l'ordre de la dizaine de Mo/s).\newline
@@ -493,11 +525,9 @@ Après le partitionnement l'installation se déroule toute seule et l'installate
 Il faut bien penser à déconnecter le lecteur virtuel dans iLO afin d'éviter de redémarrer sur l'installation.\newline
 A partir de ce moment il est possible d'accéder à la machine en \gls{ssh}.
 
-\section{Installation de Solaris}
+\section{Installation de Solaris} \label{sec:installsolaris}
 
-\section{Installation de Xen Cloud Platform}
-
-\section{Installation de VMWare ESXi}
+\section{Installation de VMWare ESXi} \label{sec:installesxi}
 
 \chapter{Diagrammes Réseau et schémas de principe}
 \section{Les différents services d'OpenStack}
