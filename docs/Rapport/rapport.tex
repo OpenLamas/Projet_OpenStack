@@ -294,9 +294,12 @@ Dans cette section nous ne détaillerons que les configurations des systèmes d'
 \subsection{Environnement de test}
 Afin de simuler plusieurs serveurs physiques nous avons installés \gls{proxmox} sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et \gls{openvz} à une interface web afin de permettre la création rapide de machines virtuelles.
 
-A l'aide de \gls{proxmox} nous avons donc créés deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir installé Ubuntu Server 
+A l'aide de \gls{proxmox} nous avons donc créés deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir effectués une installation minimale d'Ubuntu Server 12.04 LTS sur les deux machines nous avons installés \gls{openstack} conformément aux instructions du manuel .......
 
 \subsection{Conclusion}
+Cette installation nous as permis de commencer à travailler rapidement car il s'agissait d'une configuration standard et les préliminaires à l'installation d'\gls{openstack} (installation des systèmes d'exploitations, configuration du réseau) nous ont pris très peu de temps.
+Elle était donc idéale à des fins d'étude et de développement.\newline
+Cependant il ne s'agit pas d'une configuration utilisable en production car beaucoup trop lente du fait du peu de ressources disponibles.
 
 \section{Déploiement sur un BladeCenter avec Solaris} \label{sec:depsolaris}
 
@@ -314,7 +317,7 @@ L'installation des systèmes est détaillé dans les annexes \ref{sec:installcen
 Parler du multipath etc..
 
 \subsubsection{Configuration du réseau}
-Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interface 1Gbit/s agrégé) dans un VLAN dédié et non-relié à l'extérieur.
+Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interfaces à 1Gbit/s agrégés comme expliqué dans cet article \cite{SolarisLA}) dans un VLAN dédié et non-relié à l'extérieur.
 Fuji, quand à elle, a une interface sur le réseau extérieur (réseau de IUT avec accès à internet) et l'autre dans le LAN inter-lames.
 De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
 
@@ -394,8 +397,14 @@ Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement
 \label{sec:libsolaris}
 
 \chapter{Conclusion finale}
+La mise en place d'une infrastructure de \gls{cloudcomputing} demande de nombreuses connaissances dans le domaine de l'informatique et des réseaux.
+Nous avons appris énormément durant la réalisation de ce projet mais nous avons clairement manquer de recul dans nos choix et avec de l'expérience nous aurions pu être plus efficaces.\newline
+Cependant nous avons pu implémenter toutes les fonctionnalités du cahier des charges y compris les fonctionnalités supplémentaires tels que la haute disponibilité et le monitoring, à l'exception de l'authentification avec le LDAP car non réalisable avec le serveur de l'Université de Savoie\footnote{Keystone requiert des droits en écriture et une structure de l'arbre particulière, ce qui n'est évidemment pas possible sur le LDAP de l'Université.}.
 
-Parler des versions pas stables (master) d'OpenStack
+Concernant \gls{openstack} il s'agit d'un projet au potentiel énorme de part sa flexibilité (services indépendants), sa portabilité (Python), et sa communauté (\emph{mailing lists} entre autres) mais qui est encore en développement actif et dont la compatibilité n'est pas assurée d'une version à l'autre.
+
+
+
 
 \appendix
 \chapter{Installation des systèmes d'exploitations sur les lames} \label{sec:installos}
@@ -502,7 +511,7 @@ Pour IPv4 on préferera configurer l'adresse en statique.
 Bien que début 2013 l'IPv6 ne soit pas encore routé sur le réseau de l'IUT son support peut-être laissé activé en prévision du futur.
 Dans ce cas DHCPV6 OU RA ?\newline
 Si l'on souhaite aggréger plusieurs cartes réseaux, on n'en configurera qu'une seule pour l'instant et l'aggrégation sera réalisé une fois le système installé.\newline
-Dans le dialogue demandant l'URL contenant l'image d'installation on rentrera celle indiquée dans la section \ref{sec:installmediacentos}
+Dans le dialogue demandant l'URL contenant l'image d'installation on rentrera celle indiquée dans la section \ref{sec:installmediacentos}.
 
 \subsubsection{VNC}
 A partir de la version 5 de CentOS l'installateur propose d'effectuer l'installation via VNC afin de proposer un partitionnement personnaliser ou de modifier les paquets à installer.
