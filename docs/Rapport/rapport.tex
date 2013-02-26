@@ -10,6 +10,9 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[backend=biber]{biblatex}
 \usepackage{glossaries}
+\usepackage{alltt}
+\usepackage{soul}
+\usepackage{color}
 
 \addbibresource{rapport.bib}
 \makeglossaries
@@ -196,7 +199,7 @@ La séparation des réseaux est permise par l'ajout de tag sur des trames Ethern
 
 
 \chapter{Systèmes d'exploitations hôtes}
-\section{Ubuntu Server}
+\section{Ubuntu Server} \label{cha:ubuntu}
 
 \section{CentOS}
 
@@ -248,8 +251,24 @@ Il utilise Keystone pour l'authentification et peut, en plus du système de fich
 \subsubsection{Dashboard}
 C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles.
 
-\section{Puppet}
-Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
+\section{Automatisation}
+
+Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre qui permettent d'automatiser ces tâches.
+
+\subsubsection{Juju}
+Canonical, la société qui édite Ubuntu (voir \ref{cha:ubuntu}) distribue, sous licence libre, Juju, un service d'orchestration
+\footnote{Un service d'orchestration est un programme qui permet d'automatiser la coordination et l'organisation de systèmes complexe.}, 
+écrit en python, qui permet de configurer automatiquement des services
+\footnote{Dans juju, un service est appelé un "charme". Un charme peut aussi bien être un programme comme Apache ou Varnish ou un service web comme MediaWiki} 
+et de créer des relations entre eux. 
+Juju rajoute une couche d'abstraction entre la machine et le service. Il suffit de définir des relations entre les charmes et ils se configurent automatiquement. 
+Par exemple, il suffit d'établir une relation entre un logiciel de load balancing (comme Varnish) et notre service (MediaWiki par example) pour que la charge soit répartie sur les différents serveur, quelque soit le nombre d'instance du service (ici MediaWiki).
+Juju s'installe sur l'ordinateur de l'utilisateur et s'utilise en ligne de commande mais il existe une interface web (en beta à l'heure actuel) qui s'installe sur un serveur distant.
+Juju supporte la plus part des Iaas public du marché (Hp, Amazon et Rackspace) et aussi les Iaas privé qui utilise OpenStack.
+L'annexe \ref{auto:juju} explique comment déployer plusieurs instances de MediaWiki avec quelque dépendance (MySql et HAProxy)
+
+\subsubsection{Puppet}
+D'autre part, il y des solutions comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
 Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
 
 Puppet utilise des recettes pour configurer les machines.
@@ -576,6 +595,84 @@ L'utilisateur final ne peut accéder qu'au dashboard.
 \subsection{nataddrule.sh}
 %\begin{minted}[frame=single,fontfamily=courier,linenos,mathescape]{bash}
 %\end{minted}
+\section{Exemple de configuration de MediaWiki avec Juju} \label{auto:juju}
+
+Notre but est de déployer MediaWiki et d'y ajouter quelque services de haute disponibilité. Nous allons donc créer deux serveur web avec MediaWiki. Ils seront reliés à la même base MySql qui sera redondé avec une autre base esclave. La charge entre les deux serveurs web sera répartie par HAProxy. Le schéma ci-dessous présente la configuration final vu depuis juju-gui, l'interface web de Juju. Le logo vert en forme de globe représente le monde extérieur.
+\begin{center}
+\includegraphics[scale=0.75]{images/butJuju.png}
+\end{center}
+
+On commence par installer Juju et ses dépendances (Juju est disponible dans les dépôts officiels d'Ubuntu mais on préfère utiliser la version issu de sont ppa\footnote{Personal Package Archives. Ce sont des dépôts non-officiel mise à disposition des développeurs de logiciel libre par la plateforme LaunchPad} qui est plus à jour)
+\begin{verbatim}
+sudo apt-get -y install python-software-properties
+sudo add-apt-repository ppa:juju/pkgs
+sudo apt-get update && sudo apt-get -y install juju charm-tools
+\end{verbatim}
+
+On initialise ensuite Juju, on renseigne les identifiants de connections au Cloud dans {\raise.17ex\hbox{$\scriptstyle\sim$}}/.juju/environments.yaml puis on relance le bootstap.\footnote{Voir https://juju.ubuntu.com/get-started/openstack/ des explication sur environments.yaml}
+\begin{alltt}
+juju bootstrap
+# Edition de environments.yaml
+juju bootstap
+\end{alltt}
+
+On installe maintenant la base MySql maitre et MediaWiki. On ajoute ensuite une relation entre eux
+\begin{verbatim}
+juju deploy mysql
+juju deploy mediawiki
+juju add-relation mediawiki:db mysql
+\end{verbatim}
+
+On ajoute une nouvelle base MySql (qu'on appel mysql-slave) et on la lie avec la précédente
+\begin{verbatim}
+juju deploy mysql mysql-slave
+juju add-relation mysql:master mysql-slave:slave
+\end{verbatim}
+
+On crée une deuxième instance de notre MediaWiki
+\begin{verbatim}
+juju add-unit mediawiki
+\end{verbatim}
+
+
+Et on ajoute un proxy pour répartir la charge entre les deux MediaWiki
+\begin{verbatim}
+juju deploy haproxy
+juju add-relation haproxy mediawiki
+\end{verbatim}
+
+Toute notre infrastructure est crée mais n'est pas encore accessible depuis internet. 
+Par défaut les machines ne peuvent pas communiquer avec l'extérieur. Il faut donc rendre le proxy accessible
+Il suffit ensuite d'attendre que toutes les machines démarrent et que les ports s'ouvre
+\begin{verbatim}
+juju expose haproxy
+juju status
+\end{verbatim}
+
+La dernière commande affiche un compte-rendu de toutes les machines créées et de tous les services installé. Il faut localiser la partie de HAProxy et regarder les ligne open-ports et public-address. Dans l'exemple ci-dessous, on voit que le port 80 est ouvert et qu'on peut accéder à la machine via l'ip 15.185.120.12. Si ces information n'ont pas encore apparu, c'est que la machine n'a pas encore fini d'être configuré. 
+\begin{alltt}
+[...]
+services:
+  haproxy:
+    charm: cs:precise/haproxy-16
+    exposed: true
+    relations:
+      reverseproxy:
+      - mediawiki
+    units:
+      haproxy/0:
+        agent-state: started
+        machine: 5
+        open-ports:
+        - 80/tcp
+        \hl{public-address: 15.185.120.126}
+[...]
+\end{alltt}
+
+Voilà, notre réseau est terminé et fonctionnel. Si la charge augmente on peut ajouter des serveur web, des bases mysql esclave, voir des HAProxy avec la commande \emph{juju add-unit}\\
+On peut aussi modifier la configuration un charmes. Par example, pour modifier le nom de notre MediaWiki, il suffit de faire \emph{juju set mediawiki name='Lamas Wiki!'}\\
+La liste complète des charmes et de leurs configuration est disponible à l'adresse http://jujucharms.com/charms.
+On peut aussi créé ces propres charmes. Il est possible de les développer dans de nombreux langages tel que le python, le ruby ou même avec puppet.
 
 \chapter{Fichiers de configuration OpenStack}
 \section{Keystone}
