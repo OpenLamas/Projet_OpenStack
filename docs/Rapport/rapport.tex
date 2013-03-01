@@ -172,7 +172,7 @@ Au final ce sont donc ces trois grandes étapes que nous détaillons dans le cha
 
 De plus la majorité de notre travail a été effectué à deux.
 Notre sujet étant très pointu et compliqué. 
-Nous avons donc préféré être à deux sur chaque tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant des différentes installations.
+Nous avons donc préféré être à deux sur chaque tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant les différentes installations.
 
 Dans la suite de ce rapport nous commencerons par détailler le matériel et les logiciels utilisés, puis nous verrons comment nous les avons assemblés afin d'obtenir notre \gls{cloudprive}.
 
@@ -289,6 +289,13 @@ Nous utiliserons Puppet car elle possède une communauté très active et la syn
 Puppet utilise des recettes pour configurer les machines.
 Nous avons choisi de les stocker sur un serveur git afin de mieux gérer les différentes révisions et l'édition distante.
 
+\section{Haute disponibilité}
+\subsection{GlusterFS}
+
+\subsection{Heartbeat}
+
+\subsection{Pacemaker}
+
 \section{Reverse Proxy}
 Nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifié).
 De cette manière, la zone qui abrite le dashboard n'est connecté qu'au LAN interne des lames.
@@ -315,10 +322,7 @@ Le marché de la supervision est à la fois occupé par de grand constructeur co
 Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
 Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
 
-\section{Haute disponibilité}
-\subsection{Heartbeat}
 
-\subsection{Pacemaker}
 
 \chapter{Mise en place} \label{cha:miseenplace}
 \section{Installation de développement sur un serveur dédié}
@@ -400,12 +404,12 @@ De plus notre configuration réseau nous obligeait à faire du NAT pour accéder
 
 \section{Déploiement sur un BladeCenter avec CentOS}
 Comme dans la section \ref{sec:depsolaris} nous avons donné des noms (hostname) aux lames afin de les différencier plus facilement que par leur IP.
-Ces noms sont indiqués ...-----------
+Ces noms sont détaillés dans le tableau ci-dessous ainsi que DANS LE SCHEMA ??????
 
-Cette-fois nous avons installé CentOS sur toutes les lames puis nous avons...
-Ceci présente plusieurs avantages: ....
+Nous avons cette fois ci voulu réaliser une installation permettant de maximiser les capacités de virtualisation et de résister à la chute éventuel d'un noeud.
+Pour cela nous nous sommes basés sur ce guide https://github.com/beloglazov/openstack-centos-kvm-glusterfs que nous avons adapté et auquel nous avons rajouter plusieurs fonctionnalités. LESQUELS????
 
-Parler du réseau etc.....
+PARLER DU RESEAU / CLOUD CONTROLLER / GlusterFS /...
 
 \subsection{Préliminaires}
 \subsubsection{Installation des \gls{se}}
@@ -420,6 +424,8 @@ sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8
 
 \subsection{Installation du Cloud Controller}
 \subsubsection{Installation du service d'identité}
+
+
 
 \subsubsection{Installation du services d'images}
 
