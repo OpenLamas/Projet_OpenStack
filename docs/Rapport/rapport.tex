@@ -99,7 +99,7 @@ Enfin vient l'\gls{iaas}, qui est le plus bas niveau d'abstraction.
 Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique.
 Il gère donc la configuration des systèmes d'exploitations et des logiciels qui s'y exécutent.
 
-C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc détailler, dans la section suivante, les différentes solutions existantes avant de voir celle que nous avons retenu.
+C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc détailler, dans la section suivante (\ref{sec:panorama_iaas}), les différentes solutions existantes avant de voir celle que nous avons retenu.
 
 \subsubsection{Le stockage dans le cloud}
 Dans le cas des \gls{iaas} on distingue deux types de stockages dans le cloud : le \gls{stockagebloc}, et le \gls{stockageobjet}.
@@ -114,7 +114,7 @@ Dans le premier cas plusieurs clients se partagent l'infrastructure, tandis que 
 Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un \gls{cloudprive} pourra être installé dans l'entreprise et géré par elle-même.
 Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
 
-\subsection{Panorama des IaaS}
+\subsection{Panorama des IaaS} \label{sec:panorama_iaas}
 \subsubsection{\gls{amazon} EC2}
 \gls{amazon} a lancé \gls{ec2} durant l'été 2006.
 Il s'agit d'un \gls{cloudpublic}, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une \gls{api} et une interface Web, moyennant un paiement par heures d'utilisation.
@@ -129,12 +129,18 @@ A titre informatif, \gls{ec2} est utilisé, entre autres, par \gls{netflix}\foot
 
 Il faut noter que l'\gls{iaas} d'\gls{amazon} est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
 
-\subsubsection{OpenStack}
+\subsubsection{OpenNebula}
 
 \subsubsection{CloudStack}
 \gls{cloudstack} est un système de création d'\gls{iaas} originellement développé par \gls{cloudcom} puis racheté par \gls{citrix} à l'été 2011.
 Il appartient désormais à la \gls{fondationapache} et est donc \gls{opensource} sous la licence correspondante\footnote{La \gls{licenceapache}}.\newline
+CloudStack est développé en \gls{java}.
 
+\subsubsection{OpenStack}
+\gls{openstack} a été lancé en Juillet 2010 par Rackspace et la NASA.
+Son but est de proposer un outil gratuit et libre de création d'\gls{iaas}.
+Le code source du projet (du \gls{python}) est disponible sur GitHub\footnote{https://github.com/openstack} et Launchpad\footnote{https://launchpad.net/openstack} sous licence Apache 2.0.\newline
+Outre ses deux fondateurs OpenStack est à l'heure actuelle principalement utilisé par HP, AT\&T, Intel, et Canonical.
 
 \section{Rappel du cahier des charges}
 \subsubsection{Objectifs}
@@ -210,10 +216,17 @@ La séparation des réseaux est permise par l'ajout de tag sur des trames Ethern
 
 \chapter{Logiciels}
 \section{OpenStack}
-Parmi ces différents solutions nous avons choisi d'utiliser \gls{openstack} car c’est un projet \gls{opensource} très actif.
-Il peut être considérée comme mature pour une utilisation en production car il est utilisé entre autre par Rackspace (un très gros hébergeur et fournisseur de solutions de \gls{cloudcomputing} Américain), la NASA, et Intel.
+Nous avons choisi OpenStack car des solutions d'IaaS présentés précédemment dans la section \ref{sec:panorama_iaas} c'est celle qui est soutenu par le plus d'entreprise, et, comme en témoigne le volume des recherches Google, elle possède une communauté très développé sur Internet.
+\begin{figure}[h!]
+\centering
+\includegraphics[resolution=140]{images/recherches_iaas.png}
+\caption{Evolution du volume des recherches Google pour les principales IaaS}
+\end{figure}
+
 
 \subsection{La fondation OpenStack}
+
+\subsection{Les différentes versions d'OpenStack}
 
 
 \subsection{Les services}
@@ -313,7 +326,7 @@ Dans cette section nous ne détaillerons que les configurations des systèmes d'
 \subsection{Environnement de test}
 Afin de simuler plusieurs serveurs physiques nous avons installés \gls{proxmox} sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et \gls{openvz} à une interface web afin de permettre la création rapide de machines virtuelles.
 
-A l'aide de \gls{proxmox} nous avons donc créés deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir effectués une installation minimale d'Ubuntu Server 12.04 LTS sur les deux machines nous avons installés \gls{openstack} conformément aux instructions du manuel .......
+A l'aide de \gls{proxmox} nous avons donc créés deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir effectués une installation minimale d'Ubuntu Server 12.04 LTS sur les deux machines nous avons installés \gls{openstack} conformément aux instructions du manuel \og OpenStack Install and Deploy Manual - Ubuntu \fg \cite{OSFolsomInstallUbuntu1210}.
 
 \subsection{Conclusion}
 Cette installation nous as permis de commencer à travailler rapidement car il s'agissait d'une configuration standard et les préliminaires à l'installation d'\gls{openstack} (installation des systèmes d'exploitations, configuration du réseau) nous ont pris très peu de temps.
@@ -383,17 +396,32 @@ En effet bien que Solaris fonctionne parfaitement sur les lames son administrati
 De plus notre configuration réseau nous obligeait à faire du NAT pour accéder aux machines virtuelles et ce n'est pas une configuration idéale, surtout dans le cas où les utilisateurs ont besoins d'accéder plusieurs ports sur une machine virtuelle.
 
 
-\section{Déploiement sur un BladeCenter avec VMware ESXi}
+\section{Déploiement sur un BladeCenter avec CentOS}
 Comme dans la section \ref{sec:depsolaris} nous avons donné des noms (hostname) aux lames afin de les différencier plus facilement que par leur IP.
 Ces noms sont indiqués ...-----------
 
-Cette-fois nous avons installé VMware ESXi sur toutes les lames puis nous avons virtualisé OpenStack par-dessus.
+Cette-fois nous avons installé CentOS sur toutes les lames puis nous avons...
 Ceci présente plusieurs avantages: ....
 
 Parler du réseau etc.....
 
 \subsection{Préliminaires}
-L'installation de VMware ESXi est détaillé dans l'annexe \ref{sec:installesxi}.
+\subsubsection{Installation des \gls{se}}
+Nous avons choisi d'installer CentOS 6.3 x64 sur les quatres lames. Le procédure d'installation est décrite dans l'annexe \ref{sec:installcentos}.\newline
+Il s'agit d'une installation sans Internet car cette fois-ci les liens sont en mode trunk et nous tagguons nous-même les VLANs.
+
+\subsubsection{Configuration des dépôts YUM}
+Les dépots de paquets par défaut de CentOS ne contiennent pas OpenStack. Il faut donc ajouter le dépot EPEL\footnote{C'EST QUOI CA????,}, pour celà:
+\begin{verbatim}
+sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+\end{verbatim}
+
+\subsection{Installation du Cloud Controller}
+\subsubsection{Installation du service d'identité}
+
+\subsubsection{Installation du services d'images}
+
+\subsection{Installation des noeuds de Compute}
 
 
 
@@ -428,8 +456,25 @@ Concernant \gls{openstack} il s'agit d'un projet au potentiel énorme de part sa
 \appendix
 \chapter{Utilisation du \gls{cloudprive}}
 \section{Généralités}
+\subsection{Dashboard}
+Le dashboard d'OpenStack qui offre une interface conviviale pour utiliser et administrer le cloud se trouve à l'adresse:
+\begin{verbatim}
+http://10.102.75.100/
+\end{verbatim}
+
+\subsection{Réseau privé vs. Réseau public}
+
+\subsection{Keypair}
+
+\subsection{VNC}
+
 
 \section{Création d'une instance virtuelle}
+\begin{figure}[!h]
+\centering
+\includegraphics[resolution=200]{images/dashboard_create_details.png}
+\caption{Exemple de création de huit instances virtuelles via le dashboard}
+\end{figure}
 
 \section{Création d'un conteneur de stockage}
 
@@ -458,8 +503,8 @@ D'après HP les systèmes d'exploitations supporté sur les lames BL35p sont:
 \subsubsection{Systèmes que nous avons testés}
 Après de multiples essais nous avons conclus que les systèmes suivants sont stables et supportent le multipath en natif sur les lames:
 \begin{itemize}
-\item Solaris 11
-\item CentOS 6.3 (uniquement sur les lames à base d'Opteron 275)
+\item Solaris 11 (64 bits)
+\item CentOS 6.3 (64 bits)
 \item VMware ESXi 4.1 (dernière version installable, les versions suivantes requièrent les extensions processeurs LAHF et SAHF)
 \end{itemize}
 
@@ -509,7 +554,8 @@ Peut éteindre les autres serveurs présents dans le même rack.
 
 \section{Installation de CentOS} \label{sec:installcentos}
 \subsection{Média d'installation} \label{sec:installmediacentos}
-On réalisera ici une installation par le réseau, plus rapide et permettant d'obtenir les dernières versions des paquets.
+\subsubsection{La lame a accès à Internet}
+Dans le cas où la lame a accès à Internet, on réalisera une installation par le réseau, plus rapide et permettant d'obtenir les dernières versions des paquets.
 Les images ISOs peuvent être obtenus de plusieurs miroirs\footnote{La liste à jour de tout les mirroirs de CentOS est disponible à l'adresse http://www.centos.org/modules/tinycontent/index.php?id=30} mais on préférera celui de l'IN2P3, connecté directement au réseau RENATER et qui offre donc d'excellents débits (de l'ordre de la dizaine de Mo/s).\newline
 On téléchargera l'image ISO netinstall à l'adresse suivante:
 \begin{verbatim}
@@ -527,10 +573,21 @@ http://mirror.in2p3.fr/linux/CentOS/6.3/isos/x86_64/CentOS-6.3-x86_64-netinstall
 http://mirror.in2p3.fr/linux/CentOS/6.3/os/x86_64/
 \end{verbatim}
 
+\subsubsection{La lame n'a pas accès à Internet}
+Dans le cas où la lame n'aurais pas accès à Internet ou que le lien soit en mode trunk (il est compliqué de configurer les VLANs pendant l'installation) il faut effectuer une installation avec le DVD contenant tout les paquets.\newline
+L'image ISO sera préférablement téléchargé depuis le miroir de l'IN2P3 (voir paragraphe précèdent) à cette adresse:
+\begin{verbatim}
+http://mirror.in2p3.fr/linux/CentOS/[version]/isos/{i386,x86_64}/
+\end{verbatim}
+
+\noindent Par exemple pour CentOS 6.3 x64 l'url du DVD est:
+\begin{verbatim}
+http://mirror.in2p3.fr/linux/CentOS/6.3/isos/x86_64/CentOS-6.3-x86_64-bin-DVD1.iso
+\end{verbatim}
 
 \subsection{Options de boot}
 Afin qu'Anaconda, l'installateur de CentOS, détecte correctement les cartes FC et le multipath et que l'installation se fasse en mode texte, il est nécessaire d'entrer la ligne suivante au prompt boot (ECHAP pour y accèder à partir de la version 6) :
-\begin{verbatim} linux mpath text \end{verbatim}
+\begin{verbatim} linux text mpath \end{verbatim}
 
 \subsection{Configuration générale}
 \subsubsection{Langue et clavier}
@@ -538,13 +595,25 @@ On choisira la langue que l'on souhaite mais l'Anglais est préférable car les 
 Pour le clavier choisir le layout correspondant. Pour les claviers AZERTY on peut utiliser le layout fr ou fr-latin9 (avec la touche Euro).
 
 \subsubsection{Méthode d'installation}
-Étant donné que l'on utilise l'image ISO netinstall il faut choisir "URL" au dialogue "Installation Method".
-Le dialogue suivant demande de configurer la carte réseau.
+\textbf{Image netinstall}\newline
+Si l'on utilise l'image ISO netinstall il faut choisir "URL" au dialogue "Installation Method".\newline
+Dans le dialogue suivant qui demande de configurer la carté réseau on choisira celle qui est relié à Internet.
 Pour IPv4 on préferera configurer l'adresse en statique.
-Bien que début 2013 l'IPv6 ne soit pas encore routé sur le réseau de l'IUT son support peut-être laissé activé en prévision du futur.
-Dans ce cas DHCPV6 OU RA ?\newline
-Si l'on souhaite aggréger plusieurs cartes réseaux, on n'en configurera qu'une seule pour l'instant et l'aggrégation sera réalisé une fois le système installé.\newline
-Dans le dialogue demandant l'URL contenant l'image d'installation on rentrera celle indiquée dans la section \ref{sec:installmediacentos}.
+Bien que début 2013 l'IPv6 ne soit pas encore routé sur le réseau de l'IUT son support peut-être laissé activé en prévision du futur.\newline
+Si l'on souhaite agréger plusieurs cartes réseaux, on n'en configurera qu'une seule pour l'instant et l’agrégation sera réalisé une fois le système installé.\newline
+Dans le dialogue demandant l'URL contenant l'image d'installation on rentrera celle indiquée dans la section \ref{sec:installmediacentos}.\newline
+\begin{figure}[!h]
+\centering
+\includegraphics[resolution=110]{images/config_in2p3.png}
+\caption{Exemple de configuration de la source pour CentOS 6.3 x64 en utilisant le mirroir de l'IN2P3}
+\end{figure}
+
+\textbf{Image DVD}\newline
+Si l'on utilise l'image ISO DVD on choisira ???????,, au dialogue "Installation Method".\newline
+Le dialogue suivant demande de configurer la carte réseau.
+Si il y a des VLANs à configurer, on laissera la configuration automatique (DHCP) échouer et on choisira de configurer le réseau plus tard.
+Sinon on configurera les adresses IPv4 et IPv6.\newline
+Note: Si l'on souhaite agréger plusieurs cartes réseaux, on n'en configurera qu'une seule pour l'instant et agrégation sera réalisé une fois le système installé.\newline
 
 \subsubsection{VNC}
 A partir de la version 5 de CentOS l'installateur propose d'effectuer l'installation via VNC afin de proposer un partitionnement personnaliser ou de modifier les paquets à installer.
@@ -565,11 +634,18 @@ On configurera plus tard le stockage supplémentaire nécessaire aux images et a
 \subsubsection{Installation et premier redémarrage}
 Après le partitionnement l'installation se déroule toute seule et l'installateur demande de confirmer le redémarrage à la fin.
 Il faut bien penser à déconnecter le lecteur virtuel dans iLO afin d'éviter de redémarrer sur l'installation.\newline
-A partir de ce moment il est possible d'accéder à la machine en \gls{ssh}.
+A partir de ce moment, et si le réseau est configuré il est possible d'accéder à la machine en \gls{ssh}.
+
+\subsection{Post-configuration}
+Afin d'éviter de perdre la connexion il est préférable de modifier la configuration réseau depuis la console iLO plutôt que via SSH.
+
+\subsubsection{Hostname}
+
+\subsubsection{Agrégation de liens}
+
+\subsubsection{VLANs}
 
 \section{Installation de Solaris} \label{sec:installsolaris}
-
-\section{Installation de VMware ESXi} \label{sec:installesxi}
 
 \chapter{Diagrammes Réseau et schémas de principe}
 \section{Les différents services d'OpenStack}
