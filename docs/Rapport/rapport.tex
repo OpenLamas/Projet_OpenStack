@@ -170,7 +170,9 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 Initialement notre projet devait comporter deux grandes étapes: la mise en place d'une installation de développement, et le déploiement sur un \gls{bladecenter}. Après cette dernière étape et discussion avec notre tuteur, nous avons décidé de modifier l'installation que nous avions réalisé sur le \gls{bladecenter} afin de maximiser les possibilités de \gls{virtualisation} et de simplifier l'administration.\newline
 Au final ce sont donc ces trois grandes étapes que nous détaillons dans le chapitre \ref{cha:miseenplace}.
 
-De plus la majorité de notre travail a été effectué à deux en simultané DETAILLER CA-------------
+De plus la majorité de notre travail a été effectué à deux.
+Notre sujet étant très pointu et compliqué. 
+Nous avons donc préféré être à deux sur chaque tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant des différentes installations.
 
 Dans la suite de ce rapport nous commencerons par détailler le matériel et les logiciels utilisés, puis nous verrons comment nous les avons assemblés afin d'obtenir notre \gls{cloudprive}.
 
@@ -199,7 +201,7 @@ Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet
 PARLER DU MULTIPATH----------------
 
 \subsection{Réseau}
-Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de faire du load balancing et du failover. Celà présente deux avantages: dans le meilleur cas on obtient une bande passante totale de 2Gbit/s, dans le pire cas (chute d'un lien) le trafic continue de fonctionner (à 1Gbit/s).
+Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de faire du \gls{load balancing} et du \gls{failover}. Cela présente deux avantages: dans le meilleur cas on obtient une bande passante totale de 2Gbit/s, dans le pire cas (chute d'un lien) le trafic continue de fonctionner (à 1Gbit/s).
 
 La séparation des réseaux est permise par l'ajout de tag sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q).
 
@@ -335,12 +337,12 @@ Cependant il ne s'agit pas d'une configuration utilisable en production car beau
 
 \section{Déploiement sur un BladeCenter avec Solaris} \label{sec:depsolaris}
 
-Par souci de clarté, nous avons décidé de donner un nom (hostname) à chaque lame afin de les différencier plus facilement.
+Par souci de clarté, nous avons décidé de donner un nom (hostname) au trois lames que nous utilisons afin de les différencier plus facilement.
 Les noms sont donnés dans le schéma global (Annexe \ref{sch:glob}).
 Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
 \subsection{Préliminaires}
-Nous avons choisi d'installer Solaris 11 sur Fuji, Iyo, et Tenjin, et CentOS 6 sur Raijin.
+Nous avons choisi d'installer Solaris 11 sur Fuji et Iyo et CentOS 6 sur Raijin.
 Pour plus d'informations sur ce choix voir \ref{sec:compatblade}.
 
 L'installation des systèmes est détaillé dans les annexes \ref{sec:installcentos} et \ref{sec:installsolaris}.
