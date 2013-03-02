@@ -13,6 +13,7 @@
 \usepackage{alltt}
 \usepackage{soul}
 \usepackage{color}
+\usepackage{fancyvrb}
 
 \addbibresource{rapport.bib}
 \makeglossaries
@@ -172,7 +173,7 @@ Au final ce sont donc ces trois grandes étapes que nous détaillons dans le cha
 
 De plus la majorité de notre travail a été effectué à deux.
 Notre sujet étant très pointu et compliqué. 
-Nous avons donc préféré être à deux sur chaque tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant des différentes installations.
+Nous avons donc préféré être à deux sur la majorité des tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant des différentes installations.
 
 Dans la suite de ce rapport nous commencerons par détailler le matériel et les logiciels utilisés, puis nous verrons comment nous les avons assemblés afin d'obtenir notre \gls{cloudprive}.
 
@@ -281,18 +282,25 @@ Par exemple, il suffit d'établir une relation entre un logiciel de load balanci
 Juju s'installe sur l'ordinateur de l'utilisateur et s'utilise en ligne de commande mais il existe une interface web (en beta à l'heure actuel) qui s'installe sur un serveur distant.
 Juju supporte la plus part des Iaas public du marché (Hp, Amazon et Rackspace) et aussi les Iaas privé qui utilise OpenStack.
 L'annexe \ref{auto:juju} explique comment déployer plusieurs instances de MediaWiki avec quelque dépendance (MySql et HAProxy)
+\newline\\
+Juju est très pratique pour déployer rapidement un environnement complet et durable dans le temps. 
+Cependant, il l'est beaucoup moins pour appliquer une configuration avancé sur une multitude de machine.
+Pour ce genre de besoin, il existe des solutions comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
 
-\subsubsection{Puppet}
-D'autre part, il y des solutions comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
-Nous utiliserons Puppet car elle possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
-
-Puppet utilise des recettes pour configurer les machines.
+\subsubsection{Puppet} 
+Nous avons choisi d'utiliser Puppet car il possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
+Puppet marche sur un système de clients serveur.
+Chaque machine à configurer, appelé nœud, a le client puppet installé.
+Elles doivent s'identifier auprès du serveur, appelé PuppetMaster.
+Les communication entre le PuppetMaster et ses clients est chiffré grâce à des certifiera généré par puppet à son démarrage.
+Afin de définir les configurations à effectuer sur chaque nœud, on utilise des recettes.(Voir l'annexe \ref{auto:puppet} pour une explication concrète d'utilisation d'une recette)
 Nous avons choisi de les stocker sur un serveur git afin de mieux gérer les différentes révisions et l'édition distante.
 
 \section{Reverse Proxy}
-Nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifié).
+Pour les première installation, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifié).
 De cette manière, la zone qui abrite le dashboard n'est connecté qu'au LAN interne des lames.
-De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple.
+De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. 
+Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple.
 En effet, la translation ne nous autorise qu'une seul redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de crée autant de sous domaine que l'on veux et de les rediriger vers n'importe quel ip et port.}.
 
 Un reverse proxy est un serveur qui permet de réécrire les requêtes HTTP afin, par example, de cacher à l'utilisateur l'architecture interne du réseau.
@@ -307,11 +315,14 @@ Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le se
 Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
 
 \section{Supervision}
+
+Ajouté Munin
+
 Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelé logiciel ou plateforme de supervision qui, en s'appuyant sur le protocole snmp, vérifie en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installé sur les machines.
 Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connecté à la base MySQL.
 Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par sms... Tout dépend du logiciel de supervision et de sa configuration.}
 
-Le marché de la supervision est à la fois occupé par de grand constructeur comme HP avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios.
+Le marché de la supervision est à la fois occupé par de grand constructeur comme HP avec leur gamme OverView et par des logiciels libres comme Zabbix ou Nagios.
 Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
 Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son l'immense communauté.
 
@@ -370,10 +381,6 @@ Solaris possède sont propre gestionnaire de paquet que l'on peut appeler par la
 Une communauté s'est alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour Solaris.
 Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Nous avons pu grâce à OpenCSW, installer de nombreux paquets comme Zsh, Apache ou encore Tmux\footnote{Tmux est un multiplexeur de terminaux
 Il permet d'avoir plusieurs terminaux dans la même fenêtre (et donc sur la même connexion \gls{ssh} dans notre cas)} sans avoir à les compiler avec toutes leurs dépendances. 
-
-
-Zsh
-
 
 Pour pouvoir configurer nos différente machines, nous nous connectons à elle via le protocole \gls{ssh}. 
 C'est un protocole de communication sécurisé qui permet d'avoir un terminal distant sur une machine.
@@ -663,9 +670,10 @@ L'utilisateur final ne peut accéder qu'au dashboard.
 \begin{center}
 \includegraphics[scale=0.8,angle=90]{images/topoBladeSolaris-crop.pdf}
 \end{center}
-\section{Schémas global BladeCenter avec ESXi}
+\section{Schémas global BladeCenter avec QEMU est GlusterFs}
+
 \begin{center}
-\includegraphics[scale=1,angle=90]{images/SchemaBladeESXi-crop.pdf}
+\includegraphics[scale=0.8,angle=90]{images/SchemaBladeQemuGlut-crop.pdf}
 \end{center}
 
 \chapter{Scripts d'automatisation}
@@ -687,7 +695,7 @@ sudo add-apt-repository ppa:juju/pkgs
 sudo apt-get update && sudo apt-get -y install juju charm-tools
 \end{verbatim}
 
-On initialise ensuite Juju, on renseigne les identifiants de connections au Cloud dans {\raise.17ex\hbox{$\scriptstyle\sim$}}/.juju/environments.yaml puis on relance le bootstap.\footnote{Voir https://juju.ubuntu.com/get-started/openstack/ des explication sur environments.yaml}
+On initialise ensuite Juju, on renseigne les identifiants de connections au Cloud dans {\raise.17ex\hbox{$\scriptstyle\sim$}}/.juju/environments.yaml puis on relance le bootstap.\footnote{Voir https://juju.ubuntu.com/get-started/openstack/ pour des explications sur environments.yaml}
 \begin{alltt}
 juju bootstrap
 # Edition de environments.yaml
@@ -751,6 +759,128 @@ Voilà, notre réseau est terminé et fonctionnel. Si la charge augmente on peut
 On peut aussi modifier la configuration un charmes. Par example, pour modifier le nom de notre MediaWiki, il suffit de faire \emph{juju set mediawiki name='Lamas Wiki!'}\\
 La liste complète des charmes et de leurs configuration est disponible à l'adresse http://jujucharms.com/charms.
 On peut aussi créé ces propres charmes. Il est possible de les développer dans de nombreux langages tel que le python, le ruby ou même avec puppet.
+\newpage
+\section{Example de configuration avec Puppet} \label{auto:puppet}
+Notre but est de déployer une application sur un parc entier de machine.
+Nous allons copier automatiquement un fichier sur deux machines.
+
+On considère que PuppetMaster est installé sur le serveur et que les client ont puppet installé aussi.
+
+
+On commence par identifier le client auprès du serveur :
+Sur le client
+\begin{verbatim}
+sudo puppetd -t -v -w 60
+\end{verbatim}
+
+Et sur le serveur
+\begin{verbatim}
+sudo puppetca --list
+  "dummy42" (D4:E7:37:A4:DF:F1:18:16:FA:D1:5B:38:CA:13:37:FB)
+\end{verbatim}
+
+Cette commande nous montre la liste des machines qui se sont identifier au serveur.
+Ici la machine "dummy42" s'est identifier.
+On l'enregistre
+\begin{verbatim}
+sudo puppetca --sign dummy42
+\end{verbatim}
+
+On ajoute une deuxième machine (dummy43 par example)
+\begin{verbatim}
+sudo puppetca --list
+  "dummy43" (D4:E7:37:A4:DF:F1:18:16:FA:D1:5B:38:CA:13:37:FB)
+sudo puppetca --sign dummy43
+\end{verbatim}
+
+Maintenant on a plus qu'à activer Puppet au boot de la machine
+Dans /etc/default/puppet
+\begin{verbatim}
+# Start puppet on boot?
+START=yes
+\end{verbatim}
+Et de le démarrer en tache de fond
+\begin{verbatim}
+sudo /etc/init.d/puppet start
+\end{verbatim}
+
+Puppet gère le parc de machines grâce au ficher /etc/puppet/manifests/site.pp. C'est dans celui-ci que l'on défini l'adresse du PupperMaster et le fichier qui contient la définition des machines. On le rempli donc ainsi, en supposant que l'adresse ip du PuppetMaster soit 192.168.1.1.
+\begin{verbatim}
+filebucket { 'main': server => '192.168.1.1' }
+File { backup => 'main' }
+ 
+import "node"
+\end{verbatim}
+
+Viens maintenant la définition des machines. On donc appliquer à dummy42 et dummy43 la configuration de vim. On écrit donc dans /etc/puppet/manifests/node.pp
+\begin{verbatim}
+node 'dummy42','dummy43 {
+    include pushText
+}
+\end{verbatim}
+
+On crée maintenant notre module. Puppet appel module, la liste des opération à effectuer pour compléter une tâche. Par example l'installation d'apache ou en l'occurrence, la copie d'un fichier.
+
+On commence par crée l'arborescence de notre module.
+\begin{verbatim}
+mkdir -p /etc/puppet/modules/pushText/manifests
+mkdir -p /etc/puppet/modules/pushText/files
+\end{verbatim}
+
+Puis on défini les action à faire. On crée un fichier puppet.txt dans /etc qui appartient a root et on lui applique des droits 644. Le fichier sera copié depuis /etc/puppet/module/pushText/puppet.txt 
+\begin{verbatim}
+class dummy {
+        file { "/etc/puppet.txt":
+                owner => root,
+                group => root,
+                mode => 644,
+                source => "puppet:///pushText/puppet.txt"
+        }
+}
+\end{verbatim}
+
+On redémarre PuppetMaster pour qu'il prennent en compte les modification
+\begin{verbatim}
+sudo service puppetmaster restart
+\end{verbatim}
+
+Et on a plus qu'à forcer la mise a jour sur les clients.
+\begin{verbatim}
+sudo puppetd -t -v
+\end{verbatim}
+
+Ici, nous avons effectué une tâche très simple, mais puppet nous permet de faire plein de choses beaucoup plus poussé. On peut installer toute sorte de logiciel aussi bien Apache, Munin ou encore Wordpress. 
+On peut même installer des modules d'Openstack.
+Le clients Puppet est disponible sous plein de platforme comme Linux, Windows et Mac.
+Toutes les recettes sont recensé dans la forge. Puppet\footnote{http://forge.puppetlabs.com/} et peuvent être installé facilement.
+Par exemple, la figure ci-dessous montre une partie de la recette d'installation de vim, un célèbre éditeur de texte sous linux.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{Verbatim}[frame=single]
+class vim inherits vim::params {
+  exec { 'update-alternatives':
+    command => 'update-alternatives --set editor /usr/bin/vim.basic',
+    unless  => 'test /etc/alternatives/editor -ef /usr/bin/vim.basic',
+  }
+
+  file { '/etc/vim/vimrc':
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => "puppet:///modules/vim/\${::lsbdistcodename}/etc/vim/vimrc",
+    notify  => Exec['update-alternatives'],
+    require => Package['vim'],
+  }
+
+  package { 'vim':
+    ensure => present,
+  }
+}
+\end{Verbatim}
+\caption*{Exemple du manifeste de la recette de vim}
+\end{center}
+\end{figure}
 
 \chapter{Fichiers de configuration OpenStack}
 \section{Keystone}
@@ -766,8 +896,6 @@ On peut aussi créé ces propres charmes. Il est possible de les développer dan
 \section{NAT}
 \subsection{ipf.conf} \label{conf:NAT}
 \section{Reverse Apache} \label{conf:apacheProxy}
-
-\chapter{Recettes Puppet}
 
 \nocite{*}
 \printbibliography
