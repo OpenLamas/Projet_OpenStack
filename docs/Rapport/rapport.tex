@@ -423,11 +423,132 @@ sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8
 \end{verbatim}
 
 \subsection{Installation du Cloud Controller}
+\subsubsection{Installation du serveur MySQL}
+\begin{verbatim}
+yum install -y mysql mysql-server
+
+# On change le mot de passe root de mysql
+mysqladmin -u root password PASS_MYSQL
+\end{verbatim}
 \subsubsection{Installation du service d'identité}
+Il faut d'abord créer la base dans MySQL:
+\begin{verbatim}
+mysql -u root -p
+
+CREATE DATABASE keystone;
+GRANT ALL ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'PASS_DBKEYSTONE';
+GRANT ALL ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY 'PASS_DBKEYSTONE';
+\end{verbatim}
+
+On peut maintenant installer Keystone:
+\begin{verbatim}
+yum install -y openstack-utils openstack-keystone
+\end{verbatim}
+
+Pour configurer Keystone voir l'annexe \ref{conf:Keystone}.
+
+Fin de la configuration:
+\begin{verbatim} 
+# On crée les tables dans la DB
+keystone-manage db_sync
+
+# On mets les bonnes permissions (le fichier de config contient le pass SQL !)
+chmod 640 /etc/keystone/keystone.conf 
+chown -R keystone:keystone /var/log/keystone
+chown -R keystone:keystone /var/lib/keystone
+
+# On démarre le service et on l'active au démarrage
+service openstack-keystone restart
+chkconfig openstack-keystone on
+\end{verbatim}
+
+On va utiliser une version modifié de keys???????????????
 
 
+\subsubsection{Installation du services d'image}
+\noindent On commence par créer la base MySQL:
+\begin{verbatim}
+mysql -u root -p
 
-\subsubsection{Installation du services d'images}
+CREATE DATABASE glance;
+GRANT ALL ON glance.* TO 'glance'@'%' IDENTIFIED BY 'PASS_DBGLANCE';
+GRANT ALL ON glance.* TO 'glance'@'localhost' IDENTIFIED BY 'PASS_DBGLANCE';
+\end{verbatim}
+
+\noindent On installe Glance:
+\begin{verbatim}
+yum install -y openstack-glance
+\end{verbatim}
+
+\noindent Pour configurer Glance voir l'annexe \ref{conf:Glance}.
+
+\noindent Fin de la configuration:
+\begin{verbatim}
+# On crée les tables dans la DB
+glance-manage db_sync
+
+# On mets les bonnes permissions
+chmod 640 /etc/glance/*.conf
+chmod 640 /etc/glance/*.ini
+chown -R glance:glance /var/log/glance
+chown -R glance:glance /var/lib/glance
+
+# On démarre les services et on les active au démarrage
+service openstack-glance-registry restart
+service openstack-glance-api restart
+chkconfig openstack-glance-registry on
+chkconfig openstack-glance-api on
+\end{verbatim}*
+
+\noindent Pour la création des utilisateurs, services, et endpoints, voir l'annexe \ref{script:keystoneData}.
+
+\subsubsection{Installation de Nova}
+\noindent On crée la base MySQL:
+\begin{verbatim}
+mysql -u root -p
+
+CREATE DATABASE nova;
+GRANT ALL ON nova.* TO 'nova'@'%' IDENTIFIED BY 'PASS_DBNOVA';
+GRANT ALL ON nova.* TO 'nova'@'localhost' IDENTIFIED BY 'PASS_DBNOVA';
+\end{verbatim}
+
+\noindent On installe Nova:
+\begin{verbatim}
+yum install -y openstack-nova* qpid-cpp-server
+\end{verbatim}
+
+\noindent Pour configurer Nova voir l'annexe \ref{conf:Nova}.
+
+\noindent Fin de la configuration:
+\begin{verbatim}
+# On crée les tables dans la DB
+nova-manage db sync
+
+# On mets les bonnes permissions
+chmod 640 /etc/nova/nova.conf
+chown -R root:nova /etc/nova
+chown -R nova:nova /var/lib/nova
+
+# On démarre les services et on les active au démarrage
+service qpidd restart
+service tgtd  restart
+service openstack-nova-api          restart
+service openstack-nova-cert         restart
+service openstack-nova-consoleauth  restart
+service openstack-nova-direct-api   restart
+service openstack-nova-metadata-api restart
+service openstack-nova-scheduler    restart
+service openstack-nova-volume       restart
+chkconfig qpidd on
+chkconfig tgtd  on
+chkconfig openstack-nova-api          on
+chkconfig openstack-nova-cert         on
+chkconfig openstack-nova-consoleauth  on
+chkconfig openstack-nova-direct-api   on
+chkconfig openstack-nova-metadata-api on
+chkconfig openstack-nova-scheduler    on
+chkconfig openstack-nova-volume       on
+\end{verbatim}
 
 \subsection{Installation des noeuds de Compute}
 
@@ -465,10 +586,7 @@ Concernant \gls{openstack} il s'agit d'un projet au potentiel énorme de part sa
 \chapter{Utilisation du \gls{cloudprive}}
 \section{Généralités}
 \subsection{Dashboard}
-Le dashboard d'OpenStack qui offre une interface conviviale pour utiliser et administrer le cloud se trouve à l'adresse:
-\begin{verbatim}
-http://10.102.75.100/
-\end{verbatim}
+Le dashboard d'OpenStack qui offre une interface conviviale pour utiliser et administrer le cloud se trouve à l'adresse http://10.102.75.100/dashboard .
 
 \subsection{Réseau privé vs. Réseau public}
 
@@ -679,6 +797,10 @@ L'utilisateur final ne peut accéder qu'au dashboard.
 \subsection{nataddrule.sh}
 %\begin{minted}[frame=single,fontfamily=courier,linenos,mathescape]{bash}
 %\end{minted}
+
+\section{OpenStack}
+\subsection{keystone-?????.sh} \label{script:keystoneData}
+
 \section{Exemple de configuration de MediaWiki avec Juju} \label{auto:juju}
 
 Notre but est de déployer MediaWiki et d'y ajouter quelque services de haute disponibilité. Nous allons donc créer deux serveur web avec MediaWiki. Ils seront reliés à la même base MySql qui sera redondé avec une autre base esclave. La charge entre les deux serveurs web sera répartie par HAProxy. Le schéma ci-dessous présente la configuration final vu depuis juju-gui, l'interface web de Juju. Le logo vert en forme de globe représente le monde extérieur.
@@ -759,14 +881,56 @@ La liste complète des charmes et de leurs configuration est disponible à l'adr
 On peut aussi créé ces propres charmes. Il est possible de les développer dans de nombreux langages tel que le python, le ruby ou même avec puppet.
 
 \chapter{Fichiers de configuration OpenStack}
-\section{Keystone}
+Ne sont inclus ici que le fichiers de configurations que nous avons modifié par rapport à l'installation par défaut d'OpenStack Folsom sur Centos 6.3.
+\section{Keystone} \label{conf:Keystone}
 \subsection{keystone.conf}
+\begin{verbatim}
+[DEFAULT]
+# /etc/keystone/keystone.conf
+# 02/03/2013
 
-\section{Glance}
+admin_token = e2e2f51aaf1ba336c736
 
-\section{Swift}
+bind_host    = 0.0.0.0
+admin_port   = 35357
+public_port  = 5000
+compute_port = 8774
 
-\section{Nova}
+# === Logging Options ===
+verbose = True
+debug   = False
+
+log_file = keystone.log
+log_dir  = /var/log/keystone
+
+[sql]
+connection = mysql://keystone:ab9kcd@raijin/keystone
+
+[identity]
+driver = keystone.identity.backends.sql.Identity
+
+[catalog]
+template_file = /etc/keystone/default_catalog.templates
+driver = keystone.catalog.backends.sql.Catalog
+
+[token]
+driver = keystone.token.backends.sql.Token
+
+[ec2]
+driver = keystone.contrib.ec2.backends.sql.Ec2
+
+[ssl]
+enable = False
+
+# Par soucis de place l'ensemble des sections [filter:] a été omise,  il suffit de recopier
+la partie correspondante du fichier de configuration d'origine
+\end{verbatim}
+
+\section{Glance} \label{conf:Glance}
+
+\section{Swift} \label{conf:Swift}
+
+\section{Nova} \label{conf:Nova}
 
 \chapter{Fichiers de configuration Solaris}
 \section{NAT}
