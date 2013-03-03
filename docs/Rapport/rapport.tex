@@ -44,7 +44,7 @@
 \noindent Nous remercions M. Frédéric Pourraz pour nous avoir permis de réaliser ce projet.\newline
 \noindent Nous remercions M. Gaëtan Ferez pour nous avoir mis à disposition le matériel et son aide sur celui-ci.
 
-\noindent De manière générale nous remercions tout les professeurs pour leurs enseignements durant ces deux années de DUT.
+\noindent De manière générale nous remercions tous les professeurs pour leurs enseignements durant ces deux années de DUT.
 
 \renewcommand{\contentsname}{Sommaire}
 \setcounter{tocdepth}{1}
@@ -60,20 +60,20 @@ Nous trouvons ces technologies passionnantes et mettre en place un \gls{cloudpri
 Le principe de base de la \gls{virtualisation} est de permettre le fonctionnement de plusieurs \glspl{se} (\gls{windows}, \gls{linux}, …) en simultané sur un ordinateur.
 Les intérêts sont multiples, on peut citer principalement :\newline
 
-Augmenter la disponibilité grâce à une redondance et réduire les coûts.
+- Augmenter la disponibilité grâce à une redondance et réduire les coûts.
 Par exemple on peut imaginer avoir deux serveurs mails sur une même machine physique et utiliser l’un ou l’autre en fonction de leur charge ou en cas de panne.
-On réduit par la même occasion les coûts puisqu’on n’utilisera qu’une seule machine physique pour ces deux serveurs.
+On réduit par la même occasion les coûts puisqu’on n’utilisera qu’une seule machine physique pour ces deux serveurs.\newline
 
-Un dimensionnement plus facile. La \gls{virtualisation} ajoutant une couche d’abstraction entre le \gls{se} (logiciel) et le matériel (ordinateur) on peut aisément augmenter la puissance de calcul en ajoutant, par exemple, de la mémoire sur un ordinateur sans impacter le fonctionnement des systèmes virtuels.
+- Un dimensionnement plus facile. La \gls{virtualisation} ajoutant une couche d’abstraction entre le \gls{se} (logiciel) et le matériel (ordinateur) on peut aisément augmenter la puissance de calcul en ajoutant, par exemple, de la mémoire sur un ordinateur sans impacter le fonctionnement des systèmes virtuels.\newline
 
-Faciliter les migrations site-à-site.
+- Faciliter les migrations site-à-site.
 Il est beaucoup plus facile de transférer un serveur d’un site physique à un autre en transférant une image virtuelle par le réseau plutôt qu’en transportant un serveur physique.\newline
 
 Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmi les plus connus on pourra citer \gls{parallelsd} ou \gls{vbox}.
 
 \subsection{Le \gls{cloudcomputing}}
 \subsubsection{Vue d'ensemble}
-Ces logiciels conviennent à la \gls{virtualisation} de quelques machines mais pas à la gestion global d'une infrastructure, ils se contentent de faire fonctionner plusieurs \glspl{se} sur un seul ordinateur.
+Ces logiciels conviennent à la \gls{virtualisation} de quelques machines mais pas à la gestion globale d'une infrastructure, ils se contentent de faire fonctionner plusieurs \glspl{se} sur un seul ordinateur.
 Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
 On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de \gls{virtualisation}) via un réseau.
@@ -82,7 +82,7 @@ L'utilisateur final ne se préoccupe pas de savoir où est physiquement le stock
 
 \subsubsection{IaaS, PaaS, et autres *aaS}
 \glsreset{iaas} \glsreset{paas} \glsreset{saas}
-Dans le domaine du \gls{cloudcomputing} il existe plusieurs niveaux d’abstractions, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services.
+Dans le domaine du \gls{cloudcomputing} il existe plusieurs niveaux d'abstraction, offrant des fonctionnalités plus ou moins haut niveau, on parle de modèles de services.
 Leur nom prend la forme Sth- as a Service.
 
 Les trois modèles les plus courants sont l'\gls{iaas}, le \gls{paas}, et le \gls{saas}.
@@ -97,8 +97,8 @@ Par exemple, \gls{heroku}, le \gls{paas} de \gls{sforce} est capable d'exécuter
 On peut aussi citer \gls{gappengine} ou \gls{msazure}, qui offrent des fonctionnalités similaires.
 
 Enfin vient l'\gls{iaas}, qui est le plus bas niveau d'abstraction. 
-Ici le client dispose d'une infrastructure, mis à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique.
-Il gère donc la configuration des systèmes d'exploitations et des logiciels qui s'y exécutent.
+Ici le client dispose d'une infrastructure, mise à disposition par le fournisseur de Cloud, où il peut créer des serveurs virtuels à la demande, sans se préoccuper du matériel physique.
+Il gère donc la configuration des systèmes d'exploitation et des logiciels qui s'y exécutent.
 
 C'est ce dernier modèle que nous avons choisi d'étudier, nous allons donc détailler, dans la section suivante (\ref{sec:panorama_iaas}), les différentes solutions existantes avant de voir celle que nous avons retenu.
 
@@ -124,13 +124,11 @@ Les instances, allant de 1 à 244Go de RAM et de 1 \gls{coeur} virtuel à 32 \gl
 \gls{ec2} supporte \gls{linux}, \gls{bsd}, \gls{solaris}, et \gls{windows} comme \glspl{se} invités.
 
 Le \gls{stockagebloc} est fourni par \gls{amazon} \gls{ebs} tandis que le \gls{stockageobjet} est fourni par \gls{amazon} \gls{s3}.
-Chacun de ces service possède sa propre \gls{api}, permettant de les utiliser indépendamment les uns des autres.
+Chacun de ces services possède sa propre \gls{api}, permettant de les utiliser indépendamment les uns des autres.
 
-A titre informatif, \gls{ec2} est utilisé, entre autres, par \gls{netflix}\footnote{En 2011, aux heures de pointes, \gls{netflix} était responsable de 29\% du trafic Internet en Amérique du Nord \cite{NetflixTrafic}. D'où la nécessité d'une infrastructure robuste et scalable.}, \gls{instagram}, et \gls{shazam}, tandis que la plupart des services de stockage en ligne grand public, comme \gls{dropbox}, utilisent \gls{s3}.
+A titre informatif, \gls{ec2} est utilisé, entre autres, par \gls{netflix}\footnote{En 2011, aux heures de pointe, \gls{netflix} était responsable de 29\% du trafic Internet en Amérique du Nord \cite{NetflixTrafic}. D'où la nécessité d'une infrastructure robuste et scalable.}, \gls{instagram}, et \gls{shazam}, tandis que la plupart des services de stockage en ligne grand public, comme \gls{dropbox}, utilisent \gls{s3}.
 
 Il faut noter que l'\gls{iaas} d'\gls{amazon} est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
-
-\subsubsection{OpenNebula}
 
 \subsubsection{CloudStack}
 \gls{cloudstack} est un système de création d'\gls{iaas} originellement développé par \gls{cloudcom} puis racheté par \gls{citrix} à l'été 2011.
@@ -149,7 +147,7 @@ Dans un premier temps nous voulions mettre en place un \gls{cloudprive} sous la 
 L'objectif était de permettre à des utilisateurs (des élèves par exemple) de créer des machines virtuelles très rapidement même sur des machines disposant de peu de ressources.\\
 
 Ensuite nous avons voulu mettre en place une solution pour automatiser la configuration des instances.
-L'objectif était de permettre à un/des administrateur(s) de modifier une configuration ou de rajouter une application même après qu'une image ait été créé.
+L'objectif était de permettre à un/des administrateur(s) de modifier une configuration ou de rajouter une application même après qu'une image ait été créée.
 
 \subsubsection{Fonctionnalités à implémenter}
 \begin{itemize}
@@ -171,12 +169,10 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 Initialement notre projet devait comporter deux grandes étapes: la mise en place d'une installation de développement, et le déploiement sur un \gls{bladecenter}. Après cette dernière étape et discussion avec notre tuteur, nous avons décidé de modifier l'installation que nous avions réalisé sur le \gls{bladecenter} afin de maximiser les possibilités de \gls{virtualisation} et de simplifier l'administration.\newline
 Au final ce sont donc trois grandes étapes que nous détaillons dans le chapitre \ref{cha:miseenplace} avec un accent particulier sur la dernière puisqu'il s'agit la seule installation réellement intéressante.
 
-De plus la majorité de notre travail a été effectué à deux.
-En effet notre sujet étant plutôt compliqué, nous avons préféré être à deux sur la majorité des tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant les différentes installations.
-
+De plus la majorité de notre travail a été effectuée à deux.
+Notre sujet étant très pointu et compliqué, nous avons préféré être à deux sur la majorité des tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolution des problèmes rencontrés pendant des différentes installations.
 
 Dans la suite de ce rapport nous commencerons par détailler le matériel et les logiciels utilisés, puis nous verrons comment nous les avons assemblés afin d'obtenir notre \gls{cloudprive}.
-
 
 \chapter{Matériel}
 
@@ -192,23 +188,26 @@ Une fois notre projet fonctionnel sur le serveur dédié nous avons déployé un
 La configuration est cette fois-ci beaucoup plus intéressante et permet d'entrevoir les réelles possibilités du \gls{cloudcomputing}\footnote{Toutefois, bien que le \gls{bladecenter} possède une puissance importante, ses composants sont assez anciens et ne supportent pas les technologies de \gls{virtualisation} matérielle (VT-x, VT-d, AMD-V), ce qui limite le nombre de systèmes invités possibles.}.
 
 \subsection{Configuration matérielle}
-Nous disposions de trois lames équipés chacune de deux processeurs AMD Opteron 250 (2,4GHz / 64 bits) et de 4Go de RAM, ainsi que d'une lame équipé de deux Opteron 275 (2,2GHz / 64 bits) et de 8Go de RAM.\newline
+Nous disposions de trois lames équipées chacune de deux processeurs AMD Opteron 250 (2,4GHz / 64 bits) et de 4Go de RAM, ainsi que d'une lame équipée de deux Opteron 275 (2,2GHz / 64 bits) et de 8Go de RAM.\newline
 Toutes les lames possèdent deux cartes \gls{fc} QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
 Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un \gls{san} \gls{hp} StorageWorks relié en \gls{fc}.
-Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur \gls{fc}.\newline
+Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg  à une lame au travers du contrôleur \gls{fc}.\newline
 Les contrôleurs font ce que l'on appelle du \gls{multipath}, c'est à dire qu'ils utilisent plusieurs chemins physiques pour accéder aux disques afin de faire du \gls{failover}.
 
 \subsection{Réseau}
 Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de faire du \gls{loadbalancing} et du \gls{failover}. Cela présente deux avantages: dans le meilleur cas on obtient une bande passante totale de 2Gbit/s, dans le pire cas (chute d'un lien) le trafic continue de fonctionner (à 1Gbit/s).
 
-La séparation des réseaux est permise par l'ajout de tag sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q) et la configuration des ports en mode trunk sur les \glspl{switch}.
+La séparation des réseaux est permise par l'ajout de tags sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q) et la configuration des ports en mode trunk sur les \glspl{switch}.
 
 
-\chapter{Systèmes d'exploitations hôtes}
-\section{Ubuntu Server} \label{sec:ubuntu}
+\chapter{Systèmes d'exploitation hôtes}
+\section{Ubuntu Server} \label{cha:ubuntu}
+Ubuntu est un système d'exploitation libre basé sur la distribution Debian. Il est piloté par Canonical qui le distribue gratuitement et vend un support technique.
+Chaque année sorte entre deux et trois nouvelles versions d'Ubuntu qui ont une durée de support de 3 ans et tous les deux ans sort une version dite "LTS\footnote{Long Term Support}" qui a une durée de support de 5 ans. Chaque version est déclinée en deux versions différentes, la version desktop et la version serveur.
 
+Nous avons choisi d'utiliser la version 12.04 LTS d'Ubuntu Server puisque l'installation d'OpenStack est documentée pour cette version
 \section{CentOS}
 
 \section{Solaris}
@@ -232,7 +231,7 @@ Depuis XXXX Y versions stables sont sorties : Diablo (), Essex (), Folsom() . Ch
 \subsection{Les services}
 \gls{openstack} est constitué de différents services gérant chacun une composante spécifique de l'\gls{iaas}.
 \subsubsection{Keystone}
-Ce service est indispensable, il permet de coordonnée l'authentification et l'accès aux autres services.\newline
+Ce service est indispensable, il permet de coordonner l'authentification et l'accès aux autres services.\newline
 Il expose une \gls{api} HTTP(S) sur deux endpoints, un public sur le port 5000, permettant l'authentification des utilisateurs, et un autre dit privé sur le port 35357 permettant les tâches administratives tels que la gestion des utilisateurs et des terminaisons de services.
 Il supporte différents backends pour l'authentification, certains permettant la persistance et l'édition des données comme \gls{sql} ou \gls{ldap}, d'autres en lecture-seule comme \gls{pam}.\newline
 
@@ -258,7 +257,7 @@ Swift est le système de \gls{stockageobjet}.
 Il supporte deux systèmes d'authentification, Swauth hérité de Rackspace, et Keystone.
 
 \subsubsection{Glance}
-Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créer les machines.}.
+Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créées les machines.}.
 Il enregistre leur caractéristiques et leur emplacements de façon à ce que les autres services n'aient pas à s'en occuper.
 
 Il utilise Keystone pour l'authentification et peut, en plus du système de fichier local, utiliser Swift pour stocker les images.
@@ -268,27 +267,28 @@ C'est l'interface graphique qui permet à l'utilisateur final de gérer ses inst
 
 \section{Automatisation}
 
-Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libre qui permettent d'automatiser ces tâches.
+Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libres qui permettent d'automatiser ces tâches.
 
 \subsubsection{Juju}
-\gls{canonical}, la société qui édite \gls{ubuntu} (voir \ref{sec:ubuntu}) distribue, sous licence libre, \gls{juju}, un service d'orchestration
-\gls{serviceorchestration}, écrit en \gls{python}, qui permet de configurer automatiquement des services.
+\gls{canonical}, la société qui édite \gls{ubuntu} (voir \ref{sec:ubuntu}) distribue, sous licence libre, \gls{juju}, un \gls{serviceorchestration}, écrit en \gls{python}, qui permet de configurer automatiquement des services.
 \footnote{Dans \gls{juju}, un service est appelé un "charme". Un charme peut aussi bien être un programme comme \gls{apache} ou \gls{varnish} ou un service web comme \gls{mediawiki}} et de créer des relations entre eux. 
 \gls{juju} rajoute une couche d'abstraction entre la machine et le service. Il suffit de définir des relations entre les charmes et ils se configurent automatiquement. 
 Par exemple, il suffit d'établir une relation entre un logiciel de \gls{loadbalancing} (comme \gls{varnish}) et notre service (MediaWiki par example) pour que la charge soit répartie sur les différents serveur, quelque soit le nombre d'instance du service (ici \gls{mediawiki}).
 \gls{juju} s'installe sur l'ordinateur de l'utilisateur et s'utilise en ligne de commande mais il existe une interface web (en beta à l'heure actuel) qui s'installe sur un serveur distant.
 \gls{juju} supporte la plus part des \gls{iaas} public du marché (\gls{hp}, \gls{amazon} et \gls{rackspace}) ainsi que les \gls{iaas} privé basés sur \gls{openstack}.
 L'annexe \ref{auto:juju} explique comment déployer plusieurs instances de \gls{mediawiki} avec quelque dépendances (\gls{mysql} et \gls{haproxy}).\newline
+
+
 Juju est très pratique pour déployer rapidement un environnement complet et durable dans le temps. 
-Cependant, il l'est beaucoup moins pour appliquer une configuration avancé sur une multitude de machine.
+Cependant, il l'est beaucoup moins pour appliquer une configuration avancée sur une multitude de machines.
 Pour ce genre de besoin, il existe des solutions comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
 
 \subsubsection{Puppet} 
-Nous avons choisi d'utiliser Puppet car il possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus clair.
-Puppet marche sur un système de clients serveur.
-Chaque machine à configurer, appelé nœud, a le client puppet installé.
+Nous avons choisi d'utiliser Puppet car il possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus claire.
+Puppet marche sur un système de clients-serveur.
+Chaque machine à configurer, appelée nœud, a le client puppet installé.
 Elles doivent s'identifier auprès du serveur, appelé PuppetMaster.
-Les communication entre le PuppetMaster et ses clients est chiffré grâce à des certifiera généré par puppet à son démarrage.
+Les communications entre le PuppetMaster et ses clients sont chiffrées grâce à des certificats générés par puppet à son démarrage.
 Afin de définir les configurations à effectuer sur chaque nœud, on utilise des recettes.(Voir l'annexe \ref{auto:puppet} pour une explication concrète d'utilisation d'une recette)
 Nous avons choisi de les stocker sur un serveur \gls{git} afin de mieux gérer les différentes révisions et l'édition distante.
 
@@ -297,28 +297,29 @@ Nous avons choisi de les stocker sur un serveur \gls{git} afin de mieux gérer l
 \gls{glusterfs} est un système de stockage distribué.
 
 \section{Reverse Proxy}
-Pour la première installation, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul IP disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifié).
-De cette manière, la zone qui abrite le dashboard n'est connecté qu'au LAN interne des lames.
+Pour les premières installations, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contraintes techniques (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifiée).
+De cette manière, la zone qui abrite le dashboard n'est connectée qu'au LAN interne des lames.
 De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. 
-Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'IP de la zone abritant le serveur web, mais cette solution aurait été moins souple.
-En effet, la translation ne nous autorise qu'une seul redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de crée autant de sous domaine que l'on veux et de les rediriger vers n'importe quel IP et port.}.
- 
-Un reverse proxy est un serveur qui permet de réécrire les requêtes HTTP afin, par example, de cacher à l'utilisateur l'architecture interne du réseau.
+Nous avons choisi de mettre en place un mécanisme de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple.
+En effet, la translation ne nous autorise qu'une seule redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de créer autant de sous domaines que l'on veut et de les rediriger vers n'importe quel ip et port.}.
+
+Un reverse proxy est un serveur qui permet de réécrire les requêtes HTTP afin, par exemple, de cacher à l'utilisateur l'architecture interne du réseau.\newline
 Grâce à lui, nous pouvons rediriger les requêtes vers notre serveur web.
-Un reverse proxy permet aussi de mettre en cache les ressources statique d'un site pour l'accélérer et soulager les serveurs web ou encore répartir la charge entre plusieurs serveurs.
+Un reverse proxy permet aussi de mettre en cache les ressources statiques d'un site pour l'accélérer et soulager les serveurs web ou encore répartir la charge entre plusieurs serveurs.
 
 \subsection{Apache}
-Il existe plusieurs programme qui permette de faire du reverse proxy.
-Le mieux, de par sa communauté, la finesse de ces règles, et ces performances est, à notre avis, Varnish\footnote{https://www.varnish-cache.org/}.
-C'est un logiciel libre utilisé par example par Facebook. Cependant, nous n'avons pas pu l'utiliser pour les raisons détaillé dans la partie dédié.
+Il existe plusieurs programmes qui permettent de faire du reverse proxy.
+Le mieux, de par sa communauté, la finesse de ses règles, et ses performances est, à notre avis, Varnish\footnote{https://www.varnish-cache.org/}.
+C'est un logiciel libre utilisé par exemple par Facebook. Cependant, nous n'avons pas pu l'utiliser pour les raisons détaillées dans la partie dédiée.
 
-Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le serveur web le plus utilisé\footnote{D'après le site netcraft.com, en Février 2013, Apache est utilisé par près de 55\% des sites actif. (IIS de Microsoft et Nginx sont eux à 12\%)} dans le monde, à l'heure actuel.
-Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
+Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le serveur web le plus utilisé\footnote{D'après le site netcraft.com, en Février 2013, Apache est utilisé par près de 55\% des sites actifs. (IIS de Microsoft et Nginx sont eux à 12\%)} dans le monde, à l'heure actuelle.
+Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration est un peu moins fine que Varnish mais suffisante pour notre utilisation.
 
 \section{Supervision}
 Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelés logiciels ou plates-formes de supervision qui, en s'appuyant sur des protocoles tels qu'\gls{snmp} ou \gls{telnet}, vérifient en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installés sur les machines.
 Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connectés à la base MySQL.
 Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par SMS... Tout dépend du logiciel de supervision et de sa configuration.}.
+
 
 \subsection{Shinken}
 Le marché de la supervision est à la fois occupé par de grand constructeur comme \gls{hp} avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios.
@@ -334,15 +335,15 @@ Une alternative courante est MRTG.
 \chapter{Mise en place} \label{cha:miseenplace}
 \section{Installation de développement sur un serveur dédié}
 Nous avons réalisé une première installation d'\gls{openstack} et des services associés sur un serveur dédié afin d'étudier le fonctionnement global.
-Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'\gls{openstack} qui sera abordé dans la section \ref{sec:depblade}.
+Dans cette section nous ne détaillerons que les configurations des \glspl{se}, et pas l'installation d'\gls{openstack} qui sera abordé dans la section \ref{sec:depblade}.
 
 \subsection{Environnement de test}
-Afin de simuler plusieurs serveurs physiques nous avons installés \gls{proxmox} sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et \gls{openvz} à une interface web afin de permettre la création rapide de machines virtuelles.
+Afin de simuler plusieurs serveurs physiques nous avons installé \gls{proxmox} sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et \gls{openvz} à une interface web afin de permettre la création rapide de machines virtuelles.
 
-A l'aide de \gls{proxmox} nous avons donc créés deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir effectués une installation minimale d'Ubuntu Server 12.04 LTS sur les deux machines nous avons installés \gls{openstack} conformément aux instructions du manuel \og OpenStack Install and Deploy Manual - Ubuntu \fg \cite{OSFolsomInstallUbuntu1210}.
+A l'aide de \gls{proxmox} nous avons donc créé deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir effectué une installation minimale d'Ubuntu Server 12.04 LTS sur les deux machines nous avons installé \gls{openstack} conformément aux instructions du manuel \og OpenStack Install and Deploy Manual - Ubuntu \fg \cite{OSFolsomInstallUbuntu1210}.
 
 \subsection{Conclusion}
-Cette installation nous as permis de commencer à travailler rapidement car il s'agissait d'une configuration standard et les préliminaires à l'installation d'\gls{openstack} (installation des systèmes d'exploitations, configuration du réseau) nous ont pris très peu de temps.
+Cette installation nous a permis de commencer à travailler rapidement car il s'agissait d'une configuration standard et les préliminaires à l'installation d'\gls{openstack} (installation des systèmes d'exploitations, configuration du réseau) nous ont pris très peu de temps.
 Elle était donc idéale à des fins d'étude et de développement.\newline
 Cependant il ne s'agit pas d'une configuration utilisable en production car beaucoup trop lente du fait du peu de ressources disponibles.
 
@@ -602,7 +603,7 @@ chkconfig openstack-nova-volume       on
 
 
 \chapter{Problèmes rencontrés}
-\section{Compatibilité des systèmes d'exploitations sur le BladeCenter}
+\section{Compatibilité des systèmes d'exploitation sur le BladeCenter}
 \label{sec:compatblade}
 L'installation des systèmes d'exploitation sur les lames fût plus compliquée que prévu, étant donné la configuration bi-processeur et les cartes Fibre Channel.
 
@@ -613,7 +614,7 @@ Il suffit de préciser linux text mpath au prompt boot de l'installateur.
 
 Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement et supporte le multipath/boot on SAN nativement.
 
-\section{Versions de librairies incompatible sur Solaris}
+\section{Versions de librairies incompatibles sur Solaris}
 \label{sec:libsolaris}
 
 \chapter{Conclusion finale}
@@ -670,12 +671,12 @@ tail -f /var/log/nova/* | grep ERROR
 \noindent Note: pour une administration simplifiée il serait possible de rediriger les logs vers un serveur \gls{syslog}.
 
 
-\chapter{Installation des systèmes d'exploitations sur les lames} \label{sec:installos}
+\chapter{Installation des systèmes d'exploitation sur les lames} \label{sec:installos}
 Les lames du BladeCenter ne disposant pas de lecteur optique et l'accès physique n'étant pas toujours faisable, il est possible de réaliser l'installation des systèmes d'exploitation à distance.
 Nous détaillerons ici les fonctionnalités intégrés aux lames permettant de les gérer à distance, ainsi que l'installation des différents systèmes que nous avons utilisés.\newline
 Note: les installations détaillés sont spécifiques au BladeCenter et correspondent à la configuration minimum pour faire fonctionner OpenStack. Des documentations plus exhaustives sont disponibles sur les sites respectifs des OS.
 
-\section{Systèmes d'exploitations supportés}
+\section{Systèmes d'exploitation supportés}
 \subsubsection{Systèmes officiellement supportés}
 D'après HP les systèmes d'exploitations supporté sur les lames BL35p sont:
 \begin{itemize}
@@ -707,7 +708,7 @@ Pour ce faire il faut d'abord demander un accès à srv-dev.iut-acy.local à la 
 Sur \gls{windows} on utilisera Putty\footnote{Les instructions de configuration du \gls{tunnelssh} sous \gls{windows} sont disponibles à l'adresse https://w3.iut-acy.univ-savoie.fr/institutionnel/service-informatique/faq/tunnel-ssh/} tandis que sur Linux, à défaut de client gérant le tunneling comme Remmina, on utilisera la commande ssh comme suit pour mapper le port local 10389 sur le port 3389 du serveur TSE:
 \label{tunnelingSsh}
 \begin{verbatim}
-ssh -L 10389:localhost:10.102.75.190:3389 login@srv-dev.iut-acy.local
+ssh -L 10389:10.102.75.190:3389 login@srv-dev.iut-acy.local
 \end{verbatim}
 Il suffira alors d'indiquer l'adresse 127.0.0.1:10389 dans le client RDP pour se connecter.
 
@@ -846,12 +847,11 @@ L'utilisateur final ne peut accéder qu'au dashboard.
 \begin{center}
 \includegraphics[scale=0.8,angle=90]{images/principeOpenStack-crop.pdf}
 \end{center}
-\section{Schémas global serveur dédié}
-\section{Schémas global BladeCenter avec Solaris} \label{sch:glob}
+\section{Schéma global BladeCenter avec Solaris} \label{sch:glob}
 \begin{center}
 \includegraphics[scale=0.8,angle=90]{images/topoBladeSolaris-crop.pdf}
 \end{center}
-\section{Schémas global BladeCenter avec QEMU est GlusterFs}
+\section{Schéma global BladeCenter avec QEMU et GlusterFs}
 
 \begin{center}
 \includegraphics[scale=0.8,angle=90]{images/SchemaBladeQemuGlut-crop.pdf}
@@ -868,7 +868,7 @@ L'utilisateur final ne peut accéder qu'au dashboard.
 
 \section{Exemple de configuration de MediaWiki avec Juju} \label{auto:juju}
 
-Notre but est de déployer MediaWiki et d'y ajouter quelque services de haute disponibilité. Nous allons donc créer deux serveur web avec MediaWiki. Ils seront reliés à la même base MySql qui sera redondé avec une autre base esclave. La charge entre les deux serveurs web sera répartie par HAProxy. Le schéma ci-dessous présente la configuration final vu depuis juju-gui, l'interface web de Juju. Le logo vert en forme de globe représente le monde extérieur.
+Notre but est de déployer MediaWiki et d'y ajouter quelques services de haute disponibilité. Nous allons donc créer deux serveurs web avec MediaWiki. Ils seront reliés à la même base MySql qui sera redondée avec une autre base esclave. La charge entre les deux serveurs web sera répartie par HAProxy. Le schéma ci-dessous présente la configuration finale vue depuis juju-gui, l'interface web de Juju. Le logo vert en forme de globe représente le monde extérieur.
 \begin{center}
 \includegraphics[scale=0.75]{images/butJuju.png}
 \end{center}
@@ -880,7 +880,7 @@ sudo add-apt-repository ppa:juju/pkgs
 sudo apt-get update && sudo apt-get -y install juju charm-tools
 \end{verbatim}
 
-On initialise ensuite Juju, on renseigne les identifiants de connections au Cloud dans {\raise.17ex\hbox{$\scriptstyle\sim$}}/.juju/environments.yaml puis on relance le bootstap.\footnote{Voir https://juju.ubuntu.com/get-started/openstack/ pour des explications sur environments.yaml}
+On initialise ensuite Juju, on renseigne les identifiants de connection au Cloud dans {\raise.17ex\hbox{$\scriptstyle\sim$}}/.juju/environments.yaml puis on relance le bootstap.\footnote{Voir https://juju.ubuntu.com/get-started/openstack/ pour des explications sur environments.yaml}
 \begin{alltt}
 juju bootstrap
 # Edition de environments.yaml
@@ -894,7 +894,7 @@ juju deploy mediawiki
 juju add-relation mediawiki:db mysql
 \end{verbatim}
 
-On ajoute une nouvelle base MySql (qu'on appel mysql-slave) et on la lie avec la précédente
+On ajoute une nouvelle base MySql (qu'on appelle mysql-slave) et on la lie avec la précédente
 \begin{verbatim}
 juju deploy mysql mysql-slave
 juju add-relation mysql:master mysql-slave:slave
@@ -912,15 +912,15 @@ juju deploy haproxy
 juju add-relation haproxy mediawiki
 \end{verbatim}
 
-Toute notre infrastructure est crée mais n'est pas encore accessible depuis internet. 
+Toute notre infrastructure est créée mais n'est pas encore accessible depuis internet. 
 Par défaut les machines ne peuvent pas communiquer avec l'extérieur. Il faut donc rendre le proxy accessible
-Il suffit ensuite d'attendre que toutes les machines démarrent et que les ports s'ouvre
+Il suffit ensuite d'attendre que toutes les machines démarrent et que les ports s'ouvrent
 \begin{verbatim}
 juju expose haproxy
 juju status
 \end{verbatim}
 
-La dernière commande affiche un compte-rendu de toutes les machines créées et de tous les services installé. Il faut localiser la partie de HAProxy et regarder les ligne open-ports et public-address. Dans l'exemple ci-dessous, on voit que le port 80 est ouvert et qu'on peut accéder à la machine via l'ip 15.185.120.12. Si ces information n'ont pas encore apparu, c'est que la machine n'a pas encore fini d'être configuré. 
+La dernière commande affiche un compte-rendu de toutes les machines créées et de tous les services installés. Il faut localiser la partie de HAProxy et regarder les ligne open-ports et public-address. Dans l'exemple ci-dessous, on voit que le port 80 est ouvert et qu'on peut accéder à la machine via l'ip 15.185.120.12. Si ces informations n'ont pas encore apparu, c'est que la machine n'a pas encore fini d'être configurée. 
 \begin{alltt}
 [...]
 services:
@@ -940,19 +940,19 @@ services:
 [...]
 \end{alltt}
 
-Voilà, notre réseau est terminé et fonctionnel. Si la charge augmente on peut ajouter des serveur web, des bases mysql esclave, voir des HAProxy avec la commande \emph{juju add-unit}\\
-On peut aussi modifier la configuration un charmes. Par example, pour modifier le nom de notre MediaWiki, il suffit de faire \emph{juju set mediawiki name='Lamas Wiki!'}\\
-La liste complète des charmes et de leurs configuration est disponible à l'adresse http://jujucharms.com/charms.
-On peut aussi créé ces propres charmes. Il est possible de les développer dans de nombreux langages tel que le python, le ruby ou même avec puppet.
+Voilà, notre réseau est terminé et fonctionnel. Si la charge augmente on peut ajouter des serveurs web, des bases mysql esclave, voir des HAProxy avec la commande \emph{juju add-unit}\\
+On peut aussi modifier la configuration des charmes. Par exemple, pour modifier le nom de notre MediaWiki, il suffit de faire \emph{juju set mediawiki name='Lamas Wiki!'}\\
+La liste complète des charmes et de leur configuration est disponible à l'adresse http://jujucharms.com/charms.
+On peut aussi créer ses propres charmes. Il est possible de les développer dans de nombreux langages tels que le \gls{python}, le \gls{ruby} ou même avec puppet.
 \newpage
-\section{Example de configuration avec Puppet} \label{auto:puppet}
-Notre but est de déployer une application sur un parc entier de machine.
+\section{Exemple de configuration avec Puppet} \label{auto:puppet}
+Notre but est de déployer une application sur un parc entier de machines.
 Nous allons copier automatiquement un fichier sur deux machines.
 
-On considère que PuppetMaster est installé sur le serveur et que les client ont puppet installé aussi.
+On considère que PuppetMaster est installé sur le serveur et que les clients ont Puppet installé aussi.
 
 
-On commence par identifier le client auprès du serveur :
+On commence par identifier le client auprès du serveur :\\
 Sur le client
 \begin{verbatim}
 sudo puppetd -t -v -w 60
@@ -964,8 +964,8 @@ sudo puppetca --list
   "dummy42" (D4:E7:37:A4:DF:F1:18:16:FA:D1:5B:38:CA:13:37:FB)
 \end{verbatim}
 
-Cette commande nous montre la liste des machines qui se sont identifier au serveur.
-Ici la machine "dummy42" s'est identifier.
+Cette commande nous montre la liste des machines qui se sont identifiées au serveur.
+Ici la machine "dummy42" s'est identifiée.
 On l'enregistre
 \begin{verbatim}
 sudo puppetca --sign dummy42
@@ -978,18 +978,18 @@ sudo puppetca --list
 sudo puppetca --sign dummy43
 \end{verbatim}
 
-Maintenant on a plus qu'à activer Puppet au boot de la machine
+Maintenant on n'a plus qu'à activer Puppet au boot de la machine
 Dans /etc/default/puppet
 \begin{verbatim}
 # Start puppet on boot?
 START=yes
 \end{verbatim}
-Et de le démarrer en tache de fond
+Et de le démarrer en tâche de fond
 \begin{verbatim}
 sudo /etc/init.d/puppet start
 \end{verbatim}
 
-Puppet gère le parc de machines grâce au ficher /etc/puppet/manifests/site.pp. C'est dans celui-ci que l'on défini l'adresse du PupperMaster et le fichier qui contient la définition des machines. On le rempli donc ainsi, en supposant que l'adresse ip du PuppetMaster soit 192.168.1.1.
+Puppet gère le parc de machines grâce au ficher /etc/puppet/manifests/site.pp. C'est dans celui-ci que l'on définit l'adresse du PupperMaster et le fichier qui contient la définition des machines. On le remplit donc ainsi, en supposant que l'adresse ip du PuppetMaster soit 192.168.1.1.
 \begin{verbatim}
 filebucket { 'main': server => '192.168.1.1' }
 File { backup => 'main' }
@@ -997,22 +997,22 @@ File { backup => 'main' }
 import "node"
 \end{verbatim}
 
-Viens maintenant la définition des machines. On donc appliquer à dummy42 et dummy43 la configuration de vim. On écrit donc dans /etc/puppet/manifests/node.pp
+Vient maintenant la définition des machines. On applique donc à dummy42 et dummy43 la configuration de vim. On écrit ensuite dans /etc/puppet/manifests/node.pp
 \begin{verbatim}
 node 'dummy42','dummy43 {
     include pushText
 }
 \end{verbatim}
 
-On crée maintenant notre module. Puppet appel module, la liste des opération à effectuer pour compléter une tâche. Par example l'installation d'apache ou en l'occurrence, la copie d'un fichier.
+On crée maintenant notre module. Puppet nomme module, la liste des opérations à effectuer pour compléter une tâche, par exemple, l'installation d'apache ou, en l'occurrence, la copie d'un fichier.
 
-On commence par crée l'arborescence de notre module.
+On commence par créer l'arborescence de notre module.
 \begin{verbatim}
 mkdir -p /etc/puppet/modules/pushText/manifests
 mkdir -p /etc/puppet/modules/pushText/files
 \end{verbatim}
 
-Puis on défini les action à faire. On crée un fichier puppet.txt dans /etc qui appartient a root et on lui applique des droits 644. Le fichier sera copié depuis /etc/puppet/module/pushText/puppet.txt 
+Puis on définit les actions à faire. On crée un fichier puppet.txt dans /etc qui appartient à root et on lui applique les droits 644. Le fichier sera copié depuis /etc/puppet/module/pushText/puppet.txt 
 \begin{verbatim}
 class dummy {
         file { "/etc/puppet.txt":
@@ -1024,21 +1024,21 @@ class dummy {
 }
 \end{verbatim}
 
-On redémarre PuppetMaster pour qu'il prennent en compte les modification
+On redémarre PuppetMaster pour qu'il prenne en compte les modifications
 \begin{verbatim}
 sudo service puppetmaster restart
 \end{verbatim}
 
-Et on a plus qu'à forcer la mise a jour sur les clients.
+Et il ne reste plus qu'à forcer la mise à jour sur les clients.
 \begin{verbatim}
 sudo puppetd -t -v
 \end{verbatim}
 
-Ici, nous avons effectué une tâche très simple, mais puppet nous permet de faire plein de choses beaucoup plus poussé. On peut installer toute sorte de logiciel aussi bien Apache, Munin ou encore Wordpress. 
+Ici, nous avons effectué une tâche très simple, mais puppet nous permet de faire plein de choses beaucoup plus poussées. On peut installer toutes sortes de logiciels tel que Apache, Munin ou encore Wordpress. 
 On peut même installer des modules d'Openstack.
-Le clients Puppet est disponible sous plein de platforme comme Linux, Windows et Mac.
-Toutes les recettes sont recensé dans la forge. Puppet\footnote{http://forge.puppetlabs.com/} et peuvent être installé facilement.
-Par exemple, la figure ci-dessous montre une partie de la recette d'installation de vim, un célèbre éditeur de texte sous linux.
+Le client Puppet est disponible sur beaucoup de plateformes comme Linux, Windows et Mac.
+Toutes les recettes sont recensées dans la Forge Puppet\footnote{http://forge.puppetlabs.com/} et peuvent être installés facilement.
+Par exemple, la figure ci-dessous montre une partie de la recette d'installation de vim, un célèbre éditeur de textes sous linux.
 
 \begin{figure}[!h]
 \begin{center}
