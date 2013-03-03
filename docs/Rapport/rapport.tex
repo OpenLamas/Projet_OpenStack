@@ -289,7 +289,7 @@ Nous utiliserons \gls{puppet} car elle possède une communauté très active et 
 Nous avons choisi de les stocker sur un serveur \gls{git} afin de mieux gérer les différentes révisions et l'édition distante.
 
 \section{Haute disponibilité}
-\subsection{GlusterFS}
+\subsection{GlusterFS} \label{sec:glusterfs}
 \gls{glusterfs} est un système de stockage distribué.
 
 \section{Reverse Proxy}
@@ -408,9 +408,16 @@ Comme dans la section \ref{sec:depsolaris} nous avons donné des noms (hostname)
 Ces noms sont détaillés dans le tableau ci-dessous ainsi que DANS LE SCHEMA ??????
 
 Nous avons cette fois ci voulu réaliser une installation permettant de maximiser les capacités de virtualisation et de résister à la chute éventuel d'un noeud.
-Pour cela nous nous sommes basés sur ce guide https://github.com/beloglazov/openstack-centos-kvm-glusterfs que nous avons adapté et auquel nous avons rajouter plusieurs fonctionnalités. LESQUELS????
+Pour cela nous nous sommes basés sur ce guide https://github.com/beloglazov/openstack-centos-kvm-glusterfs que nous avons adapté.
 
-PARLER DU RESEAU / CLOUD CONTROLLER / GlusterFS /...
+Sur les \glspl{switch} tout les ports ont été placés en mode trunk et la tagguage des VLANs est réalisé par les systèmes d'exploitations. Les liens ont été agrégés de façon à augmenter la bande passante et à disposer d'un lien de secours.
+
+Dans cette configuration nous distinguerons deux types de noeuds : le \emph{cloud controller} et les noeuds de \emph{compute}. Le premier possèdera tout les services d'OpenStack (y compris nova-compute) et sera chargé de router les paquets des instances sur le réseau public tandis que les seconds ne disposeront que de nova-compute et se contenteront de faire tourner les instances.
+
+Afin de pouvoir migrer les instances entre les lames nous avons mis en place un stockage distribué et partagé entre les machines à l'aide de GlusterFS (voir \ref{sec:glusterfs}).
+
+
+FAIRE UN TABLEAU RESUME STOCKAGE + RESEAU
 
 \subsection{Préliminaires}
 \subsubsection{Installation des \gls{se}}
@@ -499,7 +506,7 @@ service openstack-glance-registry restart
 service openstack-glance-api restart
 chkconfig openstack-glance-registry on
 chkconfig openstack-glance-api on
-\end{verbatim}*
+\end{verbatim}
 
 \noindent Pour la création des utilisateurs, services, et endpoints, voir l'annexe \ref{script:keystoneData}.
 
@@ -537,7 +544,6 @@ service openstack-nova-api          restart
 service openstack-nova-cert         restart
 service openstack-nova-consoleauth  restart
 service openstack-nova-direct-api   restart
-service openstack-nova-metadata-api restart
 service openstack-nova-scheduler    restart
 service openstack-nova-volume       restart
 chkconfig qpidd on
@@ -546,7 +552,6 @@ chkconfig openstack-nova-api          on
 chkconfig openstack-nova-cert         on
 chkconfig openstack-nova-consoleauth  on
 chkconfig openstack-nova-direct-api   on
-chkconfig openstack-nova-metadata-api on
 chkconfig openstack-nova-scheduler    on
 chkconfig openstack-nova-volume       on
 \end{verbatim}
@@ -829,7 +834,7 @@ Notre but est de déployer MediaWiki et d'y ajouter quelque services de haute di
 \includegraphics[scale=0.75]{images/butJuju.png}
 \end{center}
 
-On commence par installer Juju et ses dépendances (Juju est disponible dans les dépôts officiels d'Ubuntu mais on préfère utiliser la version issu de sont ppa\footnote{Personal Package Archives. Ce sont des dépôts non-officiel mise à disposition des développeurs de logiciel libre par la plateforme LaunchPad} qui est plus à jour)
+On commence par installer Juju et ses dépendances (Juju est disponible dans les dépôts officiels d'Ubuntu mais on préfèrera utiliser la version issue de son \gls{ppa}.
 \begin{verbatim}
 sudo apt-get -y install python-software-properties
 sudo add-apt-repository ppa:juju/pkgs
