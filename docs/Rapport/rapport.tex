@@ -14,6 +14,7 @@
 \usepackage{soul}
 \usepackage{color}
 \usepackage{fancyvrb}
+\usepackage{url}
 
 \addbibresource{rapport.bib}
 \makeglossaries
@@ -57,28 +58,28 @@ Nous trouvons ces technologies passionnantes et mettre en place un \gls{cloudpri
 
 \section{Contexte}
 \subsection{La \gls{virtualisation}}
-Le principe de base de la \gls{virtualisation} est de permettre le fonctionnement de plusieurs \glspl{se} (\gls{windows}, \gls{linux}, …) en simultané sur un ordinateur.
+Le principe de base de la \gls{virtualisation} est de permettre le fonctionnement de plusieurs systèmes d'exploitation (\gls{windows}, \gls{linux}, …) en simultané sur un ordinateur.
 Les intérêts sont multiples, on peut citer principalement :\newline
 
 - Augmenter la disponibilité grâce à une redondance et réduire les coûts.
-Par exemple on peut imaginer avoir deux serveurs mails sur une même machine physique et utiliser l’un ou l’autre en fonction de leur charge ou en cas de panne.
-On réduit par la même occasion les coûts puisqu’on n’utilisera qu’une seule machine physique pour ces deux serveurs.\newline
+Par exemple on peut imaginer avoir deux serveurs mails sur une même machine physique et utiliser l'un ou l'autre en fonction de leur charge ou en cas de panne.
+On réduit par la même occasion les coûts puisqu'on n'utilisera qu'une seule machine physique pour ces deux serveurs.\newline
 
-- Un dimensionnement plus facile. La \gls{virtualisation} ajoutant une couche d’abstraction entre le \gls{se} (logiciel) et le matériel (ordinateur) on peut aisément augmenter la puissance de calcul en ajoutant, par exemple, de la mémoire sur un ordinateur sans impacter le fonctionnement des systèmes virtuels.\newline
+- Un dimensionnement plus facile. La \gls{virtualisation} ajoutant une couche d'abstraction entre le système d'exploitation (logiciel) et le matériel (ordinateur) on peut aisément augmenter la puissance de calcul en ajoutant, par exemple, de la mémoire sur un ordinateur sans impacter le fonctionnement des systèmes virtuels.\newline
 
 - Faciliter les migrations site-à-site.
-Il est beaucoup plus facile de transférer un serveur d’un site physique à un autre en transférant une image virtuelle par le réseau plutôt qu’en transportant un serveur physique.\newline
+Il est beaucoup plus facile de transférer un serveur d'un site physique à un autre en transférant une image virtuelle par le réseau plutôt qu'en transportant un serveur physique.\newline
 
-Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmi les plus connus on pourra citer \gls{parallelsd} ou \gls{vbox}.
+Il existe plusieurs logiciels permettant de virtualiser des systèmes, parmi les plus connus on pourra citer Parallels Desktop ou \gls{vbox}.
 
 \subsection{Le \gls{cloudcomputing}}
 \subsubsection{Vue d'ensemble}
-Ces logiciels conviennent à la \gls{virtualisation} de quelques machines mais pas à la gestion globale d'une infrastructure, ils se contentent de faire fonctionner plusieurs \glspl{se} sur un seul ordinateur.
+Ces logiciels conviennent à la \gls{virtualisation} de quelques machines mais pas à la gestion globale d'une infrastructure, ils se contentent de faire fonctionner plusieurs systèmes d'exploitation sur un seul ordinateur.
 Ils ne permettent pas d'utiliser des ressources et du stockage présents sur plusieurs ordinateurs depuis un lieu distant et par plusieurs personnes.
 
 On va alors regrouper toutes ces ressources (stockage, ordinateurs, logiciels de \gls{virtualisation}) via un réseau.
-On parle de \gls{cloudcomputing} et plus précisément\footnote{Voir \og IaaS, PaaS, et autres *aaS \fg ci-dessous.} dans ce cas là d’\gls{iaas}.
-L'utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de \gls{virtualisation}, ni comment ils sont reliés entre eux. Il indique juste au cloud qu’il souhaite tant de machines avec tel système d'exploitation.
+On parle de \gls{cloudcomputing} et plus précisément\footnote{Voir \og IaaS, PaaS, et autres *aaS \fg ci-dessous.} dans ce cas là d'\gls{iaas}.
+L'utilisateur final ne se préoccupe pas de savoir où est physiquement le stockage ou les ordinateurs qui possèdent le logiciel de \gls{virtualisation}, ni comment ils sont reliés entre eux. Il indique juste au cloud qu'il souhaite tant de machines avec tel système d'exploitation.
 
 \subsubsection{IaaS, PaaS, et autres *aaS}
 \glsreset{iaas} \glsreset{paas} \glsreset{saas}
@@ -116,30 +117,30 @@ Un Cloud public sera toujours situé en dehors de l'entreprise, alors qu'un \gls
 Il en résulte alors un contrôle complet de l'infrastructure et une sécurité accrue.
 
 \subsection{Panorama des IaaS} \label{sec:panorama_iaas}
-\subsubsection{\gls{amazon} EC2}
-\gls{amazon} a lancé \gls{ec2} durant l'été 2006.
+\subsubsection{Amazon EC2}
+Amazon a lancé \gls{ec2} durant l'été 2006.
 Il s'agit d'un \gls{cloudpublic}, au sens où l'infrastructure est commune à tout les clients, et accessible à travers une \gls{api} et une interface Web, moyennant un paiement par heures d'utilisation.
 
 Les instances, allant de 1 à 244Go de RAM et de 1 \gls{coeur} virtuel à 32 \glspl{coeur} physiques, sont virtualisés grâce à l'hyperviseur Open Source \gls{xen}.
-\gls{ec2} supporte \gls{linux}, \gls{bsd}, \gls{solaris}, et \gls{windows} comme \glspl{se} invités.
+\gls{ec2} supporte \gls{linux}, \gls{bsd}, \gls{solaris}, et \gls{windows} comme systèmes d'exploitation invités.
 
-Le \gls{stockagebloc} est fourni par \gls{amazon} \gls{ebs} tandis que le \gls{stockageobjet} est fourni par \gls{amazon} \gls{s3}.
+Le \gls{stockagebloc} est fourni par Amazon \gls{ebs} tandis que le \gls{stockageobjet} est fourni par Amazon \gls{s3}.
 Chacun de ces services possède sa propre \gls{api}, permettant de les utiliser indépendamment les uns des autres.
 
 A titre informatif, \gls{ec2} est utilisé, entre autres, par \gls{netflix}\footnote{En 2011, aux heures de pointe, \gls{netflix} était responsable de 29\% du trafic Internet en Amérique du Nord \cite{NetflixTrafic}. D'où la nécessité d'une infrastructure robuste et scalable.}, \gls{instagram}, et \gls{shazam}, tandis que la plupart des services de stockage en ligne grand public, comme \gls{dropbox}, utilisent \gls{s3}.
 
-Il faut noter que l'\gls{iaas} d'\gls{amazon} est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
+Il faut noter que l'\gls{iaas} d'Amazon est propriétaire et spécifique à leur infrastructure. Il n'est pas possible de la déployer sur son propre matériel.
 
 \subsubsection{CloudStack}
-\gls{cloudstack} est un système de création d'\gls{iaas} originellement développé par \gls{cloudcom} puis racheté par \gls{citrix} à l'été 2011.
-Il appartient désormais à la \gls{fondationapache} et est donc \gls{opensource} sous la licence correspondante\footnote{La \gls{licenceapache}}.\newline
+\gls{cloudstack} est un système de création d'\gls{iaas} originellement développé par Cloud.com puis racheté par Citrix à l'été 2011.
+Il appartient désormais à la fondation Apache et est donc \gls{opensource} sous la licence correspondante\footnote{La \gls{licenceapache}}.\newline
 CloudStack est développé en \gls{java}.
 
 \subsubsection{OpenStack}
 \gls{openstack} a été lancé en Juillet 2010 par Rackspace et la NASA.
 Son but est de proposer un outil gratuit et libre de création d'\gls{iaas}.
 Le code source du projet (du \gls{python}) est disponible sur GitHub\footnote{https://github.com/openstack} et Launchpad\footnote{https://launchpad.net/openstack} sous licence Apache 2.0.\newline
-Outre ses deux fondateurs OpenStack est à l'heure actuelle principalement utilisé par \gls{hp}, AT\&T, Intel, et Canonical.
+Outre ses deux fondateurs OpenStack est à l'heure actuelle principalement utilisé par HP, AT\&T, Intel, et Canonical.
 
 \section{Rappel du cahier des charges}
 \subsubsection{Objectifs}
@@ -162,7 +163,7 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 \item Haute-disponibilité, tolérance de pannes
 \item Monitoring des machines physiques
 \item Nœuds de \gls{virtualisation} supplémentaires avec \gls{xen}, \gls{lxc}, voir \gls{hyperv}
-\item Migration automatique des VMs après la chute d'un noeud
+\item Migration automatique des VMs après la chute d'un nœud
 \end{itemize}
 
 \section{Démarche}
@@ -192,8 +193,8 @@ Nous disposions de trois lames équipées chacune de deux processeurs AMD Optero
 Toutes les lames possèdent deux cartes \gls{fc} QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
-Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un \gls{san} \gls{hp} StorageWorks relié en \gls{fc}.
-Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg  à une lame au travers du contrôleur \gls{fc}.\newline
+Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un \gls{san} HP StorageWorks relié en \gls{fc}.
+Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg~à une lame au travers du contrôleur \gls{fc}.\newline
 Les contrôleurs font ce que l'on appelle du \gls{multipath}, c'est à dire qu'ils utilisent plusieurs chemins physiques pour accéder aux disques afin de faire du \gls{failover}.
 
 \subsection{Réseau}
@@ -201,32 +202,20 @@ Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de fair
 
 La séparation des réseaux est permise par l'ajout de tags sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q) et la configuration des ports en mode trunk sur les \glspl{switch}.
 
+\subsection{Compatibilité des systèmes d'exploitation}
+L'installation des systèmes d'exploitation sur les lames fût plus compliquée que prévu, étant donné la configuration bi-processeur et les cartes Fibre Channel.
 
-\chapter{Systèmes d'exploitation hôtes}
-\section{Ubuntu Server} \label{cha:ubuntu}
-Ubuntu est un système d'exploitation libre basé sur la distribution Debian. Il est piloté par Canonical qui le distribue gratuitement et vend un support technique.
-Chaque année sorte entre deux et trois nouvelles versions d'Ubuntu qui ont une durée de support de 3 ans et tous les deux ans sort une version dite "LTS\footnote{Long Term Support}" qui a une durée de support de 5 ans. Chaque version est déclinée en deux versions différentes, la version desktop et la version serveur.
-
-Nous avons choisi d'utiliser la version 12.04 LTS d'Ubuntu Server puisque l'installation d'OpenStack est documentée pour cette version
-\section{CentOS}
-
-\section{Solaris}
-
+Après de multiples installations infructueuses, un appel au support HP et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents ($ > 2.6 $) sont trop instables. Pour en savoir plus sur les systèmes installables voir l'annexe \ref{sec:compatse}.
 
 \chapter{Logiciels}
 \section{OpenStack}
-Nous avons choisi \gls{openstack} car des solutions d'\gls{iaas} présentés précédemment dans la section \ref{sec:panorama_iaas} c'est celle qui est soutenu par le plus d'entreprise (voir \ref{sec:fondationos}), et, comme en témoigne le volume des recherches Google, elle possède une communauté très développé sur Internet.
+Nous avons choisi \gls{openstack} car des solutions d'\gls{iaas} présentés précédemment dans la section \ref{sec:panorama_iaas} c'est celle qui est soutenu par le plus d'entreprise, et, comme en témoigne le volume des recherches Google, elle possède une communauté très développé sur Internet.
 \begin{figure}[h!]
 \centering
 \includegraphics[resolution=140]{images/recherches_iaas.png}
-\caption{Evolution du volume des recherches Google pour les principales IaaS}
+\caption{Évolution du volume des recherches Google pour les principales IaaS}
 \end{figure}
 
-
-\subsection{La fondation OpenStack} \label{sec:fondationos}
-
-\subsection{Les différentes versions d'OpenStack}
-Depuis XXXX Y versions stables sont sorties : Diablo (), Essex (), Folsom() . Chaque version s'est vue ajoutée
 
 \subsection{Les services}
 \gls{openstack} est constitué de différents services gérant chacun une composante spécifique de l'\gls{iaas}.
@@ -236,7 +225,7 @@ Il expose une \gls{api} HTTP(S) sur deux endpoints, un public sur le port 5000, 
 Il supporte différents backends pour l'authentification, certains permettant la persistance et l'édition des données comme \gls{sql} ou \gls{ldap}, d'autres en lecture-seule comme \gls{pam}.\newline
 
 \subsubsection{Nova}
-C'est le service qui va gérer les systèmes de \gls{virtualisation}. Il supporte \gls{qemu}, \gls{kvm}, et \gls{lxc} au travers de libvirt ainsi que \gls{xen} et \gls{esxi} en communicant avec leur \gls{api} respective.
+C'est le service qui va gérer les systèmes de \gls{virtualisation}. Il supporte \gls{qemu}, \gls{kvm}, et \gls{lxc} au travers de libvirt ainsi que \gls{xen} et VMware ESXi en communicant avec leur \gls{api} respective.
 Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées. Étant donné qu'il ne fait que donner des instructions aux hyperviseurs il peut-être redémarré sans risque de coupure des instances.\newline
 Nova peut aussi gérer le stockage bloc si Cinder n'est pas utilisé, et le réseau si Quantum n'est pas installé.\newline
 Il utilise Keystone pour l'authentification.
@@ -244,17 +233,6 @@ Il utilise Keystone pour l'authentification.
 
 \subsubsection{Quantum}
 Pour des besoins simples le réseau peut-être géré par nova-network. Pour plus de flexibilité il  est possible de le remplacer par Quantum qui offre une \gls{api} à part entière ainsi que des fonctionnalités avancées comme le tunneling L3 dans L2 et le support des plugins de switchs virtuels (OpenVSwitch, Cisco Nexus, ...).
-
-
-\subsubsection{Cinder}
-Jusque Folsom le \gls{stockagebloc} est géré par nova-volume. Cependant ce service sera déprécié dans Grizzly et remplacé par Cinder.
-
-
-
-\subsubsection{Swift}
-Swift est le système de \gls{stockageobjet}. 
-
-Il supporte deux systèmes d'authentification, Swauth hérité de Rackspace, et Keystone.
 
 \subsubsection{Glance}
 Glance s'occupe des images virtuelles\footnote{Une image est le modèle d'après lequel serons créées les machines.}.
@@ -270,38 +248,37 @@ C'est l'interface graphique qui permet à l'utilisateur final de gérer ses inst
 Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libres qui permettent d'automatiser ces tâches.
 
 \subsubsection{Juju}
-\gls{canonical}, la société qui édite \gls{ubuntu} (voir \ref{sec:ubuntu}) distribue, sous licence libre, \gls{juju}, un \gls{serviceorchestration}, écrit en \gls{python}, qui permet de configurer automatiquement des services.
+Canonical, la société qui édite \gls{ubuntu} distribue, sous licence libre, \gls{juju}, un \gls{serviceorchestration}, écrit en \gls{python}, qui permet de configurer automatiquement des services.
 \footnote{Dans \gls{juju}, un service est appelé un "charme". Un charme peut aussi bien être un programme comme \gls{apache} ou \gls{varnish} ou un service web comme \gls{mediawiki}} et de créer des relations entre eux. 
 \gls{juju} rajoute une couche d'abstraction entre la machine et le service. Il suffit de définir des relations entre les charmes et ils se configurent automatiquement. 
 Par exemple, il suffit d'établir une relation entre un logiciel de \gls{loadbalancing} (comme \gls{varnish}) et notre service (MediaWiki par example) pour que la charge soit répartie sur les différents serveur, quelque soit le nombre d'instance du service (ici \gls{mediawiki}).
 \gls{juju} s'installe sur l'ordinateur de l'utilisateur et s'utilise en ligne de commande mais il existe une interface web (en beta à l'heure actuel) qui s'installe sur un serveur distant.
-\gls{juju} supporte la plus part des \gls{iaas} public du marché (\gls{hp}, \gls{amazon} et \gls{rackspace}) ainsi que les \gls{iaas} privé basés sur \gls{openstack}.
+\gls{juju} supporte la plus part des \gls{iaas} public du marché (HP, Amazon et \gls{rackspace}) ainsi que les \gls{iaas} privé basés sur \gls{openstack}.
 L'annexe \ref{auto:juju} explique comment déployer plusieurs instances de \gls{mediawiki} avec quelque dépendances (\gls{mysql} et \gls{haproxy}).\newline
 
 
-Juju est très pratique pour déployer rapidement un environnement complet et durable dans le temps. 
+\gls{juju} est très pratique pour déployer rapidement un environnement complet et durable dans le temps. 
 Cependant, il l'est beaucoup moins pour appliquer une configuration avancée sur une multitude de machines.
-Pour ce genre de besoin, il existe des solutions comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
+Pour ce genre de besoin, il existe des solutions comme \gls{puppet}, \gls{chef} ou encore \gls{cfengine} qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
 
 \subsubsection{Puppet} 
-Nous avons choisi d'utiliser Puppet car il possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus claire.
-Puppet marche sur un système de clients-serveur.
-Chaque machine à configurer, appelée nœud, a le client puppet installé.
+Nous avons choisi d'utiliser \gls{puppet} car il possède une communauté très active et la syntaxe de ses scripts de configuration nous semble la plus claire.
+\gls{puppet} marche sur un système de clients-serveur.
+Chaque machine à configurer, appelée nœud, a le client \gls{puppet} installé.
 Elles doivent s'identifier auprès du serveur, appelé PuppetMaster.
-Les communications entre le PuppetMaster et ses clients sont chiffrées grâce à des certificats générés par puppet à son démarrage.
-Afin de définir les configurations à effectuer sur chaque nœud, on utilise des recettes.(Voir l'annexe \ref{auto:puppet} pour une explication concrète d'utilisation d'une recette)
-Nous avons choisi de les stocker sur un serveur \gls{git} afin de mieux gérer les différentes révisions et l'édition distante.
+Les communications entre le PuppetMaster et ses clients sont chiffrées grâce à des certificats générés par \gls{puppet} à son démarrage.
+Afin de définir les configurations à effectuer sur chaque nœud, on utilise des recettes.(Voir l'annexe \ref{auto:puppet} pour une explication concrète d'utilisation d'une recette).
 
 \section{Haute disponibilité}
 \subsection{GlusterFS} \label{sec:glusterfs}
-\gls{glusterfs} est un système de stockage distribué.
+\gls{glusterfs} est un système de fichier distribué. Il permet de redonder les données stockées dans une grappe de serveur. Il est accessible via un client spécifique ou tout simplement via un point de montage \gls{nfs}.
 
 \section{Reverse Proxy}
-Pour les premières installations, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contraintes techniques (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifiée).
+Pour les premières installations, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contraintes techniques (une seul IP disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifiée).
 De cette manière, la zone qui abrite le dashboard n'est connectée qu'au LAN interne des lames.
 De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. 
-Nous avons choisi de mettre en place un mécanisme de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple.
-En effet, la translation ne nous autorise qu'une seule redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de créer autant de sous domaines que l'on veut et de les rediriger vers n'importe quel ip et port.}.
+Nous avons choisi de mettre en place un mécanisme de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'IP de la zone abritant le serveur web, mais cette solution aurait été moins souple.
+En effet, la translation ne nous autorise qu'une seule redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de créer autant de sous domaines que l'on veut et de les rediriger vers n'importe quel IP et port.}.
 
 Un reverse proxy est un serveur qui permet de réécrire les requêtes HTTP afin, par exemple, de cacher à l'utilisateur l'architecture interne du réseau.\newline
 Grâce à lui, nous pouvons rediriger les requêtes vers notre serveur web.
@@ -317,12 +294,12 @@ Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configu
 
 \section{Supervision}
 Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelés logiciels ou plates-formes de supervision qui, en s'appuyant sur des protocoles tels qu'\gls{snmp} ou \gls{telnet}, vérifient en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installés sur les machines.
-Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connectés à la base MySQL.
+Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des \glspl{switch}, en passant par le nombre de clients connectés à la base MySQL.
 Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par SMS... Tout dépend du logiciel de supervision et de sa configuration.}.
 
 
 \subsection{Shinken}
-Le marché de la supervision est à la fois occupé par de grand constructeur comme \gls{hp} avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios.
+Le marché de la supervision est à la fois occupé par de grand constructeur comme HP avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios.
 Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
 Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins Nagios et ainsi de bénéficier de son immense communauté.
 
@@ -335,12 +312,12 @@ Une alternative courante est MRTG.
 \chapter{Mise en place} \label{cha:miseenplace}
 \section{Installation de développement sur un serveur dédié}
 Nous avons réalisé une première installation d'\gls{openstack} et des services associés sur un serveur dédié afin d'étudier le fonctionnement global.
-Dans cette section nous ne détaillerons que les configurations des \glspl{se}, et pas l'installation d'\gls{openstack} qui sera abordé dans la section \ref{sec:depblade}.
+Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitation, et pas l'installation d'\gls{openstack} qui sera abordé dans la section \ref{sec:depblade}.
 
 \subsection{Environnement de test}
-Afin de simuler plusieurs serveurs physiques nous avons installé \gls{proxmox} sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et \gls{openvz} à une interface web afin de permettre la création rapide de machines virtuelles.
+Afin de simuler plusieurs serveurs physiques nous avons installé Proxmox sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et OpenVZ à une interface web afin de permettre la création rapide de machines virtuelles.
 
-A l'aide de \gls{proxmox} nous avons donc créé deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir effectué une installation minimale d'Ubuntu Server 12.04 LTS sur les deux machines nous avons installé \gls{openstack} conformément aux instructions du manuel \og OpenStack Install and Deploy Manual - Ubuntu \fg \cite{OSFolsomInstallUbuntu1210}.
+A l'aide de Proxmox nous avons donc créé deux machines virtuelles fonctionnant sur \gls{kvm}: \emph{node-controller} et \emph{node-compute}. Après avoir effectué une installation minimale d'Ubuntu Server 12.04 LTS sur les deux machines nous avons installé \gls{openstack} conformément aux instructions du manuel \og OpenStack Install and Deploy Manual - Ubuntu \fg \cite{OSFolsomInstallUbuntu1210}.
 
 \subsection{Conclusion}
 Cette installation nous a permis de commencer à travailler rapidement car il s'agissait d'une configuration standard et les préliminaires à l'installation d'\gls{openstack} (installation des systèmes d'exploitations, configuration du réseau) nous ont pris très peu de temps.
@@ -357,7 +334,6 @@ Dans cette section nous ne détaillerons que la configuration des systèmes d'ex
 
 \subsection{Architecture}
 Nous avons choisi d'installer Solaris 11 sur Fuji et Iyo et CentOS 6 sur Raijin.
-Pour plus d'informations sur ce choix voir \ref{sec:compatblade}.
 
 L'installation des systèmes est détaillé dans les annexes \ref{sec:installcentos} et \ref{sec:installsolaris}.
 
@@ -367,14 +343,17 @@ Fuji, quand à elle, a une interface sur le réseau extérieur (réseau de IUT a
 De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
 
 Afin de donner accès à internet au lames du réseau interne, nous avons mis en place une translation d'adresse sur Fuji (NAT).
-Sur Solaris, le pare-feu par défaut est ipfilter. La configuration (donné en annexe \ref{conf:NAT}) permet de translater l'adresse locale (192.168.1.0/24) vers l'adresse public (10.102.75.190).
+Sur Solaris, le pare-feu par défaut est ipfilter. La commande suivante permet de translater l'adresse locale (192.168.1.0/24) vers l'adresse public (10.102.75.190):
+\begin{verbatim}
+echo 'map net0 192.168.1.0/24 -> 10.102.75.190' >> /etc/ipf/ipf.conf
+\end{verbatim}
 
 Maintenant que nos machine on accès à internet, il faut qu'on rende disponible depuis l'extérieur les interfaces web des différent services disponible (Le dashboard, le panel Shinken et l'interface de configuration de Puppet).
-Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédemment). Une fois apache installé, il faut ajouter au fichier de configuration d'apache (httpd.conf) les directive de l'annexe \ref{conf:apacheProxy}.
+Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédemment).
 Celle-ci renvoie tous le trafic qui arrive à Apache vers la machine qui a l'IP 192.168.1.3 et sur sont port 80.
 
 \subsubsection{Particularités liées à l'utilisation de Solaris}
-Solaris possède son propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible. Une communauté s'est alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilés pour Solaris. OpenCSW est disponible à l’adresse: www.opencsw.org.
+Solaris possède son propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible. Une communauté s'est alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilés pour Solaris. OpenCSW est disponible à l'adresse: www.opencsw.org.
 
 Certains utilitaires système de Solaris tels que pkg sont écrits en Python et utilisent des librairies en commun avec les services d'OpenStack. Pour éviter tout problème de compatibilité il est nécessaire d'installer les services dans un environnement virtuel (\emph{virtualenv}) à l'aide de la commande:
 \begin{verbatim}
@@ -391,7 +370,7 @@ De plus notre configuration réseau nous obligeait à faire du \gls{nat} pour ac
 
 \section{Déploiement sur un BladeCenter avec CentOS} \label{sec:depblade}
 Comme dans la section \ref{sec:depsolaris} nous avons donné des noms (hostname) aux lames afin de les différencier plus facilement que par leur IP.
-Ces noms sont détaillés dans le tableau ci-dessous ainsi que DANS LE SCHEMA ??????
+Ces noms sont détaillés dans le tableau ci-dessous ainsi que dans l'annexe \ref{schema:centos}
 
 Nous avons cette fois ci voulu réaliser une installation permettant de maximiser les capacités de virtualisation et de résister à la chute éventuel d'un noeud.
 Pour cela nous nous sommes basés sur ce guide https://github.com/beloglazov/openstack-centos-kvm-glusterfs que nous avons adapté.
@@ -458,13 +437,14 @@ Iyo & bond0.2 & 2 & 10.102.75.102 \\
 \caption{Récapitulatif de la configuration réseau des lames}
 \end{figure}
 
+\newpage
 \subsection{Préliminaires}
-\subsubsection{Installation des \gls{se}}
-Nous avons choisi d'installer CentOS 6.3 x64 sur les quatres lames. Le procédure d'installation est décrite dans l'annexe \ref{sec:installcentos}.\newline
+\subsubsection{Installation des systèmes d'exploitation}
+Nous avons choisi d'installer CentOS 6.3 x64 sur les quatre lames. Le procédure d'installation est décrite dans l'annexe \ref{sec:installcentos}.\newline
 Il s'agit d'une installation sans Internet car cette fois-ci les liens sont en mode trunk et nous tagguons nous-même les VLANs.
 
 \subsubsection{Configuration des dépôts YUM}
-Les dépots de paquets par défaut de CentOS ne contiennent pas OpenStack. Il faut donc ajouter le dépot EPEL\footnote{Extra Packages for Enterprise Linux (or EPEL) is a Fedora Special Interest Group that creates, maintains, and manages a high quality set of additional packages for Enterprise Linux, including, but not limited to, Red Hat Enterprise Linux (RHEL), CentOS and Scientific Linux (SL).}, pour celà:
+Les dépôts de paquets par défaut de CentOS ne contiennent pas OpenStack. Il faut donc ajouter le dépot EPEL\footnote{Extra Packages for Enterprise Linux. Ensemble de paquets supplémentaires pour RedHat, CentOS, et Scientific Linux.}, pour cela:
 \begin{verbatim}
 sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 \end{verbatim}
@@ -509,8 +489,7 @@ service openstack-keystone restart
 chkconfig openstack-keystone on
 \end{verbatim}
 
-On va utiliser une version modifié de keys???????????????
-
+\noindent Pour la création des utilisateurs de base, services, et endpoints, on peut utiliser le script à l'adresse: \url{https://github.com/openstack/keystone/blob/90ebf9/tools/sample_data.sh}.
 
 \subsubsection{Installation du services d'image}
 \noindent On commence par créer la base MySQL:
@@ -547,8 +526,6 @@ chkconfig openstack-glance-registry on
 chkconfig openstack-glance-api on
 \end{verbatim}
 
-\noindent Pour la création des utilisateurs, services, et endpoints, voir l'annexe \ref{script:keystoneData}.
-
 \subsubsection{Installation de Nova}
 \noindent On crée la base MySQL:
 \begin{verbatim}
@@ -559,7 +536,7 @@ GRANT ALL ON nova.* TO 'nova'@'%' IDENTIFIED BY 'PASS_DBNOVA';
 GRANT ALL ON nova.* TO 'nova'@'localhost' IDENTIFIED BY 'PASS_DBNOVA';
 \end{verbatim}
 
-\noindent On installe Nova:
+\noindent On installe Nova et le serveur AMQP:
 \begin{verbatim}
 yum install -y openstack-nova* qpid-cpp-server
 \end{verbatim}
@@ -585,6 +562,7 @@ service openstack-nova-consoleauth  restart
 service openstack-nova-direct-api   restart
 service openstack-nova-scheduler    restart
 service openstack-nova-volume       restart
+service openstack-nova-network      restart
 chkconfig qpidd on
 chkconfig tgtd  on
 chkconfig openstack-nova-api          on
@@ -593,31 +571,34 @@ chkconfig openstack-nova-consoleauth  on
 chkconfig openstack-nova-direct-api   on
 chkconfig openstack-nova-scheduler    on
 chkconfig openstack-nova-volume       on
+chkconfig openstack-nova-network      on
 \end{verbatim}
 
 \subsection{Installation des noeuds de Compute}
+\subsubsection{Installation de Nova}
+\noindent On installe Nova:
+\begin{verbatim}
+yum install -y openstack-nova*
+\end{verbatim}
 
+\noindent Pour configurer Nova voir l'annexe \ref{conf:Nova}.
 
+\noindent Fin de la configuration:
+\begin{verbatim}
+# On mets les bonnes permissions
+chmod 640 /etc/nova/nova.conf
+chown -R root:nova /etc/nova
+chown -R nova:nova /var/lib/nova
+
+# On démarre les services et on les active au démarrage
+service openstack-nova-compute restart
+chkconfig openstack-nova-compute  on
+\end{verbatim}
 
 \subsection{Conclusion}
 
 
-\chapter{Problèmes rencontrés}
-\section{Compatibilité des systèmes d'exploitation sur le BladeCenter}
-\label{sec:compatblade}
-L'installation des systèmes d'exploitation sur les lames fût plus compliquée que prévu, étant donné la configuration bi-processeur et les cartes Fibre Channel.
-
-Après de multiples installations infructueuses, un appel au support \gls{hp} et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents ($ > 2.6 $) sont trop instables.
-
-Sans que nous puissions fournir d'explications, CentOS, dans sa dernière version (6.3), fonctionne parfaitement sur la lame équipée d'Opteron 275, alors qu'aucun autre système Linux (Debian, Ubuntu, Suse) n'y fonctionne.
-Il suffit de préciser linux text mpath au prompt boot de l'installateur.
-
-Sur les autres lames nous avons installé Solaris 11 qui fonctionne parfaitement et supporte le multipath/boot on SAN nativement.
-
-\section{Versions de librairies incompatibles sur Solaris}
-\label{sec:libsolaris}
-
-\chapter{Conclusion finale}
+\chapter{Conclusion}
 La mise en place d'une infrastructure de \gls{cloudcomputing} demande de nombreuses connaissances dans le domaine de l'informatique et des réseaux.
 Nous avons appris énormément durant la réalisation de ce projet mais nous avons clairement manquer de recul dans nos choix et avec de l'expérience nous aurions pu être plus efficaces.\newline
 Cependant nous avons pu implémenter toutes les fonctionnalités du cahier des charges y compris les fonctionnalités supplémentaires tels que la haute disponibilité et le monitoring, à l'exception de l'authentification avec le LDAP car non réalisable avec le serveur de l'Université de Savoie\footnote{Keystone requiert des droits en écriture et une structure de l'arbre particulière, ce qui n'est évidemment pas possible sur le LDAP de l'Université.}.
@@ -645,8 +626,6 @@ C'est le seul moyen\footnote{Il est possible d'accéder aux instances sur leur I
 Si l'image virtuelle le supporte\footnote{Pour récupérer la clé publique et d'autres informations, il faut que l'instance interroge l'API metadata à l'adresse http://169.254.169.254} il est possible d'injecter une clé publique à la création de l'instance afin d'y accéder via SSH.
 Les images ne supportant pas cette méthode d'authentification proposent en général une authentification par mot de passe.
 
-
-
 \section{Création d'une instance virtuelle}
 \begin{figure}[!h]
 \centering
@@ -654,7 +633,7 @@ Les images ne supportant pas cette méthode d'authentification proposent en gén
 \caption{Exemple de création de huit instances virtuelles via le dashboard}
 \end{figure}
 
-\section{Création d'un conteneur de stockage}
+PARLER DES KEYPAIRS
 
 \chapter{Administration du \gls{cloudprive}}
 
@@ -668,7 +647,7 @@ Un exemple d'utilisation pour visualiser les erreurs survenant avec nova serait:
 tail -f /var/log/nova/* | grep ERROR
 \end{verbatim}
 
-\noindent Note: pour une administration simplifiée il serait possible de rediriger les logs vers un serveur \gls{syslog}.
+\noindent Note: pour une administration simplifiée il serait possible de rediriger les logs vers un serveur syslog.
 
 
 \chapter{Installation des systèmes d'exploitation sur les lames} \label{sec:installos}
@@ -676,7 +655,7 @@ Les lames du BladeCenter ne disposant pas de lecteur optique et l'accès physiqu
 Nous détaillerons ici les fonctionnalités intégrés aux lames permettant de les gérer à distance, ainsi que l'installation des différents systèmes que nous avons utilisés.\newline
 Note: les installations détaillés sont spécifiques au BladeCenter et correspondent à la configuration minimum pour faire fonctionner OpenStack. Des documentations plus exhaustives sont disponibles sur les sites respectifs des OS.
 
-\section{Systèmes d'exploitation supportés}
+\section{Systèmes d'exploitation supportés} \label{sec:compatse}
 \subsubsection{Systèmes officiellement supportés}
 D'après HP les systèmes d'exploitations supporté sur les lames BL35p sont:
 \begin{itemize}
@@ -703,20 +682,19 @@ Les \gls{ilo} sont sur un réseau privé en 10.100.100.0/24 qui est accessible d
 Le serveur TSE manap.rt.iut-acy.local est accessible depuis tout poste de l'IUT à l'adresse 10.102.75.190:3389. \gls{windows} XP,Vista,7 et 8 possèdent un client RDP nommé "Connexion Bureau à distance". Sur Linux on pourra utiliser Remmina qui intègre le tunneling SSH (voir paragraphe suivant).
 
 
-Depuis l'extérieur (WiFi, maison) il est nécessaire d'utiliser le VPN\footnote{Le téléchargement et l'installation du client VPN sont détaillés sur vpn.univ-savoie.fr} mais, celui-ci bloquant les ports peu utilisés (pour des raisons de sécurité), il faut également mettre en place un \gls{tunnelssh}\footnote{NANANANNA}.
+Depuis l'extérieur (WiFi, maison) il est nécessaire d'utiliser le VPN\footnote{Le téléchargement et l'installation du client VPN sont détaillés sur vpn.univ-savoie.fr} mais, celui-ci bloquant les ports peu utilisés (pour des raisons de sécurité), il faut également mettre en place un \gls{tunnelssh}.
 Pour ce faire il faut d'abord demander un accès à srv-dev.iut-acy.local à la DSI puis configurer son client \gls{ssh}.\newline
 Sur \gls{windows} on utilisera Putty\footnote{Les instructions de configuration du \gls{tunnelssh} sous \gls{windows} sont disponibles à l'adresse https://w3.iut-acy.univ-savoie.fr/institutionnel/service-informatique/faq/tunnel-ssh/} tandis que sur Linux, à défaut de client gérant le tunneling comme Remmina, on utilisera la commande ssh comme suit pour mapper le port local 10389 sur le port 3389 du serveur TSE:
 \label{tunnelingSsh}
 \begin{verbatim}
-ssh -L 10389:10.102.75.190:3389 login@srv-dev.iut-acy.local
+ssh -L 10389:10.102.75.250:3389 login@srv-dev.iut-acy.local
 \end{verbatim}
 Il suffira alors d'indiquer l'adresse 127.0.0.1:10389 dans le client RDP pour se connecter.
 
-Le serveur, fonctionnant sous \gls{windowsserver} 2003, possède Firefox comme navigateur Internet, et plusieurs autres logiciels utiles, comme le client VMWare vCenter pour la gestion d'\gls{esxi}.
+Le serveur, fonctionnant sous \gls{windowsserver} 2003, possède Firefox comme navigateur Internet, et plusieurs autres logiciels utiles, comme le client VMWare vCenter pour la gestion d'ESXi.
 
 \subsubsection{iLO}
 Il suffit d'indiquer l'adresse IP correspondant à l'iLO de la lame dans le navigateur et d'entrer ses identifiants.
-\newpage
 
 \subsection{Principales fonctionnalités}
 \subsubsection{Gestion de l'alimentation}
@@ -734,9 +712,8 @@ Peut éteindre les autres serveurs présents dans le même rack.
 \item[Automatically Power On Server:] Si \emph{Yes}, permet de remettre automatiquement sous tension la lame après une coupure de courant.
 \end{description}
 
-\subsubsection{Média virtuel}
-
-\subsubsection{Console distante}
+\subsubsection{Média virtuel et console distante}
+L'onglet \emph{Remote Console} offre le choix entre plusieurs consoles permettant de prendre le contrôle (clavier, souris, écran) de la lame, tandis que le lien \emph{Virtual Media} de l'onglet \emph{Virtual Devices} permet d'associer une image ISO à un lecteur CD virtuel de la lame.
 
 \section{Installation de CentOS} \label{sec:installcentos}
 \subsection{Média d'installation} \label{sec:installmediacentos}
@@ -786,7 +763,7 @@ Si l'on utilise l'image ISO netinstall il faut choisir "URL" au dialogue "Instal
 Dans le dialogue suivant qui demande de configurer la carté réseau on choisira celle qui est relié à Internet.
 Pour IPv4 on préferera configurer l'adresse en statique.
 Bien que début 2013 l'IPv6 ne soit pas encore routé sur le réseau de l'IUT son support peut-être laissé activé en prévision du futur.\newline
-Si l'on souhaite agréger plusieurs cartes réseaux, on n'en configurera qu'une seule pour l'instant et l’agrégation sera réalisé une fois le système installé.\newline
+Si l'on souhaite agréger plusieurs cartes réseaux, on n'en configurera qu'une seule pour l'instant et l'agrégation sera réalisé une fois le système installé.\newline
 Dans le dialogue demandant l'URL contenant l'image d'installation on rentrera celle indiquée dans la section \ref{sec:installmediacentos}.\newline
 \begin{figure}[!h]
 \centering
@@ -826,17 +803,46 @@ A partir de ce moment, et si le réseau est configuré il est possible d'accéde
 Afin d'éviter de perdre la connexion il est préférable de modifier la configuration réseau depuis la console iLO plutôt que via SSH.
 
 \subsubsection{Hostname}
-
-\subsubsection{Agrégation de liens}
+Pour modifier le hostname il faut éditer la ligne HOSTNAME= dans /etc/sysconfig/network
 
 \subsubsection{VLANs}
+Pour supporter les VLANs il faut tout d'abord charger le module 802.1q:
+\begin{verbatim}
+modprobe 8021q
+\end{verbatim}
+
+Ensuite il faut modifier le fichier de configuration de l'interface principale, exemple pour eth1 dont le fichier est /etc/sysconfig/network-scripts/ifcfg-eth1:
+\begin{verbatim}
+DEVICE="eth1"
+HWADDR="00:1A:4B:CE:D6:36"
+TYPE="Ethernet"
+ONBOOT="yes"
+NM_CONTROLLED="no"
+BOOTPROTO="none"
+IPV6INIT="no"
+IPV6_AUTOCONF="no"
+\end{verbatim}
+
+Puis il faut créer le fichier correspondant à la sous interface, exemple pour le VLAN 2 sur eth1 dont le fichier sera /etc/sysconfig/network-scripts/ifcfg-eth1.2:
+\begin{verbatim}
+DEVICE="eth1.2"
+HWADDR="00:1A:4B:CE:D6:36"
+TYPE="Ethernet"
+ONBOOT="yes"
+NM_CONTROLLED="no"
+BOOTPROTO="static"
+VLAN=yes
+IPADDR=XXX.XXX.XXX.XXX
+NETMASK=XXX.XXX.XXX.XXX
+GATEWAY=XXX.XXX.XXX.XXX
+\end{verbatim}
 
 \section{Installation de Solaris} \label{sec:installsolaris}
-\subsection{Média d'installation}
-L'installateur de Solaris se présente sous la forme d'une image ISO unique téléchargeable sur le site d'Oracle à l'adresse:
-KJLJJKLKJJKJJKJ
+\subsection{Installation}
+L'installateur de Solaris se présente sous la forme d'une image ISO unique téléchargeable sur le site d'Oracle à l'adresse: http://www.oracle.com/technetwork/server-storage/solaris11/downloads/index.html .
 
-Il n'y as pas de flags de boot à passer, l'installation se fait en mode texte et Solaris reconnaît directement le multipath.
+Il n'y as pas de flags de boot à passer, l'installation se fait en mode texte et Solaris reconnaît directement le multipath.\newline
+Le reste de l'installation est évident et ne nécessite pas d'explications.
 
 \chapter{Diagrammes Réseau et schémas de principe}
 \section{Les différents services d'OpenStack}
@@ -851,21 +857,14 @@ L'utilisateur final ne peut accéder qu'au dashboard.
 \begin{center}
 \includegraphics[scale=0.8,angle=90]{images/topoBladeSolaris-crop.pdf}
 \end{center}
-\section{Schéma global BladeCenter avec QEMU et GlusterFs}
+
+\section{Schéma global BladeCenter avec QEMU et GlusterFS} \label{schema:centos}
 
 \begin{center}
 \includegraphics[scale=0.8,angle=90]{images/SchemaBladeQemuGlut-crop.pdf}
 \end{center}
 
 \chapter{Scripts d'automatisation}
-\section{Solaris}
-\subsection{nataddrule.sh}
-%\begin{minted}[frame=single,fontfamily=courier,linenos,mathescape]{bash}
-%\end{minted}
-
-\section{OpenStack}
-\subsection{keystone-?????.sh} \label{script:keystoneData}
-
 \section{Exemple de configuration de MediaWiki avec Juju} \label{auto:juju}
 
 Notre but est de déployer MediaWiki et d'y ajouter quelques services de haute disponibilité. Nous allons donc créer deux serveurs web avec MediaWiki. Ils seront reliés à la même base MySql qui sera redondée avec une autre base esclave. La charge entre les deux serveurs web sera répartie par HAProxy. Le schéma ci-dessous présente la configuration finale vue depuis juju-gui, l'interface web de Juju. Le logo vert en forme de globe représente le monde extérieur.
@@ -887,7 +886,7 @@ juju bootstrap
 juju bootstap
 \end{alltt}
 
-On installe maintenant la base MySql maitre et MediaWiki. On ajoute ensuite une relation entre eux
+On installe maintenant la base MySql maître et MediaWiki. On ajoute ensuite une relation entre eux
 \begin{verbatim}
 juju deploy mysql
 juju deploy mediawiki
@@ -1113,16 +1112,202 @@ enable = False
 la partie correspondante du fichier de configuration d'origine
 \end{verbatim}
 
+\newpage
 \section{Glance} \label{conf:Glance}
+\subsection{glance-api.conf}
+\begin{verbatim}
+[DEFAULT]
+# /etc/glance/glance-api.conf
+# 03/03/2013
 
-\section{Swift} \label{conf:Swift}
+verbose = True
+debug = False
+log_file = /var/log/glance/api.log
 
+sql_connection = mysql://glance:ab9kcd@raijin/glance
+sql_idle_timeout = 3600
+
+workers = 1
+backlog = 4096
+default_store = file
+bind_host = 0.0.0.0
+bind_port = 9292
+
+enable_v1_api = True
+enable_v2_api = True
+
+# ============ Registry Options ===============================
+registry_host = 0.0.0.0
+registry_port = 9191
+registry_client_protocol = http
+
+# ============ Notification System Options =====================
+notifier_strategy = noop
+
+qpid_notification_exchange = glance
+qpid_notification_topic = glance_notifications
+qpid_host = localhost
+qpid_port = 5672
+qpid_heartbeat = 5
+# Set to 'ssl' to enable SSL
+qpid_protocol = tcp
+qpid_tcp_nodelay = True
+
+# ============ Filesystem Store Options ========================
+filesystem_store_datadir = /var/lib/glance/images/
+
+# ============ Delayed Delete Options =============================
+delayed_delete = False
+scrub_time = 43200
+scrubber_datadir = /var/lib/glance/scrubber
+
+# =============== Image Cache Options =============================
+image_cache_dir = /var/lib/glance/image-cache/
+
+[keystone_authtoken]
+auth_host = 127.0.0.1
+auth_port = 35357
+auth_protocol = http
+admin_tenant_name = service
+admin_user = glance
+admin_password = ab9kcd
+
+[paste_deploy]
+flavor = keystone
+config_file = /etc/glance/glance-api-paste.ini
+\end{verbatim}
+
+\subsection{glance-api-paste.ini}
+\begin{verbatim}
+[...]
+[filter:authtoken]
+paste.filter_factory = keystone.middleware.auth_token:filter_factory
+delay_auth_decision = true
+admin_tenant_name = service
+admin_user = glance
+admin_password = ab9kcd
+[...]
+\end{verbatim}
+
+\subsection{glance-cache.conf}
+\begin{verbatim}
+[...]
+[filter:authtoken]
+admin_password = ab9kcd
+admin_tenant_name = service
+admin_user = glance
+[...]
+\end{verbatim}
+
+\subsection{glance-registry.conf}
+\begin{verbatim}
+[...]
+[keystone_authtoken]
+auth_host = 127.0.0.1
+auth_port = 35357
+auth_protocol = http
+admin_tenant_name = service
+admin_user = glance
+admin_password = ab9kcd
+
+[paste_deploy]
+flavor = keystone
+config_file = /etc/glance/glance-registry-paste.ini
+[...]
+\end{verbatim}
+
+\subsection{glance-registry.conf}
+\begin{verbatim}
+[...]
+[filter:authtoken]
+paste.filter_factory = keystone.middleware.auth_token:filter_factory
+admin_tenant_name = service
+admin_user = glance
+admin_password = ab9kcd
+\end{verbatim}
+
+\newpage
 \section{Nova} \label{conf:Nova}
+\subsection{nova.conf}
+\noindent Note: ne pas oublier de remplacer my\_ip et vncserver\_proxyclient\_address par l'IP de la lame
+\begin{verbatim}
+[DEFAULT]
+# /etc/nova/nova.conf
+# 02/03/2013
 
-\chapter{Fichiers de configuration Solaris}
-\section{NAT}
-\subsection{ipf.conf} \label{conf:NAT}
-\section{Reverse Apache} \label{conf:apacheProxy}
+# Général
+verbose = True
+logdir = /var/log/nova
+state_path = /var/lib/nova
+lock_path = /var/lib/nova/tmp
+sql_connection = mysql://nova:ab9kcd@raijin/nova
+my_ip = 10.102.75.100
+
+# Hosts
+network_host = 10.102.75.100
+metadata_host = 10.102.75.100
+glance_host = raijin
+qpid_hostname = raijin
+
+# Virtualisation
+## Drivers
+compute_driver = libvirt.LibvirtDriver
+libvirt_type = qemu
+# libvirt_vif_type=ethernet
+# libvirt_use_virtio_for_bridges = true
+# libvirt_vif_driver = nova.virt.libvirt.vif.QuantumLinuxBridgeVIFDriver
+# linuxnet_interface_driver = nova.network.linux_net.QuantumLinuxBridgeInterfaceDriver
+
+# Réseau
+## VLAN Manager
+network_manager = nova.network.manager.FlatDHCPManager
+fixed_range = 192.168.100.0/24
+flat_network_bridge = br100
+flat_interface = eth0.99
+public_interface = eth0.2
+network_size = 256
+
+## DHCP
+dhcpbridge = /usr/bin/nova-dhcpbridge
+dhcpbridge_flagfile = /etc/nova/nova.conf
+force_dhcp_release = False
+
+## Autre
+injected_network_template = /usr/share/nova/interfaces.template
+libvirt_nonblocking = True
+libvirt_inject_partition = -1
+firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver
+
+# Stockage bloc
+iscsi_helper = tgtadm
+volumes_dir = /etc/nova/volumes
+
+## Scheduler
+compute_scheduler_driver=nova.scheduler.filter_scheduler.FilterScheduler
+scheduler_available_filters=nova.scheduler.filters.standard_filters
+scheduler_default_filters=RamFilter
+
+rpc_backend = nova.openstack.common.rpc.impl_qpid
+rootwrap_config = /etc/nova/rootwrap.conf
+auth_strategy = keystone
+
+# VNC (All)
+vncserver_listen = 0.0.0.0
+novncproxy_base_url = http://10.102.75.100:6080/vnc_auto.html
+xvpvncproxy_base_url = http://10.102.75.100:6081/console
+
+# VNC (Par host)
+vncserver_proxyclient_address = 10.102.75.100
+
+[keystone_authtoken]
+admin_tenant_name = service
+admin_user = nova
+admin_password = ab9kcd
+auth_host = raijin
+auth_port = 35357
+auth_protocol = http
+signing_dir = /tmp/keystone-signing-nova
+\end{verbatim}
 
 \nocite{*}
 \printbibliography

@@ -62,24 +62,24 @@ description={
 Pluggable Authentication Modules. Système permettant d'intégrer différent schémas d'authentification à un système UNIX/Linux de façon transparente pour les applications
 }]{pam}{PAM}{Pluggable Authentication Modules}
 
+\newacronym[
+description={
+Network File System. Protocole qui permet d'accéder à des fichiers via le réseau
+}]{nfs}{NFS}{Network File System}
+
 \newglossaryentry{tunnelssh}{
 name = {tunnel SSH},
 description={Un tunnel SSH permet d'encapsuler le trafic IP dans une connexion SSH afin, par exemple, d'accéder à des machines distantes dont l'accès serait bloqué par un pare-feu}
 }
 
-\newglossaryentry{syslog}{
-name = {Syslog},
-description={}
-}
-
 \newglossaryentry{telnet}{
 name = {Telnet},
-description={}
+description={Protocole permettant d'échanger très simplement des données entre deux ordinateurs}
 }
 
 \newacronym[
 description={
-Simple Network Monitoring Protocol.
+Simple Network Monitoring Protocol. Protocole qui permet de gérer et de superviser des équipements réseaux
 }]{snmp}{SNMP}{Simple Network Monitoring Protocol}
 
 % Virtualisation
@@ -90,7 +90,7 @@ description={En informatique, la virtualisation consiste à faire fonctionner pl
 
 \newglossaryentry{qemu}{
 name = {QEMU},
-description={Logiciel de virtualisation libre}
+description={Logiciel de virtualisation libre pour Linux}
 }
 
 \newacronym[
@@ -108,24 +108,9 @@ name = {Xen},
 description={Logiciel de virtualisation libre}
 }
 
-\newglossaryentry{openvz}{
-name = {OpenVZ},
-description={}
-}
-
 \newglossaryentry{hyperv}{
 name = {Hyper-V},
-description={}
-}
-
-\newglossaryentry{esxi}{
-name = {ESXi},
-description={}
-}
-
-\newglossaryentry{parallelsd}{
-name = {Parallels Desktop},
-description={Logiciel de virtualisation de bureau}
+description={Système de virtualisation de Microsoft présent dans Windows Server depuis la version 2008}
 }
 
 \newglossaryentry{vbox}{
@@ -156,8 +141,8 @@ Fibre Channel
 }]{fc}{FC}{Fibre Channel}
 
 \newglossaryentry{multipath}{
-name = {multipath},
-description={...}
+name = {Multipath},
+description={Technique permettant d'utiliser plusieurs chemins physiques pour accéder à du stockage afin d'augmenter la bande passante et de fournir de la redondance}
 }
 
 \newacronym[
@@ -167,12 +152,12 @@ Storage area network
 
 \newglossaryentry{loadbalancing}{
 name = {Load balancing},
-description={...}
+description={Technique permettant de distribuer la charge sur plusieurs liens afin de maximiser la bande passante}
 }
 
 \newglossaryentry{failover}{
 name = {Failover},
-description={...}
+description={Technique consistant à basculer sur un autre équipement en cas de défaillance}
 }
 
 % Divers
@@ -180,9 +165,10 @@ description={...}
 \newacronym{crm}{CRM}{Customer Relationship Management}
 \newacronym{kvmphys}{KVM}{Keyboard, Video, Mouse}
 
-\newacronym[
-description={
-}]{raid0}{RAID 0}{}
+\newglossaryentry{raid0}{
+name = {RAID 0},
+description={Technique consistant à séparer les données}
+}
 
 \newglossaryentry{coeur}{
 name = {coeur},
@@ -198,55 +184,15 @@ description={Personal Package Archives. Dépôts non-officiel mise à dispositio
 % Frameworks
 \newglossaryentry{cloudstack}{
 name = {CloudStack},
-description={...}
+description={Solution permettant de créer des IaaS créé par Citrix et Cloud.com}
 }
 
 \newglossaryentry{openstack}{
 name = {OpenStack},
-description={...}
-}
-\newglossaryentry{proxmox}{
-name = {Proxmox},
-description={...}
-}
-
-% Fondations
-\newglossaryentry{fondationopenstack}{
-name = {fondation OpenStack},
-description={...}
-}
-
-\newglossaryentry{fondationapache}{
-name = {fondation Apache},
-description={...}
+description={Solution permettant de créer des IaaS créé par Rackspace et la NASA}
 }
 
 % Sociétés
-\newglossaryentry{cloudcom}{
-name = {Cloud.com},
-description={...}
-}
-
-\newglossaryentry{citrix}{
-name = {Citrix},
-description={...}
-}
-
-\newglossaryentry{canonical}{
-name = {Canonical},
-description={...}
-}
-
-\newglossaryentry{amazon}{
-name = {Amazon},
-description={...}
-}
-
-\newglossaryentry{hp}{
-name = {HP},
-description={...}
-}
-
 \newglossaryentry{rackspace}{
 name = {Rackspace},
 description={Hébergeur et fournisseur de solutions de Cloud Computing Américain. Créateur d'OpenStack}
@@ -285,32 +231,32 @@ description={Logiciel de reconnaissance musicale}
 % Clouds (voc)
 \newglossaryentry{cloudcomputing}{
 name = {Cloud Computing},
-description={...}
+description={Désigne l'accès via un réseau à un ensemble de ressources informatiques partagées}
 }
 
 \newglossaryentry{cloudprive}{
 name = {Cloud privé},
-description={...}
+description={Infrastructure de virtualisation dont l'usage est réservé à une entreprise et qui le plus souvent géré et installé par celle-ci}
 }
 
 \newglossaryentry{cloudpublic}{
 name = {Cloud public},
-description={...}
+description={Infrastructure de virtualisation accessible publiquement moyennant éventuellement un paiement}
 }
 
 \newglossaryentry{stockagebloc}{
 name = {stockage bloc},
-description={...}
+description={Dans le cloud computing désigne le stockage qui est proche des disques physiques et qui offre de bonnes performances}
 }
 
 \newglossaryentry{stockageobjet}{
 name = {stockage objet},
-description={...}
+description={Dans le cloud computing désigne un type de stockage ne mettant pas l'accent sur la performance mais sur la facilité d'utilisation grâce à une API}
 }
 
 \newglossaryentry{glusterfs}{
 name = {GlusterFS},
-description={...}
+description={Système de fichiers distribués}
 }
 
 % Clouds publics
@@ -342,25 +288,24 @@ description={Suite d'outils pour les entreprises (e-mails, agenda, bureautique) 
 % Licences
 \newglossaryentry{opensource}{
 name = {Open Source},
-description={...}
+description={Terme s'appliquant aux logiciels dont la licence respecte la possibilité de libre de redistribution et d'accès au code source}
 }
 
 \newglossaryentry{licenceapache}{
 name = {licence Apache},
-description={...}
+description={Licence autorisant la modification et la redistribution du code tout en obligeant le maintien du copyright}
 }
 
 % Systèmes d'exploitation
-\newglossaryentry{se}{
-name = {système d'exploitation},
-plural = {systèmes d'exploitation},
-description={...}
-}
-
 \newglossaryentry{ubuntu}{
 name = {Ubuntu},
-description={...}
+description={Système d'exploitation libre soutenu par Canonical}
 }
+
+\newacronym[
+description={Long Term Support. Pour Ubuntu signifie que le support est étendu à 5 ans contre 3 ans pour les versions standards
+}]{lts}{LTS}{Long Term Support}
+
 
 \newglossaryentry{windows}{
 name = {Windows},
@@ -379,12 +324,12 @@ description={Système d'exploitation libre basé sur le noyau éponyme}
 
 \newglossaryentry{solaris}{
 name = {Solaris},
-description={}
+description={Système d'exploitation UNIX développé par Oracle}
 }
 
 \newglossaryentry{bsd}{
 name = {*BSD},
-description={}
+description={Désigne une famille de systèmes d'exploitation dérivées d'UNIX}
 }
 
 % Languages de prog
@@ -426,33 +371,33 @@ description={Programme qui permet d'automatiser la coordination et l'organisatio
 
 \newglossaryentry{juju}{
 name = {Juju},
-description={...}
+description={Gestionnaire de paquet pour le cloud computing}
 }
 
 \newglossaryentry{puppet}{
 name = {Puppet},
-description={...}
+description={Logiciel permettant l'automatisation de la configuration de serveurs et de postes de travail écrit en Ruby}
 }
 
 \newglossaryentry{chef}{
 name = {Chef},
-description={...}
+description={Logiciel permettant l'automatisation de la configuration de serveurs et de postes de travail écrit en Ruby}
 }
 
 \newglossaryentry{cfengine}{
 name = {CfEngine},
-description={...}
+description={Logiciel permettant l'automatisation de la configuration de serveurs et de postes de travail écrit en C}
 }
 
 % Logiciels
 \newglossaryentry{apache}{
 name = {Apache},
-description={Serveur HTTP}
+description={Serveur HTTP. C'est le plus utilisé sur Internet}
 }
 
 \newglossaryentry{varnish}{
 name = {Varnish},
-description={...}
+description={Serveur de cache HTTP}
 }
 
 \newglossaryentry{mediawiki}{
@@ -462,7 +407,7 @@ description={CMS permettant la création de Wiki}
 
 \newglossaryentry{haproxy}{
 name = {HAProxy},
-description={...}
+description={Logiciel de répartition de charge}
 }
 
 \newglossaryentry{mysql}{
