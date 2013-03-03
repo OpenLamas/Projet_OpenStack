@@ -141,7 +141,7 @@ CloudStack est développé en \gls{java}.
 \gls{openstack} a été lancé en Juillet 2010 par Rackspace et la NASA.
 Son but est de proposer un outil gratuit et libre de création d'\gls{iaas}.
 Le code source du projet (du \gls{python}) est disponible sur GitHub\footnote{https://github.com/openstack} et Launchpad\footnote{https://launchpad.net/openstack} sous licence Apache 2.0.\newline
-Outre ses deux fondateurs OpenStack est à l'heure actuelle principalement utilisé par HP, AT\&T, Intel, et Canonical.
+Outre ses deux fondateurs OpenStack est à l'heure actuelle principalement utilisé par \gls{hp}, AT\&T, Intel, et Canonical.
 
 \section{Rappel du cahier des charges}
 \subsubsection{Objectifs}
@@ -179,7 +179,7 @@ Dans la suite de ce rapport nous commencerons par détailler le matériel et les
 \chapter{Matériel}
 
 \section{Serveur dédié OVH}
-Nous avons réalisé la première partie de notre projet sur un serveur dédié Kimsufi d'OVH.
+Nous avons réalisé la première partie de notre projet sur un serveur dédié Kimsufi d'\gls{ovh}.
 Il était équipé d'un processeur 64 bits à 3,4Ghz avec les extensions VT-x (Intel Core i3), de 8Go de RAM, et de 2x1To de stockage en \gls{raid0}.
 
 Il s'agit de la configuration minimale pour faire fonctionner une installation de développement d'\gls{openstack}.
@@ -194,15 +194,14 @@ Nous disposions de trois lames équipées chacune de deux processeurs AMD Optero
 Toutes les lames possèdent deux cartes \gls{fc} QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
-Les lames ne disposant pas de stockage intégré, ce dernier est assuré par un \gls{san} HP StorageWorks relié en \gls{fc}.
-Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg  à une lame au travers du contrôleur \gls{fc}.
-
-PARLER DU MULTIPATH----------------
+Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un \gls{san} \gls{hp} StorageWorks relié en \gls{fc}.
+Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur \gls{fc}.\newline
+Les contrôleurs font ce que l'on appelle du \gls{multipath}, c'est à dire qu'ils utilisent plusieurs chemins physiques pour accéder aux disques afin de faire du \gls{failover}.
 
 \subsection{Réseau}
-Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de faire du \gls{load balancing} et du \gls{failover}. Cela présente deux avantages: dans le meilleur cas on obtient une bande passante totale de 2Gbit/s, dans le pire cas (chute d'un lien) le trafic continue de fonctionner (à 1Gbit/s).
+Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de faire du \gls{loadbalancing} et du \gls{failover}. Cela présente deux avantages: dans le meilleur cas on obtient une bande passante totale de 2Gbit/s, dans le pire cas (chute d'un lien) le trafic continue de fonctionner (à 1Gbit/s).
 
-La séparation des réseaux est permise par l'ajout de tags sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q).
+La séparation des réseaux est permise par l'ajout de tags sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q) et la configuration des ports en mode trunk sur les \glspl{switch}.
 
 
 \chapter{Systèmes d'exploitation hôtes}
@@ -220,7 +219,7 @@ Nous avons choisi d'utiliser la version 12.04 LTS d'Ubuntu Server puisque l'inst
 
 \chapter{Logiciels}
 \section{OpenStack}
-Nous avons choisi OpenStack car parmi les solutions d'IaaS présentées précédemment dans la section \ref{sec:panorama_iaas} c'est celle qui est soutenue par le plus d'entreprises, et, comme en témoigne le volume des recherches Google, elle possède une communauté très développée sur Internet.
+Nous avons choisi \gls{openstack} car des solutions d'\gls{iaas} présentés précédemment dans la section \ref{sec:panorama_iaas} c'est celle qui est soutenu par le plus d'entreprise (voir \ref{sec:fondationos}), et, comme en témoigne le volume des recherches Google, elle possède une communauté très développé sur Internet.
 \begin{figure}[h!]
 \centering
 \includegraphics[resolution=140]{images/recherches_iaas.png}
@@ -228,10 +227,10 @@ Nous avons choisi OpenStack car parmi les solutions d'IaaS présentées précéd
 \end{figure}
 
 
-\subsection{La fondation OpenStack}
+\subsection{La fondation OpenStack} \label{sec:fondationos}
 
 \subsection{Les différentes versions d'OpenStack}
-
+Depuis XXXX Y versions stables sont sorties : Diablo (), Essex (), Folsom() . Chaque version s'est vue ajoutée
 
 \subsection{Les services}
 \gls{openstack} est constitué de différents services gérant chacun une composante spécifique de l'\gls{iaas}.
@@ -241,16 +240,18 @@ Il expose une \gls{api} HTTP(S) sur deux endpoints, un public sur le port 5000, 
 Il supporte différents backends pour l'authentification, certains permettant la persistance et l'édition des données comme \gls{sql} ou \gls{ldap}, d'autres en lecture-seule comme \gls{pam}.\newline
 
 \subsubsection{Nova}
-C'est le service qui va gérer les systèmes de \gls{virtualisation} (\gls{kvm}, \gls{xen}, ...).
-Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées, ainsi que le stockage bloc si Cinder n'est pas utilisé, et le réseau si Quantum n'est pas utilisé.\newline
+C'est le service qui va gérer les systèmes de \gls{virtualisation}. Il supporte \gls{qemu}, \gls{kvm}, et \gls{lxc} au travers de libvirt ainsi que \gls{xen} et \gls{esxi} en communicant avec leur \gls{api} respective.
+Il est chargé de créer/démarrer/arrêter les machines, et de gérer les ressources physiques qui leurs sont allouées. Étant donné qu'il ne fait que donner des instructions aux hyperviseurs il peut-être redémarré sans risque de coupure des instances.\newline
+Nova peut aussi gérer le stockage bloc si Cinder n'est pas utilisé, et le réseau si Quantum n'est pas installé.\newline
 Il utilise Keystone pour l'authentification.
 
 
 \subsubsection{Quantum}
+Pour des besoins simples le réseau peut-être géré par nova-network. Pour plus de flexibilité il  est possible de le remplacer par Quantum qui offre une \gls{api} à part entière ainsi que des fonctionnalités avancées comme le tunneling L3 dans L2 et le support des plugins de switchs virtuels (OpenVSwitch, Cisco Nexus, ...).
 
 
 \subsubsection{Cinder}
-Depuis la version Folsom le \gls{stockagebloc} possède son propre service indépendant 
+Jusque Folsom le \gls{stockagebloc} est géré par nova-volume. Cependant ce service sera déprécié dans Grizzly et remplacé par Cinder.
 
 
 
@@ -266,24 +267,22 @@ Il enregistre leur caractéristiques et leur emplacements de façon à ce que le
 Il utilise Keystone pour l'authentification et peut, en plus du système de fichier local, utiliser Swift pour stocker les images.
 
 \subsubsection{Dashboard}
-C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles.
+C'est l'interface graphique qui permet à l'utilisateur final de gérer ses instances virtuelles et le réseau associé, ses volumes, et ses conteneurs (stockage objet) ainsi qu'à l'administrateur de gérer les projets et les utilisateurs.
 
 \section{Automatisation}
 
 Une fois la ou les machines virtualisées, il faut les configurer et installer des applications. On peut effectuer ces tâches à la main mais il existe des solutions libres qui permettent d'automatiser ces tâches.
 
 \subsubsection{Juju}
-Canonical, la société qui édite Ubuntu (voir \ref{cha:ubuntu}) distribue, sous licence libre, Juju, un service d'orchestration
-\footnote{Un service d'orchestration est un programme qui permet d'automatiser la coordination et l'organisation de systèmes complexe.}, 
-écrit en python, qui permet de configurer automatiquement des services
-\footnote{Dans juju, un service est appelé un "charme". Un charme peut aussi bien être un programme comme Apache ou Varnish ou un service web comme MediaWiki} 
-et de créer des relations entre eux. 
-Juju rajoute une couche d'abstraction entre la machine et le service. Il suffit de définir des relations entre les services et ils se configurent automatiquement. 
-Par exemple, il suffit d'établir une relation entre un logiciel de load balancing (comme Varnish) et notre service (MediaWiki par example) pour que la charge soit répartie sur les différents serveurs, quel que soit le nombre d'instances du service (ici MediaWiki).
-Juju s'installe sur l'ordinateur de l'utilisateur et s'utilise en ligne de commande mais il existe une interface web (en beta à l'heure actuelle) qui s'installe sur un serveur distant.
-Juju supporte la plupart des Iaas publics du marché (Hp, Amazon et Rackspace) et aussi les Iaas privés qui utilisent OpenStack.
-L'annexe \ref{auto:juju} explique comment déployer plusieurs instances de MediaWiki avec quelques dépendances (MySql et HAProxy)
-\newline\\
+\gls{canonical}, la société qui édite \gls{ubuntu} (voir \ref{sec:ubuntu}) distribue, sous licence libre, \gls{juju}, un \gls{serviceorchestration}, écrit en \gls{python}, qui permet de configurer automatiquement des services.
+\footnote{Dans \gls{juju}, un service est appelé un "charme". Un charme peut aussi bien être un programme comme \gls{apache} ou \gls{varnish} ou un service web comme \gls{mediawiki}} et de créer des relations entre eux. 
+\gls{juju} rajoute une couche d'abstraction entre la machine et le service. Il suffit de définir des relations entre les charmes et ils se configurent automatiquement. 
+Par exemple, il suffit d'établir une relation entre un logiciel de \gls{loadbalancing} (comme \gls{varnish}) et notre service (MediaWiki par example) pour que la charge soit répartie sur les différents serveur, quelque soit le nombre d'instance du service (ici \gls{mediawiki}).
+\gls{juju} s'installe sur l'ordinateur de l'utilisateur et s'utilise en ligne de commande mais il existe une interface web (en beta à l'heure actuel) qui s'installe sur un serveur distant.
+\gls{juju} supporte la plus part des \gls{iaas} public du marché (\gls{hp}, \gls{amazon} et \gls{rackspace}) ainsi que les \gls{iaas} privé basés sur \gls{openstack}.
+L'annexe \ref{auto:juju} explique comment déployer plusieurs instances de \gls{mediawiki} avec quelque dépendances (\gls{mysql} et \gls{haproxy}).\newline
+
+
 Juju est très pratique pour déployer rapidement un environnement complet et durable dans le temps. 
 Cependant, il l'est beaucoup moins pour appliquer une configuration avancée sur une multitude de machines.
 Pour ce genre de besoin, il existe des solutions comme Puppet, Chef ou encore CfEngine qui permettent d'automatiser ces configurations et de les appliquer simultanément sur plusieurs machines.
@@ -295,14 +294,11 @@ Chaque machine à configurer, appelée nœud, a le client puppet installé.
 Elles doivent s'identifier auprès du serveur, appelé PuppetMaster.
 Les communications entre le PuppetMaster et ses clients sont chiffrées grâce à des certificats générés par puppet à son démarrage.
 Afin de définir les configurations à effectuer sur chaque nœud, on utilise des recettes.(Voir l'annexe \ref{auto:puppet} pour une explication concrète d'utilisation d'une recette)
-Nous avons choisi de les stocker sur un serveur git afin de mieux gérer les différentes révisions et l'édition distante.
+Nous avons choisi de les stocker sur un serveur \gls{git} afin de mieux gérer les différentes révisions et l'édition distante.
 
 \section{Haute disponibilité}
-\subsection{GlusterFS}
-
-\subsection{Heartbeat}
-
-\subsection{Pacemaker}
+\subsection{GlusterFS} \label{sec:glusterfs}
+\gls{glusterfs} est un système de stockage distribué.
 
 \section{Reverse Proxy}
 Pour les premières installations, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contraintes techniques (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifiée).
@@ -323,17 +319,20 @@ Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le se
 Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration est un peu moins fine que Varnish mais suffisante pour notre utilisation.
 
 \section{Supervision}
+Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelés logiciels ou plates-formes de supervision qui, en s'appuyant sur des protocoles tels qu'\gls{snmp} ou \gls{telnet}, vérifient en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installés sur les machines.
+Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connectés à la base MySQL.
+Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par SMS... Tout dépend du logiciel de supervision et de sa configuration.}.
 
-Ajouter Munin
 
-Afin d'être sûr qu'il n'y ait aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelés logiciels ou plateformes de supervision qui, en s'appuyant sur le protocole snmp, vérifient en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installés sur les machines.
-Ils peuvent vérifier, de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connectés à la base MySQL.
-Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par sms... Tout dépend du logiciel de supervision et de sa configuration.}
-
-Le marché de la supervision est à la fois occupé par de grands constructeurs comme HP avec leur gamme OverView et par des logiciels libres comme Zabbix ou Nagios.
+\subsection{Shinken}
+Le marché de la supervision est à la fois occupé par de grand constructeur comme \gls{hp} avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios.
 Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
-Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son immense communauté.
+Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins Nagios et ainsi de bénéficier de son immense communauté.
 
+\subsection{Munin}
+Munin permet de tracer des graphes, de l'utilisation de l'interface réseau au nombre de processus en cours, en passant par le nombre d'entrées dans la table du système de fichiers. Il offre peut de fonctions mais est très simple à configurer et relativement léger.\newline
+Il se compose de deux parties: munin-node à installer sur chaque machine à monitorer et munin à proprement parler qui va régulièrement interroger munin-node sur chaque machine afin de récupérer les données et de générer des pages HTML statiques avec les graphes.\newline
+Une alternative courante est MRTG.
 
 
 \chapter{Mise en place} \label{cha:miseenplace}
@@ -403,11 +402,11 @@ Il est aussi possible de faire des tunnel \gls{ssh} (voir \ref{tunnelingSsh})
 \subsubsection{Installation du service d'images}
 
 \subsection{Conclusion}
-S'agissant de notre premier contact avec un BladeCenter un certains nombre de concept étaient nouveaux pour nous (\gls{fc}, \gls{san}, multipath) et nous manquions de recul sur le dimensionnement de notre installation.
+S'agissant de notre premier contact avec un \gls{bladecenter} un certains nombre de concept étaient nouveaux pour nous (\gls{fc}, \gls{san}, multipath) et nous manquions de recul sur le dimensionnement de notre installation.
 C'est pourquoi, après discussion avec notre tuteur, nous avons décidé de reprendre l'installation de manière beaucoup plus propre.
 
-En effet bien que Solaris fonctionne parfaitement sur les lames son administration diffère beaucoup des systèmes Linux et la pérennité de l'installation n'est donc pas garantie.\newline
-De plus notre configuration réseau nous obligeait à faire du NAT pour accéder aux machines virtuelles et ce n'est pas une configuration idéale, surtout dans le cas où les utilisateurs ont besoins d'accéder plusieurs ports sur une machine virtuelle.
+En effet bien que \gls{solaris} fonctionne parfaitement sur les lames son administration diffère beaucoup des systèmes Linux et la pérennité de l'installation n'est donc pas garantie.\newline
+De plus notre configuration réseau nous obligeait à faire du \gls{nat} pour accéder aux machines virtuelles et ce n'est pas une configuration idéale, surtout dans le cas où les utilisateurs ont besoins d'accéder plusieurs ports sur une machine virtuelle.
 
 
 \section{Déploiement sur un BladeCenter avec CentOS}
@@ -415,9 +414,16 @@ Comme dans la section \ref{sec:depsolaris} nous avons donné des noms (hostname)
 Ces noms sont détaillés dans le tableau ci-dessous ainsi que DANS LE SCHEMA ??????
 
 Nous avons cette fois ci voulu réaliser une installation permettant de maximiser les capacités de virtualisation et de résister à la chute éventuel d'un noeud.
-Pour cela nous nous sommes basés sur ce guide https://github.com/beloglazov/openstack-centos-kvm-glusterfs que nous avons adapté et auquel nous avons rajouter plusieurs fonctionnalités. LESQUELS????
+Pour cela nous nous sommes basés sur ce guide https://github.com/beloglazov/openstack-centos-kvm-glusterfs que nous avons adapté.
 
-PARLER DU RESEAU / CLOUD CONTROLLER / GlusterFS /...
+Sur les \glspl{switch} tout les ports ont été placés en mode trunk et la tagguage des VLANs est réalisé par les systèmes d'exploitations. Les liens ont été agrégés de façon à augmenter la bande passante et à disposer d'un lien de secours.
+
+Dans cette configuration nous distinguerons deux types de noeuds : le \emph{cloud controller} et les noeuds de \emph{compute}. Le premier possèdera tout les services d'OpenStack (y compris nova-compute) et sera chargé de router les paquets des instances sur le réseau public tandis que les seconds ne disposeront que de nova-compute et se contenteront de faire tourner les instances.
+
+Afin de pouvoir migrer les instances entre les lames nous avons mis en place un stockage distribué et partagé entre les machines à l'aide de GlusterFS (voir \ref{sec:glusterfs}).
+
+
+FAIRE UN TABLEAU RESUME STOCKAGE + RESEAU
 
 \subsection{Préliminaires}
 \subsubsection{Installation des \gls{se}}
@@ -506,7 +512,7 @@ service openstack-glance-registry restart
 service openstack-glance-api restart
 chkconfig openstack-glance-registry on
 chkconfig openstack-glance-api on
-\end{verbatim}*
+\end{verbatim}
 
 \noindent Pour la création des utilisateurs, services, et endpoints, voir l'annexe \ref{script:keystoneData}.
 
@@ -544,7 +550,6 @@ service openstack-nova-api          restart
 service openstack-nova-cert         restart
 service openstack-nova-consoleauth  restart
 service openstack-nova-direct-api   restart
-service openstack-nova-metadata-api restart
 service openstack-nova-scheduler    restart
 service openstack-nova-volume       restart
 chkconfig qpidd on
@@ -553,7 +558,6 @@ chkconfig openstack-nova-api          on
 chkconfig openstack-nova-cert         on
 chkconfig openstack-nova-consoleauth  on
 chkconfig openstack-nova-direct-api   on
-chkconfig openstack-nova-metadata-api on
 chkconfig openstack-nova-scheduler    on
 chkconfig openstack-nova-volume       on
 \end{verbatim}
@@ -570,7 +574,7 @@ chkconfig openstack-nova-volume       on
 \label{sec:compatblade}
 L'installation des systèmes d'exploitation sur les lames fût plus compliquée que prévu, étant donné la configuration bi-processeur et les cartes Fibre Channel.
 
-Après de multiples installations infructueuses, un appel au support HP et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents ($ > 2.6 $) sont trop instables.
+Après de multiples installations infructueuses, un appel au support \gls{hp} et la vérification des versions des firmwares nous sommes arrivés à la conclusion que les noyaux Linux récents ($ > 2.6 $) sont trop instables.
 
 Sans que nous puissions fournir d'explications, CentOS, dans sa dernière version (6.3), fonctionne parfaitement sur la lame équipée d'Opteron 275, alors qu'aucun autre système Linux (Debian, Ubuntu, Suse) n'y fonctionne.
 Il suffit de préciser linux text mpath au prompt boot de l'installateur.
@@ -597,10 +601,17 @@ Concernant \gls{openstack} il s'agit d'un projet au potentiel énorme de part sa
 Le dashboard d'OpenStack qui offre une interface conviviale pour utiliser et administrer le cloud se trouve à l'adresse http://10.102.75.100/dashboard .
 
 \subsection{Réseau privé vs. Réseau public}
-
-\subsection{Keypair}
+Par défaut les instances virtuelles se voient attribué une adresse IP privé (dite fixe car une fois attribuée à une instance elle le restera jusqu'à la destruction de cette dernière) sur le réseau 192.168.100.0/24 et elles ne sont donc accessible qu'à travers le VNC (voir section suivante).
+Pour y accéder depuis l'extérieur il est possible de leur attribuer une adresse IP publique (dite flottante car elle peut être détaché d'une instance pour aller sur une autre) sur le réseau 10.102.75.0/24\footnote{En réalité un subnet en 10.102.75.128/27 car les autres IPs sont potentiellement utilisés.} qui est accessible depuis l'IUT ou via le VPN.
 
 \subsection{VNC}
+Le dashboard offre un client VNC qui permet de contrôler (clavier, souris, et écran) une instance virtuelle. Le client utilisent des fonctionnalités d'HTML5, et par conséquent nécessite un navigateur récent. Toutes les versions de Firefox et de Chrome (ou autres navigateurs basés sur Webkit) depuis 2012 le supporte.\newline
+C'est le seul moyen\footnote{Il est possible d'accéder aux instances sur leur IP privé via les lames ou fonctionnent OpenStack mais ce n'est évidemment pas faisable pour l'utilisateur final.} d'accéder aux instances si elles n'ont pas d'IP publique.
+
+\subsection{Keypair}
+Si l'image virtuelle le supporte\footnote{Pour récupérer la clé publique et d'autres informations, il faut que l'instance interroge l'API metadata à l'adresse http://169.254.169.254} il est possible d'injecter une clé publique à la création de l'instance afin d'y accéder via SSH.
+Les images ne supportant pas cette méthode d'authentification proposent en général une authentification par mot de passe.
+
 
 
 \section{Création d'une instance virtuelle}
@@ -616,7 +627,15 @@ Le dashboard d'OpenStack qui offre une interface conviviale pour utiliser et adm
 
 \section{Gestion des utilisateurs}
 
-\section{Dépannage à l'aide des logs} 
+\section{Dépannage à l'aide des logs}
+En cas de problème les logs d'\gls{openstack} sont d'une grande utilité. Ils sont consultables dans /var/log/ à l'exception de ceux du Dashboard pour lequel il faut voir les logs d'Apache dans /var/log/httpd/ .
+Pour débugger en temps réel une commande utile est tail -f qui permet d'afficher le contenu des logs en même temps qu'ils sont écrits.
+Un exemple d'utilisation pour visualiser les erreurs survenant avec nova serait:
+\begin{verbatim}
+tail -f /var/log/nova/* | grep ERROR
+\end{verbatim}
+
+\noindent Note: pour une administration simplifiée il serait possible de rediriger les logs vers un serveur \gls{syslog}.
 
 
 \chapter{Installation des systèmes d'exploitation sur les lames} \label{sec:installos}
@@ -660,7 +679,7 @@ ssh -L 10389:10.102.75.190:3389 login@srv-dev.iut-acy.local
 \end{verbatim}
 Il suffira alors d'indiquer l'adresse 127.0.0.1:10389 dans le client RDP pour se connecter.
 
-Le serveur, fonctionnant sous \gls{windowsserver} 2003, possède Firefox comme navigateur Internet, et plusieurs autres logiciels utiles, comme le client VMWare vCenter pour la gestion d'ESXi.
+Le serveur, fonctionnant sous \gls{windowsserver} 2003, possède Firefox comme navigateur Internet, et plusieurs autres logiciels utiles, comme le client VMWare vCenter pour la gestion d'\gls{esxi}.
 
 \subsubsection{iLO}
 Il suffit d'indiquer l'adresse IP correspondant à l'iLO de la lame dans le navigateur et d'entrer ses identifiants.
@@ -743,7 +762,7 @@ Dans le dialogue demandant l'URL contenant l'image d'installation on rentrera ce
 \end{figure}
 
 \textbf{Image DVD}\newline
-Si l'on utilise l'image ISO DVD on choisira ???????,, au dialogue "Installation Method".\newline
+Si l'on utilise l'image ISO DVD on choisira "Local CD/DVD", au dialogue "Installation Method".\newline
 Le dialogue suivant demande de configurer la carte réseau.
 Si il y a des VLANs à configurer, on laissera la configuration automatique (DHCP) échouer et on choisira de configurer le réseau plus tard.
 Sinon on configurera les adresses IPv4 et IPv6.\newline
@@ -754,7 +773,7 @@ A partir de la version 5 de CentOS l'installateur propose d'effectuer l'installa
 Étant donné que l'on souhaite installer un système minimal sur du stockage vide on continuera l'installation en mode texte.
 
 \subsubsection{Fuseau horaire}
-Linux sera le seul système installer "en dur" sur la lame, on peut donc laisser l'horloge système en UTC\footnote{EXPLIQUER BLABLABLABLABLA}.
+Linux sera le seul système installé "en dur" sur la lame, on peut donc laisser l'horloge système en UTC\footnote{EXPLIQUER BLABLABLABLABLA}.
 Attention à bien choisir le bon fuseau horaire afin que le passage à l'heure d'été se fasse correctement et que le timestamp des logs soit cohérent entre les machines.
 
 \subsubsection{Mot de passe}
@@ -780,6 +799,11 @@ Afin d'éviter de perdre la connexion il est préférable de modifier la configu
 \subsubsection{VLANs}
 
 \section{Installation de Solaris} \label{sec:installsolaris}
+\subsection{Média d'installation}
+L'installateur de Solaris se présente sous la forme d'une image ISO unique téléchargeable sur le site d'Oracle à l'adresse:
+KJLJJKLKJJKJJKJ
+
+Il n'y as pas de flags de boot à passer, l'installation se fait en mode texte et Solaris reconnaît directement le multipath.
 
 \chapter{Diagrammes Réseau et schémas de principe}
 \section{Les différents services d'OpenStack}
@@ -816,7 +840,7 @@ Notre but est de déployer MediaWiki et d'y ajouter quelques services de haute d
 \includegraphics[scale=0.75]{images/butJuju.png}
 \end{center}
 
-On commence par installer Juju et ses dépendances (Juju est disponible dans les dépôts officiels d'Ubuntu mais on préfère utiliser la version issu de sont ppa\footnote{Personal Package Archives. Ce sont des dépôts non-officiel mise à disposition des développeurs de logiciel libre par la plateforme LaunchPad} qui est plus à jour)
+On commence par installer Juju et ses dépendances (Juju est disponible dans les dépôts officiels d'Ubuntu mais on préfèrera utiliser la version issue de son \gls{ppa}.
 \begin{verbatim}
 sudo apt-get -y install python-software-properties
 sudo add-apt-repository ppa:juju/pkgs
