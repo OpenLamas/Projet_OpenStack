@@ -196,14 +196,13 @@ Toutes les lames possèdent deux cartes \gls{fc} QLogic Q2312 pour le stockage.
 
 \subsection{Stockage}
 Les lames ne disposant pas de stockage intégré, ce dernier est assuré pas un \gls{san} \gls{hp} StorageWorks relié en \gls{fc}.
-Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur \gls{fc}.
-
-PARLER DU MULTIPATH----------------
+Ce dernier fournit une couche d'abstraction au-dessus des disques durs et permet d'exposer plusieurs disques \og virtuels \fg à une lame au travers du contrôleur \gls{fc}.\newline
+Les contrôleurs font ce que l'on appelle du \gls{multipath}, c'est à dire qu'ils utilisent plusieurs chemins physiques pour accéder aux disques afin de faire du \gls{failover}.
 
 \subsection{Réseau}
 Chaque lame possède deux liens à 1Gbit/s que nous avons agrégés afin de faire du \gls{loadbalancing} et du \gls{failover}. Cela présente deux avantages: dans le meilleur cas on obtient une bande passante totale de 2Gbit/s, dans le pire cas (chute d'un lien) le trafic continue de fonctionner (à 1Gbit/s).
 
-La séparation des réseaux est permise par l'ajout de tag sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q).
+La séparation des réseaux est permise par l'ajout de tag sur des trames Ethernet avec un numéro de \gls{vlan} (encapsulation 802.1Q) et la configuration des ports en mode trunk sur les \glspl{switch}.
 
 
 \chapter{Systèmes d'exploitations hôtes}
@@ -218,7 +217,7 @@ La séparation des réseaux est permise par l'ajout de tag sur des trames Ethern
 
 \chapter{Logiciels}
 \section{OpenStack}
-Nous avons choisi OpenStack car des solutions d'IaaS présentés précédemment dans la section \ref{sec:panorama_iaas} c'est celle qui est soutenu par le plus d'entreprise (voir \ref{sec:fondationos}), et, comme en témoigne le volume des recherches Google, elle possède une communauté très développé sur Internet.
+Nous avons choisi \gls{openstack} car des solutions d'\gls{iaas} présentés précédemment dans la section \ref{sec:panorama_iaas} c'est celle qui est soutenu par le plus d'entreprise (voir \ref{sec:fondationos}), et, comme en témoigne le volume des recherches Google, elle possède une communauté très développé sur Internet.
 \begin{figure}[h!]
 \centering
 \includegraphics[resolution=140]{images/recherches_iaas.png}
@@ -311,16 +310,20 @@ Nous avons donc décidé d'utiliser Apache comme reverse proxy. Apache est le se
 Il propose une fonction de reverse proxy grâce au module mod\_proxy. Sa configuration un peu moins fine que Varnish mais suffisante pour notre utilisation.
 
 \section{Supervision}
-Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelé logiciel ou plateforme de supervision qui, en s'appuyant sur le protocole \gls{snmp}, vérifie en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installé sur les machines.
-Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connecté à la base MySQL.
-Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par SMS... Tout dépend du logiciel de supervision et de sa configuration.}
+Afin d'être sur qu'il n'y aucun problème à la fois sur le réseau et sur les machines, il existe des programmes appelés logiciels ou plates-formes de supervision qui, en s'appuyant sur des protocoles tels qu'\gls{snmp} ou \gls{telnet}, vérifient en continu le bon fonctionnement de tous les équipements réseaux et de tous les logiciels installés sur les machines.
+Ils peuvent vérifier de la place restante sur les disques jusqu'à l'état des interfaces réseaux des switchs, en passant par le nombre de clients connectés à la base MySQL.
+Lorsque un problème est détecté, une alerte est émise\footnote{Soit par mail, soit par SMS... Tout dépend du logiciel de supervision et de sa configuration.}.
 
 \subsection{Shinken}
 Le marché de la supervision est à la fois occupé par de grand constructeur comme \gls{hp} avec leur gamme OverView et par des logiciel libre comme Zabbix ou Nagios.
 Nous avons choisi pour notre part d'utiliser Shinken\footnote{http://www.shinken-monitoring.org/}.
-Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins nagios et ainsi de bénéficier de son immense communauté.
+Il a l'avantage de s'installer facilement, d'être compatible avec Solaris\footnote{Shinken est écrit en python ce qui le rend disponible pour presque tous les systèmes.} et d'être compatible avec les plugins Nagios et ainsi de bénéficier de son immense communauté.
 
 \subsection{Munin}
+Munin permet de tracer des graphes, de l'utilisation de l'interface réseau au nombre de processus en cours, en passant par le nombre d'entrées dans la table du système de fichiers. Il offre peut de fonctions mais est très simple à configurer et relativement léger.\newline
+Il se compose de deux parties: munin-node à installer sur chaque machine à monitorer et munin à proprement parler qui va régulièrement interroger munin-node sur chaque machine afin de récupérer les données et de générer des pages HTML statiques avec les graphes.\newline
+Une alternative courante est MRTG.
+
 
 \chapter{Mise en place} \label{cha:miseenplace}
 \section{Installation de développement sur un serveur dédié}
@@ -614,12 +617,14 @@ Les images ne supportant pas cette méthode d'authentification proposent en gén
 \section{Gestion des utilisateurs}
 
 \section{Dépannage à l'aide des logs}
-En cas de problème les logs d'\gls{openstack} sont d'une grande utilité.
+En cas de problème les logs d'\gls{openstack} sont d'une grande utilité. Ils sont consultables dans /var/log/ à l'exception de ceux du Dashboard pour lequel il faut voir les logs d'Apache dans /var/log/httpd/ .
 Pour débugger en temps réel une commande utile est tail -f qui permet d'afficher le contenu des logs en même temps qu'ils sont écrits.
 Un exemple d'utilisation pour visualiser les erreurs survenant avec nova serait:
 \begin{verbatim}
-tail -f /var/log/nova/*
+tail -f /var/log/nova/* | grep ERROR
 \end{verbatim}
+
+\noindent Note: pour une administration simplifiée il serait possible de rediriger les logs vers un serveur \gls{syslog}.
 
 
 \chapter{Installation des systèmes d'exploitations sur les lames} \label{sec:installos}
@@ -746,7 +751,7 @@ Dans le dialogue demandant l'URL contenant l'image d'installation on rentrera ce
 \end{figure}
 
 \textbf{Image DVD}\newline
-Si l'on utilise l'image ISO DVD on choisira ???????,, au dialogue "Installation Method".\newline
+Si l'on utilise l'image ISO DVD on choisira "Local CD/DVD", au dialogue "Installation Method".\newline
 Le dialogue suivant demande de configurer la carte réseau.
 Si il y a des VLANs à configurer, on laissera la configuration automatique (DHCP) échouer et on choisira de configurer le réseau plus tard.
 Sinon on configurera les adresses IPv4 et IPv6.\newline
@@ -757,7 +762,7 @@ A partir de la version 5 de CentOS l'installateur propose d'effectuer l'installa
 Étant donné que l'on souhaite installer un système minimal sur du stockage vide on continuera l'installation en mode texte.
 
 \subsubsection{Fuseau horaire}
-Linux sera le seul système installer "en dur" sur la lame, on peut donc laisser l'horloge système en UTC\footnote{EXPLIQUER BLABLABLABLABLA}.
+Linux sera le seul système installé "en dur" sur la lame, on peut donc laisser l'horloge système en UTC\footnote{EXPLIQUER BLABLABLABLABLA}.
 Attention à bien choisir le bon fuseau horaire afin que le passage à l'heure d'été se fasse correctement et que le timestamp des logs soit cohérent entre les machines.
 
 \subsubsection{Mot de passe}
@@ -783,6 +788,11 @@ Afin d'éviter de perdre la connexion il est préférable de modifier la configu
 \subsubsection{VLANs}
 
 \section{Installation de Solaris} \label{sec:installsolaris}
+\subsection{Média d'installation}
+L'installateur de Solaris se présente sous la forme d'une image ISO unique téléchargeable sur le site d'Oracle à l'adresse:
+KJLJJKLKJJKJJKJ
+
+Il n'y as pas de flags de boot à passer, l'installation se fait en mode texte et Solaris reconnaît directement le multipath.
 
 \chapter{Diagrammes Réseau et schémas de principe}
 \section{Les différents services d'OpenStack}
