@@ -169,11 +169,10 @@ L'objectif était de permettre à un/des administrateur(s) de modifier une confi
 
 \section{Démarche}
 Initialement notre projet devait comporter deux grandes étapes: la mise en place d'une installation de développement, et le déploiement sur un \gls{bladecenter}. Après cette dernière étape et discussion avec notre tuteur, nous avons décidé de modifier l'installation que nous avions réalisé sur le \gls{bladecenter} afin de maximiser les possibilités de \gls{virtualisation} et de simplifier l'administration.\newline
-Au final ce sont donc ces trois grandes étapes que nous détaillons dans le chapitre \ref{cha:miseenplace}.
+Au final ce sont donc trois grandes étapes que nous détaillons dans le chapitre \ref{cha:miseenplace} avec un accent particulier sur la dernière puisqu'il s'agit la seule installation réellement intéressante.
 
 De plus la majorité de notre travail a été effectué à deux.
-Notre sujet étant très pointu et compliqué. 
-Nous avons donc préféré être à deux sur la majorité des tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant des différentes installations.
+En effet notre sujet étant plutôt compliqué, nous avons préféré être à deux sur la majorité des tâches afin de pouvoir mettre en commun nos idées et réfléchir ensemble à la résolutions des problèmes rencontrés pendant les différentes installations.
 
 
 Dans la suite de ce rapport nous commencerons par détailler le matériel et les logiciels utilisés, puis nous verrons comment nous les avons assemblés afin d'obtenir notre \gls{cloudprive}.
@@ -213,8 +212,6 @@ La séparation des réseaux est permise par l'ajout de tag sur des trames Ethern
 \section{CentOS}
 
 \section{Solaris}
-
-\subsection{Les zones}
 
 
 \chapter{Logiciels}
@@ -300,16 +297,17 @@ Nous avons choisi de les stocker sur un serveur \gls{git} afin de mieux gérer l
 \gls{glusterfs} est un système de stockage distribué.
 
 \section{Reverse Proxy}
-Pour la première installation, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul ip disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifié).
+Pour la première installation, nous avons décidé de ne connecter directement aucun service avec l'extérieur pour des raisons de sécurité, de contrainte technique (une seul IP disponible sur le réseau de l'IUT) et de facilité de mise en œuvre (configuration du pare-feu simplifié).
 De cette manière, la zone qui abrite le dashboard n'est connecté qu'au LAN interne des lames.
 De cette manière, il nous faut un moyen de rendre le dashboard accessible depuis l'extérieur. 
-Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'ip de la zone abritant le serveur web, mais cette solution aurait été moins souple.
-En effet, la translation ne nous autorise qu'une seul redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de crée autant de sous domaine que l'on veux et de les rediriger vers n'importe quel ip et port.}.
+Nous avons choisi de mettre une place une mécanique de reverse proxy\footnote{Nous aurions pu décider de translater le port 80 (HTTP) sur l'IP de la zone abritant le serveur web, mais cette solution aurait été moins souple.
+En effet, la translation ne nous autorise qu'une seul redirection alors que le reverse proxy se base sur les données HTTP et non le port. De cette manière, il nous permet de crée autant de sous domaine que l'on veux et de les rediriger vers n'importe quel IP et port.}.
  
 Un reverse proxy est un serveur qui permet de réécrire les requêtes HTTP afin, par example, de cacher à l'utilisateur l'architecture interne du réseau.
 Grâce à lui, nous pouvons rediriger les requêtes vers notre serveur web.
 Un reverse proxy permet aussi de mettre en cache les ressources statique d'un site pour l'accélérer et soulager les serveurs web ou encore répartir la charge entre plusieurs serveurs.
 
+\subsection{Apache}
 Il existe plusieurs programme qui permette de faire du reverse proxy.
 Le mieux, de par sa communauté, la finesse de ces règles, et ces performances est, à notre avis, Varnish\footnote{https://www.varnish-cache.org/}.
 C'est un logiciel libre utilisé par example par Facebook. Cependant, nous n'avons pas pu l'utiliser pour les raisons détaillé dans la partie dédié.
@@ -336,7 +334,7 @@ Une alternative courante est MRTG.
 \chapter{Mise en place} \label{cha:miseenplace}
 \section{Installation de développement sur un serveur dédié}
 Nous avons réalisé une première installation d'\gls{openstack} et des services associés sur un serveur dédié afin d'étudier le fonctionnement global.
-Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'\gls{openstack} qui sera abordé dans la section suivante sur le \gls{bladecenter}.
+Dans cette section nous ne détaillerons que les configurations des systèmes d'exploitations, et pas l'installation d'\gls{openstack} qui sera abordé dans la section \ref{sec:depblade}.
 
 \subsection{Environnement de test}
 Afin de simuler plusieurs serveurs physiques nous avons installés \gls{proxmox} sur le serveur dédié. Il s'agit d'une distribution \gls{linux} associant \gls{kvm} et \gls{openvz} à une interface web afin de permettre la création rapide de machines virtuelles.
@@ -354,16 +352,15 @@ Par souci de clarté, nous avons décidé de donner un nom (hostname) au trois l
 Les noms sont donnés dans le schéma global (Annexe \ref{sch:glob}).
 Par la suite, lorsque nous parlerons d'une lame en particulier, nous l'appellerons par son nom.
 
-\subsection{Préliminaires}
+Dans cette section nous ne détaillerons que la configuration des systèmes d'exploitation mais pas la configuration d'OpenStack, qui est détaillé dans la section suivante (\ref{sec:depblade})
+
+\subsection{Architecture}
 Nous avons choisi d'installer Solaris 11 sur Fuji et Iyo et CentOS 6 sur Raijin.
 Pour plus d'informations sur ce choix voir \ref{sec:compatblade}.
 
 L'installation des systèmes est détaillé dans les annexes \ref{sec:installcentos} et \ref{sec:installsolaris}.
 
-\subsubsection{Configuration du stockage}
-Parler du multipath etc..
-
-\subsubsection{Configuration du réseau}
+\subsubsection{Réseau}
 Comme expliqué précédemment, les lames Iyo, Tenjin et Raijin sont connecté en 2Gbit/s (deux interfaces à 1Gbit/s agrégés comme expliqué dans cet article \cite{SolarisLA}) dans un VLAN dédié et non-relié à l'extérieur.
 Fuji, quand à elle, a une interface sur le réseau extérieur (réseau de IUT avec accès à internet) et l'autre dans le LAN inter-lames.
 De cette manière, tous le trafic transite par elle et peut être redirigé suivant les règles du reverse proxy et du pare-feu. 
@@ -373,41 +370,25 @@ Sur Solaris, le pare-feu par défaut est ipfilter. La configuration (donné en a
 
 Maintenant que nos machine on accès à internet, il faut qu'on rende disponible depuis l'extérieur les interfaces web des différent services disponible (Le dashboard, le panel Shinken et l'interface de configuration de Puppet).
 Pour réaliser cela, nous allons utiliser un reverse proxy (expliqué précédemment). Une fois apache installé, il faut ajouter au fichier de configuration d'apache (httpd.conf) les directive de l'annexe \ref{conf:apacheProxy}.
-Celle-ci renvoie tous le trafic qui arrive à apache vers la machine qui a l'ip 192.168.1.3 et sur sont port 80.
+Celle-ci renvoie tous le trafic qui arrive à Apache vers la machine qui a l'IP 192.168.1.3 et sur sont port 80.
 
-\subsubsection{Environnement de travail}
-Afin de rendre l'utilisation des machines plus agréable et plus facile à configurer, nous avons ajouté plusieurs programme et modifié plusieurs configuration.
+\subsubsection{Particularités liées à l'utilisation de Solaris}
+Solaris possède son propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible. Une communauté s'est alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilés pour Solaris. OpenCSW est disponible à l’adresse: www.opencsw.org.
 
-Nous avons commencé par installer un gestionnaire de paquet.
-Solaris possède sont propre gestionnaire de paquet que l'on peut appeler par la commande pkg. Seulement, il y a assez peu de paquet disponible.
-Une communauté s'est alors créé autour du projet OpenCSW, un gestionnaire de paquet qui contient un très grand nombre\footnote{le projet OpenCSW propose 3675 paquet en février 2013} de paquet compilé pour Solaris.
-Les paquets s'installent très facilement avec la commande pkgutils et les dépendances sont bien géré. Nous avons pu grâce à OpenCSW, installer de nombreux paquets comme Zsh, Apache ou encore Tmux\footnote{Tmux est un multiplexeur de terminaux
-Il permet d'avoir plusieurs terminaux dans la même fenêtre (et donc sur la même connexion \gls{ssh} dans notre cas)} sans avoir à les compiler avec toutes leurs dépendances. 
-
-Pour pouvoir configurer nos différente machines, nous nous connectons à elle via le protocole \gls{ssh}. 
-C'est un protocole de communication sécurisé qui permet d'avoir un terminal distant sur une machine.
-Notre configuration réseau nous permet d'accéder depuis le réseau de l'IUT seulement à Fuji.
-Nous nous connectons donc depuis notre ordinateur personnel sur Fuji puis de Fuji vers une autre machine du réseau local.
-Il est aussi possible de faire des tunnel \gls{ssh} (voir \ref{tunnelingSsh})
-
-\subsection{Installation des zones}
-
-\subsection{Mise en place d'OpenStack}
-\subsubsection{Préliminaires}
-
-\subsubsection{Installation du service d'identité}
-
-\subsubsection{Installation du service d'images}
+Certains utilitaires système de Solaris tels que pkg sont écrits en Python et utilisent des librairies en commun avec les services d'OpenStack. Pour éviter tout problème de compatibilité il est nécessaire d'installer les services dans un environnement virtuel (\emph{virtualenv}) à l'aide de la commande:
+\begin{verbatim}
+python tools/install_venv.py
+\end{verbatim}
 
 \subsection{Conclusion}
 S'agissant de notre premier contact avec un \gls{bladecenter} un certains nombre de concept étaient nouveaux pour nous (\gls{fc}, \gls{san}, multipath) et nous manquions de recul sur le dimensionnement de notre installation.
 C'est pourquoi, après discussion avec notre tuteur, nous avons décidé de reprendre l'installation de manière beaucoup plus propre.
 
 En effet bien que \gls{solaris} fonctionne parfaitement sur les lames son administration diffère beaucoup des systèmes Linux et la pérennité de l'installation n'est donc pas garantie.\newline
-De plus notre configuration réseau nous obligeait à faire du \gls{nat} pour accéder aux machines virtuelles et ce n'est pas une configuration idéale, surtout dans le cas où les utilisateurs ont besoins d'accéder plusieurs ports sur une machine virtuelle.
+De plus notre configuration réseau nous obligeait à faire du \gls{nat} pour accéder aux machines virtuelles et ce n'est pas une configuration idéale, surtout dans le cas où les utilisateurs ont besoins d'accéder à plusieurs ports sur une machine virtuelle.
 
 
-\section{Déploiement sur un BladeCenter avec CentOS}
+\section{Déploiement sur un BladeCenter avec CentOS} \label{sec:depblade}
 Comme dans la section \ref{sec:depsolaris} nous avons donné des noms (hostname) aux lames afin de les différencier plus facilement que par leur IP.
 Ces noms sont détaillés dans le tableau ci-dessous ainsi que DANS LE SCHEMA ??????
 
@@ -416,12 +397,65 @@ Pour cela nous nous sommes basés sur ce guide https://github.com/beloglazov/ope
 
 Sur les \glspl{switch} tout les ports ont été placés en mode trunk et la tagguage des VLANs est réalisé par les systèmes d'exploitations. Les liens ont été agrégés de façon à augmenter la bande passante et à disposer d'un lien de secours.
 
-Dans cette configuration nous distinguerons deux types de noeuds : le \emph{cloud controller} et les noeuds de \emph{compute}. Le premier possèdera tout les services d'OpenStack (y compris nova-compute) et sera chargé de router les paquets des instances sur le réseau public tandis que les seconds ne disposeront que de nova-compute et se contenteront de faire tourner les instances.
+Dans cette configuration nous distinguerons deux types de nœuds : le \emph{cloud controller} et les noeuds de \emph{compute}. Le premier possèdera tout les services d'OpenStack (y compris nova-compute) et sera chargé de router les paquets des instances sur le réseau public tandis que les seconds ne disposeront que de nova-compute et se contenteront de faire tourner les instances.
 
 Afin de pouvoir migrer les instances entre les lames nous avons mis en place un stockage distribué et partagé entre les machines à l'aide de GlusterFS (voir \ref{sec:glusterfs}).
 
+\begin{figure}[h!]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline 
+Volume & Taille (Go) & Périphérique \\ 
+\hline 
+VolGroup/lv\_root & 32 & /dev/mapper/mpathap2 \\ 
+\hline 
+VolGroup/lv\_swap & 8 & /dev/mapper/mpathap2 \\ 
+\hline 
+nova-volumes & 200 & /dev/mapper/mpathbp1
+ \\ 
+\hline 
+\end{tabular}
+\caption{Récapitulatif du stockage sur le Cloud Controller}
+\end{figure}
 
-FAIRE UN TABLEAU RESUME STOCKAGE + RESEAU
+\begin{figure}[h!]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline 
+Volume & Taille (Go) & Périphérique \\ 
+\hline 
+VolGroup/lv\_root & 36 & /dev/mapper/mpathap2 \\ 
+\hline 
+VolGroup/lv\_swap & 4 & /dev/mapper/mpathap2 \\ 
+\hline 
+vg\_gluster & 200 & /dev/mapper/mpathbp1
+ \\ 
+\hline 
+\end{tabular} 
+\caption{Récapitulatif du stockage sur le nœuds de \emph{compute}}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Lame & Interface & VLAN & Addresse IP \\ 
+\hline 
+Raijin & bond0.2 & 2 & 10.102.75.100 \\ 
+\hline 
+ & bond0.99 & 99 &  \\ 
+\hline 
+Taijin & bond0.2 & 2 & 10.102.75.101 \\ 
+\hline 
+ & bond0.99 & 99 &  \\ 
+\hline 
+Iyo & bond0.2 & 2 & 10.102.75.102 \\ 
+\hline 
+ & bond0.99 & 99 &  \\ 
+\hline 
+\end{tabular}
+\caption{Récapitulatif de la configuration réseau des lames}
+\end{figure}
 
 \subsection{Préliminaires}
 \subsubsection{Installation des \gls{se}}
@@ -429,7 +463,7 @@ Nous avons choisi d'installer CentOS 6.3 x64 sur les quatres lames. Le procédur
 Il s'agit d'une installation sans Internet car cette fois-ci les liens sont en mode trunk et nous tagguons nous-même les VLANs.
 
 \subsubsection{Configuration des dépôts YUM}
-Les dépots de paquets par défaut de CentOS ne contiennent pas OpenStack. Il faut donc ajouter le dépot EPEL\footnote{C'EST QUOI CA????,}, pour celà:
+Les dépots de paquets par défaut de CentOS ne contiennent pas OpenStack. Il faut donc ajouter le dépot EPEL\footnote{Extra Packages for Enterprise Linux (or EPEL) is a Fedora Special Interest Group that creates, maintains, and manages a high quality set of additional packages for Enterprise Linux, including, but not limited to, Red Hat Enterprise Linux (RHEL), CentOS and Scientific Linux (SL).}, pour celà:
 \begin{verbatim}
 sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 \end{verbatim}
