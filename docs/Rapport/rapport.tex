@@ -596,6 +596,7 @@ chkconfig openstack-nova-compute  on
 \end{verbatim}
 
 \subsection{Conclusion}
+L'architecture de cette installation est beaucoup plus efficace que les précédentes, elle permets de maximiser les capacités de virtualisation ainsi que d'étendre les fonctionnalités. De plus CentOS étant un système largement documenté l'administration en est simplifié. Il a également été beaucoup plus facile d'installer les logiciels de supervision (Shinken et Munin).
 
 
 \chapter{Conclusion}
@@ -603,7 +604,9 @@ La mise en place d'une infrastructure de \gls{cloudcomputing} demande de nombreu
 Nous avons appris énormément durant la réalisation de ce projet mais nous avons clairement manquer de recul dans nos choix et avec de l'expérience nous aurions pu être plus efficaces.\newline
 Cependant nous avons pu implémenter toutes les fonctionnalités du cahier des charges y compris les fonctionnalités supplémentaires tels que la haute disponibilité et le monitoring, à l'exception de l'authentification avec le LDAP car non réalisable avec le serveur de l'Université de Savoie\footnote{Keystone requiert des droits en écriture et une structure de l'arbre particulière, ce qui n'est évidemment pas possible sur le LDAP de l'Université.}.
 
-Concernant \gls{openstack} il s'agit d'un projet au potentiel énorme de part sa flexibilité (services indépendants), sa portabilité (Python), et sa communauté (\emph{mailing lists} entre autres) mais qui est encore en développement actif et dont la compatibilité n'est pas assurée d'une version à l'autre.
+Sur la partie matériel nous avons été limités par les capacités du matériel qui, datant de quelques années, ne possède pas toutes les fonctionnalités nécessaire à la virtualisation.
+
+Enfin concernant \gls{openstack} il s'agit d'un projet au potentiel énorme de part sa flexibilité (services indépendants), sa portabilité (Python), et sa communauté (\emph{mailing lists} entre autres) mais qui est encore en développement actif et dont la compatibilité n'est pas assurée d'une version à l'autre.
 
 
 
@@ -613,31 +616,67 @@ Concernant \gls{openstack} il s'agit d'un projet au potentiel énorme de part sa
 \section{Généralités}
 \subsection{Dashboard}
 Le dashboard d'OpenStack qui offre une interface conviviale pour utiliser et administrer le cloud se trouve à l'adresse http://10.102.75.100/dashboard .
+\subsection{Projets}
+Les projets permettent des définir des quotas de ressources pour un groupe d'utilisateur. Un utilisateur peut appartenir à plusieurs projet. Ceux-ci sont configurables dans partie \emph{Admin} du Dashboard.
+
+\subsection{Images}
+Les instances sont créés à partir d'images, contenant le système d'exploitation et les éventuels logiciels, qui peuvent être créés ou téléchargés sur Internet. Pour ajouter une image il suffit d'indiquer son URL, son nom, et son format dans le dialogue \emph{Create An Image} de la section \emph{Images \& Snapshots} du Dashboard.
 
 \subsection{Réseau privé vs. Réseau public}
 Par défaut les instances virtuelles se voient attribué une adresse IP privé (dite fixe car une fois attribuée à une instance elle le restera jusqu'à la destruction de cette dernière) sur le réseau 192.168.100.0/24 et elles ne sont donc accessible qu'à travers le VNC (voir section suivante).
 Pour y accéder depuis l'extérieur il est possible de leur attribuer une adresse IP publique (dite flottante car elle peut être détaché d'une instance pour aller sur une autre) sur le réseau 10.102.75.0/24\footnote{En réalité un subnet en 10.102.75.128/27 car les autres IPs sont potentiellement utilisés.} qui est accessible depuis l'IUT ou via le VPN.
 
+Pour assigner une IP flottante à une instance il suffit de choisir \emph{Associate Floating IP} dans le menu déroulant \emph{Actions} dans la liste des instances.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[resolution=200]{images/22_ip_float.png}
+\caption{Association d'une IP flottante à une instance via le dashboard}
+\end{figure}
+
+\subsection{Groupes de sécurité}
+Par défaut les instances ne sont pas accessibles depuis l'extérieur. Pour ouvrir certains ports il faut créer un \emph{Security Group}  via l'onglet \emph{Access \& Security} du Dashboard.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[resolution=200]{images/22_sec_group.png}
+\caption{Édition d'un groupe de sécurité via le dashboard}
+\end{figure}
+
 \subsection{VNC}
 Le dashboard offre un client VNC qui permet de contrôler (clavier, souris, et écran) une instance virtuelle. Le client utilisent des fonctionnalités d'HTML5, et par conséquent nécessite un navigateur récent. Toutes les versions de Firefox et de Chrome (ou autres navigateurs basés sur Webkit) depuis 2012 le supporte.\newline
 C'est le seul moyen\footnote{Il est possible d'accéder aux instances sur leur IP privé via les lames ou fonctionnent OpenStack mais ce n'est évidemment pas faisable pour l'utilisateur final.} d'accéder aux instances si elles n'ont pas d'IP publique.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[resolution=200]{images/22_vnc.png}
+\caption{Session VNC sur une instance TinyCore via le dashboard}
+\end{figure}
 
 \subsection{Keypair}
 Si l'image virtuelle le supporte\footnote{Pour récupérer la clé publique et d'autres informations, il faut que l'instance interroge l'API metadata à l'adresse http://169.254.169.254} il est possible d'injecter une clé publique à la création de l'instance afin d'y accéder via SSH.
 Les images ne supportant pas cette méthode d'authentification proposent en général une authentification par mot de passe.
 
+Pour créer ou envoyer une paire de clés il suffit de se rendre dans la partie \emph{Access \& Security} du Dashboard puis dans la dernière section, \emph{Keypairs}, de cliquer sur le bouton correspondante (\emph{Create Keypair} ou \emph{Import Keypair}).
+
 \section{Création d'une instance virtuelle}
 \begin{figure}[!h]
 \centering
-\includegraphics[resolution=200]{images/dashboard_create_details.png}
-\caption{Exemple de création de huit instances virtuelles via le dashboard}
+\includegraphics[resolution=200]{images/22_launch_instance.png}
+\caption{Exemple de création de quatre instances virtuelles via le dashboard}
 \end{figure}
 
-PARLER DES KEYPAIRS
+Pour créer une instance il faut, après s'être identifier, se rendre dans le section \emph{Instances} du menu \emph{Project} à gauche.
+Si besoin choisir le projet dans la liste déroulante en haut du menu.\newline 
+Ensuite il suffit de cliquer sur \emph{Launch Instance} puis de choisir l'image, le nom, le nombre, et les ressources (\emph{Flavor}). Dans l'onglet \emph{Access \& Security} on choisira sa paire de clé si besoin (voir section précédente).\newline
+Enfin il suffit de cliquer sur \emph{Launch}.
 
 \chapter{Administration du \gls{cloudprive}}
+\section{Gestion avec le Dashboard}
+Le Dashboard offre la possibilité de gérer simplement les utilisateurs, les projets, et les instances. La partie \emph{Admin} est accessible aux utilisateurs qui possèdent le rôle correspondant.
 
-\section{Gestion des utilisateurs}
+\section{Gestion en ligne de commande}
+Sur n'importe quelle des lames où fonctionne OpenStack il est possible de tout gérer à l'aide des commandes nova, nova-manage, keystone, glance, et swift. La commande openstack-config permet  de modifier les fichiers de configuration en ligne de commande, tandis que la commande openstack-status donne une vue globale des services installés sur la lame.
 
 \section{Dépannage à l'aide des logs}
 En cas de problème les logs d'\gls{openstack} sont d'une grande utilité. Ils sont consultables dans /var/log/ à l'exception de ceux du Dashboard pour lequel il faut voir les logs d'Apache dans /var/log/httpd/ .
@@ -783,7 +822,7 @@ A partir de la version 5 de CentOS l'installateur propose d'effectuer l'installa
 Étant donné que l'on souhaite installer un système minimal sur du stockage vide on continuera l'installation en mode texte.
 
 \subsubsection{Fuseau horaire}
-Linux sera le seul système installé "en dur" sur la lame, on peut donc laisser l'horloge système en UTC\footnote{EXPLIQUER BLABLABLABLABLA}.
+Linux sera le seul système installé "en dur" sur la lame, on peut donc laisser l'horloge système en UTC.
 Attention à bien choisir le bon fuseau horaire afin que le passage à l'heure d'été se fasse correctement et que le timestamp des logs soit cohérent entre les machines.
 
 \subsubsection{Mot de passe}
@@ -1090,7 +1129,7 @@ log_file = keystone.log
 log_dir  = /var/log/keystone
 
 [sql]
-connection = mysql://keystone:ab9kcd@raijin/keystone
+connection = mysql://keystone:xxxxxx@raijin/keystone
 
 [identity]
 driver = keystone.identity.backends.sql.Identity
@@ -1124,7 +1163,7 @@ verbose = True
 debug = False
 log_file = /var/log/glance/api.log
 
-sql_connection = mysql://glance:ab9kcd@raijin/glance
+sql_connection = mysql://glance:xxxxxx@raijin/glance
 sql_idle_timeout = 3600
 
 workers = 1
@@ -1170,7 +1209,7 @@ auth_port = 35357
 auth_protocol = http
 admin_tenant_name = service
 admin_user = glance
-admin_password = ab9kcd
+admin_password = xxxxxx
 
 [paste_deploy]
 flavor = keystone
@@ -1185,7 +1224,7 @@ paste.filter_factory = keystone.middleware.auth_token:filter_factory
 delay_auth_decision = true
 admin_tenant_name = service
 admin_user = glance
-admin_password = ab9kcd
+admin_password = xxxxxx
 [...]
 \end{verbatim}
 
@@ -1193,7 +1232,7 @@ admin_password = ab9kcd
 \begin{verbatim}
 [...]
 [filter:authtoken]
-admin_password = ab9kcd
+admin_password = xxxxxx
 admin_tenant_name = service
 admin_user = glance
 [...]
@@ -1208,7 +1247,7 @@ auth_port = 35357
 auth_protocol = http
 admin_tenant_name = service
 admin_user = glance
-admin_password = ab9kcd
+admin_password = xxxxxx
 
 [paste_deploy]
 flavor = keystone
@@ -1223,7 +1262,7 @@ config_file = /etc/glance/glance-registry-paste.ini
 paste.filter_factory = keystone.middleware.auth_token:filter_factory
 admin_tenant_name = service
 admin_user = glance
-admin_password = ab9kcd
+admin_password = xxxxxx
 \end{verbatim}
 
 \newpage
@@ -1240,7 +1279,7 @@ verbose = True
 logdir = /var/log/nova
 state_path = /var/lib/nova
 lock_path = /var/lib/nova/tmp
-sql_connection = mysql://nova:ab9kcd@raijin/nova
+sql_connection = mysql://nova:xxxxxx@raijin/nova
 my_ip = 10.102.75.100
 
 # Hosts
@@ -1302,7 +1341,7 @@ vncserver_proxyclient_address = 10.102.75.100
 [keystone_authtoken]
 admin_tenant_name = service
 admin_user = nova
-admin_password = ab9kcd
+admin_password = xxxxxx
 auth_host = raijin
 auth_port = 35357
 auth_protocol = http
@@ -1326,13 +1365,15 @@ L'installation a été effectué sur des systèmes UNIX (Solaris) et Linux (Cent
 En plus des services d'OpenStack nous avons intégrés une gestion de configuration automatique pour les instances virtuelles à l'aide de Puppet.
 La mise en place de monitoring à l'aide de Shinken et Munin est également détaillé.\newline\newline
 
-\noindent Behind what we call \gls{cloudcomputing} there is a bunch of interesting topics like virtualization, high-disponibility, and scalability.
+\noindent Behind what we call \gls{cloudcomputing} there is a lot of interesting topics like virtualization, high-disponibility, and scalability.
 This make deploying a Private Cloud an interesting studies subject in Networking \& Telecommunications.\newline
 We used OpenStack, an open-source software, to create an Infrastructure as a Service, this gave us a better understanding of service's interaction (Networking, Storage, Virtualization).
 Setup was made on both UNIX (Solaris) and Linux (CentOS, Ubuntu Server) systems whose choice are explained in this report.\newline
 In additions of OpenStack services we used Puppet to deliver automated configuration deployment to VMs.
-Monitoring with Shinken and Munin is also detailled.
+Monitoring with Shinken and Munin is also detailled.\newline\newline
 
+\noindent Mots clés : Cloud Computing, Virtualisation, Réseau, OpenStack, Linux, UNIX, BladeCenter, Puppet, Juju, Shinken, Monitoring\newline
+Keywords : Cloud Computing, Virtualization, Networking, OpenStack, Linux, UNIX, BladeCenter, Puppet, Juju, Shinken, Monitoring
 \end{abstract}
 
 \end{document}
