@@ -483,6 +483,11 @@ body     { pointer-events: none; }
   float: right;
 }
 
+#schemaOpenStack {
+    margin-left: -100px;
+    width: 950px;
+}
+
 /* IMPRESS NOT SUPPORTED STYLES */
 
 .fallback-message {
