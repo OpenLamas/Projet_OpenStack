@@ -24,7 +24,7 @@
       <h3>Julien Brun</h3><h3 id='nom_max'>Maxime Mouchet</h3>
       <h1 id='cloudprive'>Cloud Privé</h1><h1>avec</h1><h1>OpenStack</h1>
       <h2 id='tuteur'>Tuteur : Frédéric Pourraz</h2>
-      <img id='logouniv' src='img/univsavoie.svg' /><img id='logoiut' src='img/iut.png' />
+      <img id='logouniv' src='img/univsavoie.jpg' /><img id='logoiut' src='img/iut.png' />
     </div>
 
     <div class="step slide" data-x="1500" data-y="0">
@@ -36,11 +36,22 @@
     </div>
 
     <div class="step slide" data-x="4500" data-y="0">
-      OpenStack
+      <img src='img/logo-openstack.png' style='width:100px;'/>
+      OpenStack, c'est :
+      <ul>
+        <li>Un ensemble de logiciels permettant de construire des infrastructures en tant que service.</li>
+        <li>Une architecture modulaire facilitant le déploiement et la mise à l'échelle.</li>
+        <li>Gratuit et Open Source.</li>
+        <li>Soutenu par des grandes entreprises tels que HP, Cisco, IBM, Intel, ...</li>
+        <li>Une communauté active sur Internet (mailing-lists, wikis, blogs).</li>
+      </ul>
     </div>
 
     <div class="step slide" data-x="6000" data-y="0">
-      OpenStack2
+      OpenStack, ce n'est pas :
+      <ul>
+        <li>Un logiciel de virtualisation (un hyperviseur)</li>
+      </ul>
     </div>
 
     <div class="step slide" data-x="7500" data-y="0">
@@ -48,7 +59,35 @@
     </div>
 
     <div class="step slide" data-x="9000" data-y="0">
-      Juju2
+      <h1>Le fonctionnement d'OpenStack (trouver plus mieux)</h1>
+      Les différents services (nova, glance, swift) => en réalité des <em>middlewares</em> WSGI.<br>
+      <strong>WSGI :</strong> <em>Web Server Gateway Interface</em><br />
+      <!-- WSGI n'est pas un logiciel, juste une spec -->
+      <strong>middleware :</strong> Application WSGI à la fois cliente et serveur<br /><br />
+      <!-- qui implémenter les deux interfaces -->
+      => Accessibles extérieurement via une API REST<br />
+      <strong>API :</strong> <em>Application Programming Interface</em><br />
+      <strong>REST :</strong> <em>REpresentational State Transfer</em><br /><br />
+      => Communiquent intérieurement via AMQP<br />
+      <strong>AMQP :</strong> <em>Advanced Message Queuing Protocol</em>
+    </div>
+
+    <div class="step slide" data-x="9000" data-y="0">
+      <h1>Le fonctionnement d'OpenStack (trouver plus mieux)</h1>
+      Les différents services (nova, glance, swift) => en réalité des <em>middlewares</em> WSGI.<br>
+      <strong>WSGI :</strong> <em>Web Server Gateway Interface</em><br />
+      <!-- WSGI n'est pas un logiciel, juste une spec -->
+      <strong>middleware :</strong> Application WSGI à la fois cliente et serveur<br /><br />
+      <!-- qui implémenter les deux interfaces -->
+      => Accessibles extérieurement via une API REST<br />
+      <strong>API :</strong> <em>Application Programming Interface</em><br />
+      <strong>REST :</strong> <em>REpresentational State Transfer</em><br /><br />
+      => Communiquent intérieurement via AMQP<br />
+      <strong>AMQP :</strong> <em>Advanced Message Queuing Protocol</em>
+    </div>
+
+    <div class="step slide" data-x="9500" data-y="0">
+      
     </div>
 
     <div class="step slide" data-x="10500" data-y="0">
