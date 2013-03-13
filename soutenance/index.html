@@ -36,9 +36,13 @@
     </div>
 
     <div class="step slide" data-x="4500" data-y="0">
-      <img src='img/logo-openstack.png' style='width:100px;'/>
-      OpenStack, c'est :
-      <ul>
+      <center><img src='img/logo-openstack.png' style='width:400px;'/></center>
+      <center><h1 style='margin-top: 100px; font-size: 40pt;'>Qu'est ce que c'est ?</h1></center>
+    </div>
+
+    <div class='step slide' data-x='6000' data-y='0'>
+      <center><h1 style='font-size: 40pt;'>OpenStack, c'est :</h1></center>
+      <ul style='margin-top: 100px; list-style-type: disc;'>
         <li>Un ensemble de logiciels permettant de construire des infrastructures en tant que service.</li>
         <li>Une architecture modulaire facilitant le déploiement et la mise à l'échelle.</li>
         <li>Gratuit et Open Source.</li>
@@ -47,66 +51,66 @@
       </ul>
     </div>
 
-    <div class="step slide" data-x="6000" data-y="0">
-      OpenStack, ce n'est pas :
-      <ul>
-        <li>Un logiciel de virtualisation (un hyperviseur)</li>
-      </ul>
-    </div>
-
     <div class="step slide" data-x="7500" data-y="0">
       Juju
     </div>
 
     <div class="step slide" data-x="9000" data-y="0">
-      <h1>Le fonctionnement d'OpenStack (trouver plus mieux)</h1>
-      Les différents services (nova, glance, swift) => en réalité des <em>middlewares</em> WSGI.<br>
-      <strong>WSGI :</strong> <em>Web Server Gateway Interface</em><br />
-      <!-- WSGI n'est pas un logiciel, juste une spec -->
-      <strong>middleware :</strong> Application WSGI à la fois cliente et serveur<br /><br />
-      <!-- qui implémenter les deux interfaces -->
-      => Accessibles extérieurement via une API REST<br />
-      <strong>API :</strong> <em>Application Programming Interface</em><br />
-      <strong>REST :</strong> <em>REpresentational State Transfer</em><br /><br />
-      => Communiquent intérieurement via AMQP<br />
-      <strong>AMQP :</strong> <em>Advanced Message Queuing Protocol</em>
-    </div>
-
-    <div class="step slide" data-x="9000" data-y="0">
-      <h1>Le fonctionnement d'OpenStack (trouver plus mieux)</h1>
-      Les différents services (nova, glance, swift) => en réalité des <em>middlewares</em> WSGI.<br>
-      <strong>WSGI :</strong> <em>Web Server Gateway Interface</em><br />
-      <!-- WSGI n'est pas un logiciel, juste une spec -->
-      <strong>middleware :</strong> Application WSGI à la fois cliente et serveur<br /><br />
-      <!-- qui implémenter les deux interfaces -->
-      => Accessibles extérieurement via une API REST<br />
-      <strong>API :</strong> <em>Application Programming Interface</em><br />
-      <strong>REST :</strong> <em>REpresentational State Transfer</em><br /><br />
-      => Communiquent intérieurement via AMQP<br />
-      <strong>AMQP :</strong> <em>Advanced Message Queuing Protocol</em>
-    </div>
-
-    <div class="step slide" data-x="9500" data-y="0">
-      
+      <center><img src='img/logo-openstack.png' style='width:400px;'/></center>
+      <center><h1 style='margin-top: 100px; font-size: 40pt;'>Comment ça marche ?</h1></center>
     </div>
 
     <div class="step slide" data-x="10500" data-y="0">
+      <center><h1 style='font-size: 25pt;'><strong>Keystone</strong>, <strong>Nova</strong>, <strong>Cinder</strong>, <strong>Glance</strong>, <strong>Swift</strong>, ...</h1></center>
+      <br /><br />
+      <center><strong style='font-size: 30pt;'>=> <em>middlewares WSGI</em></strong></center><br />
+      <br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <strong>WSGI :</strong> <em>Web Server Gateway Interface</em><br />
+      <!-- WSGI n'est pas un logiciel, juste une spec -->
+      <strong>middleware :</strong> Application WSGI à la fois cliente et serveur<br /><br />
+      <!-- qui implémenter les deux interfaces -->
+    </div>
+
+    <div class='step slide' data-x='12500' data-y='0'>
+      <br /><br /><br /><br /><br /><br /><br />
+      <center><h1 style='font-size: 30pt;'>Deux moyens de communication</h1></center>
+    </div>
+
+    <div class='step slide' data-x='14000' data-y='0'>
+      <strong>Depuis l'extérieur</strong>, une API REST<br />
+      <br />
+      <img src='img/http_get_api.png' style='width: 800px;'/>
+      <br /><br />
+      <strong>API :</strong> <em>Application Programming Interface</em><br />
+      <strong>REST :</strong> <em>REpresentational State Transfer</em><br /><br />
+    </div>
+
+    <div class='step slide' data-x='15500' data-y='0'>
+      <strong>Entre les services</strong>, AMQP<br />
+      <br /><br /><br />
+      <img src='img/amqp.jpg' />
+      <br /><br /><br /><br />
+      <strong>AMQP :</strong> <em>Advanced Message Queuing Protocol</em>
+    </div>
+
+
+    <div class="step slide" data-x="17000" data-y="0">
       Juju2
     </div>
 
-    <div class="step slide" data-x="12000" data-y="0">
+    <div class="step slide" data-x="18500" data-y="0">
       Blade
     </div>
 
-    <div class="step slide" data-x="13500" data-y="0">
+    <div class="step slide" data-x="20000" data-y="0">
       Blade2
     </div>
 
-    <div class="step slide" data-x="15000" data-y="0">
+    <div class="step slide" data-x="21500" data-y="0">
       Conclusion
     </div>
 
-    <div class="step slide" data-x="16500" data-y="0">
+    <div class="step slide" data-x="23000" data-y="0">
       Conclusion suite
     </div>
 

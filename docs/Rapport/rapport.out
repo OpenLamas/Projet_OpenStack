@@ -1,0 +1,42 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Choix du sujet}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Contexte}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Rappel du cahier des charges}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.4}{D\351marche}{chapter.1}% 5
+\BOOKMARK [0][-]{chapter.2}{Mat\351riel}{}% 6
+\BOOKMARK [1][-]{section.2.1}{Serveur d\351di\351 OVH}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.2}{BladeCenter HP}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{Logiciels}{}% 9
+\BOOKMARK [1][-]{section.3.1}{OpenStack}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.2}{Automatisation}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.3}{Haute disponibilit\351}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.4}{Reverse Proxy}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.5}{Supervision}{chapter.3}% 14
+\BOOKMARK [0][-]{chapter.4}{Mise en place}{}% 15
+\BOOKMARK [1][-]{section.4.1}{Installation de d\351veloppement sur un serveur d\351di\351}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.2}{D\351ploiement sur un BladeCenter avec Solaris}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.3}{D\351ploiement sur un BladeCenter avec CentOS}{chapter.4}% 18
+\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 19
+\BOOKMARK [0][-]{appendix.A}{Utilisation du cloudprive}{}% 20
+\BOOKMARK [1][-]{section.A.1}{G\351n\351ralit\351s}{appendix.A}% 21
+\BOOKMARK [1][-]{section.A.2}{Cr\351ation d'une instance virtuelle}{appendix.A}% 22
+\BOOKMARK [0][-]{appendix.B}{Administration du cloudprive}{}% 23
+\BOOKMARK [1][-]{section.B.1}{Gestion avec le Dashboard}{appendix.B}% 24
+\BOOKMARK [1][-]{section.B.2}{Gestion en ligne de commande}{appendix.B}% 25
+\BOOKMARK [1][-]{section.B.3}{D\351pannage \340 l'aide des logs}{appendix.B}% 26
+\BOOKMARK [0][-]{appendix.C}{Installation des syst\350mes d'exploitation sur les lames}{}% 27
+\BOOKMARK [1][-]{section.C.1}{Syst\350mes d'exploitation support\351s}{appendix.C}% 28
+\BOOKMARK [1][-]{section.C.2}{Integrated Lights-Out}{appendix.C}% 29
+\BOOKMARK [1][-]{section.C.3}{Installation de CentOS}{appendix.C}% 30
+\BOOKMARK [1][-]{section.C.4}{Installation de Solaris}{appendix.C}% 31
+\BOOKMARK [0][-]{appendix.D}{Diagrammes R\351seau et sch\351mas de principe}{}% 32
+\BOOKMARK [1][-]{section.D.1}{Les diff\351rents services d'OpenStack}{appendix.D}% 33
+\BOOKMARK [1][-]{section.D.2}{Sch\351ma global BladeCenter avec Solaris}{appendix.D}% 34
+\BOOKMARK [1][-]{section.D.3}{Sch\351ma global BladeCenter avec QEMU et GlusterFS}{appendix.D}% 35
+\BOOKMARK [0][-]{appendix.E}{Scripts d'automatisation}{}% 36
+\BOOKMARK [1][-]{section.E.1}{Exemple de configuration de MediaWiki avec Juju}{appendix.E}% 37
+\BOOKMARK [1][-]{section.E.2}{Exemple de configuration avec Puppet}{appendix.E}% 38
+\BOOKMARK [0][-]{appendix.F}{Fichiers de configuration OpenStack}{}% 39
+\BOOKMARK [1][-]{section.F.1}{Keystone}{appendix.F}% 40
+\BOOKMARK [1][-]{section.F.2}{Glance}{appendix.F}% 41
+\BOOKMARK [1][-]{section.F.3}{Nova}{appendix.F}% 42

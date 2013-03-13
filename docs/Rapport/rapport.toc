@@ -1,0 +1,255 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {french}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Choix du sujet}{4}{section.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Contexte}{4}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.1}La \gls {virtualisation}}{4}{subsection.1.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.2}Le \gls {cloudcomputing}}{4}{subsection.1.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Vue d'ensemble}{4}{subsubsection*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{IaaS, PaaS, et autres *aaS}{4}{subsubsection*.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Le stockage dans le cloud}{5}{subsubsection*.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Cloud public vs. \gls {cloudprive}}{5}{subsubsection*.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.3}Panorama des IaaS}{5}{subsection.1.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Amazon EC2}{5}{subsubsection*.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{CloudStack}{5}{subsubsection*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{OpenStack}{6}{subsubsection*.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Rappel du cahier des charges}{6}{section.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Objectifs}{6}{subsubsection*.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Fonctionnalit\IeC {\'e}s \IeC {\`a} impl\IeC {\'e}menter}{6}{subsubsection*.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Perspectives}{6}{subsubsection*.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.4}D\IeC {\'e}marche}{6}{section.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Mat\IeC {\'e}riel}{7}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Serveur d\IeC {\'e}di\IeC {\'e} OVH}{7}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}BladeCenter HP}{7}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}Configuration mat\IeC {\'e}rielle}{7}{subsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.2}Stockage}{7}{subsection.2.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.3}R\IeC {\'e}seau}{7}{subsection.2.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.4}Compatibilit\IeC {\'e} des syst\IeC {\`e}mes d'exploitation}{7}{subsection.2.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Logiciels}{8}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}OpenStack}{8}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}Les services}{8}{subsection.3.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Keystone}{8}{subsubsection*.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Nova}{8}{subsubsection*.16}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Quantum}{8}{subsubsection*.17}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Glance}{9}{subsubsection*.18}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Dashboard}{9}{subsubsection*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Automatisation}{9}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Juju}{9}{subsubsection*.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Puppet}{9}{subsubsection*.21}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Haute disponibilit\IeC {\'e}}{9}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.1}GlusterFS}{9}{subsection.3.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Reverse Proxy}{9}{section.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.1}Apache}{10}{subsection.3.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.5}Supervision}{10}{section.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5.1}Shinken}{10}{subsection.3.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5.2}Munin}{10}{subsection.3.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Mise en place}{11}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Installation de d\IeC {\'e}veloppement sur un serveur d\IeC {\'e}di\IeC {\'e}}{11}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.1}Environnement de test}{11}{subsection.4.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.2}Conclusion}{11}{subsection.4.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}D\IeC {\'e}ploiement sur un BladeCenter avec Solaris}{11}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.1}Architecture}{11}{subsection.4.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{R\IeC {\'e}seau}{11}{subsubsection*.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Particularit\IeC {\'e}s li\IeC {\'e}es \IeC {\`a} l'utilisation de Solaris}{12}{subsubsection*.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.2}Conclusion}{12}{subsection.4.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}D\IeC {\'e}ploiement sur un BladeCenter avec CentOS}{12}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3.1}Pr\IeC {\'e}liminaires}{13}{subsection.4.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Installation des syst\IeC {\`e}mes d'exploitation}{13}{subsubsection*.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Configuration des d\IeC {\'e}p\IeC {\^o}ts YUM}{13}{subsubsection*.28}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3.2}Installation du Cloud Controller}{13}{subsection.4.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Installation du serveur MySQL}{13}{subsubsection*.29}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Installation du service d'identit\IeC {\'e}}{13}{subsubsection*.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Installation du services d'image}{14}{subsubsection*.31}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Installation de Nova}{14}{subsubsection*.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3.3}Installation des noeuds de Compute}{15}{subsection.4.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Installation de Nova}{15}{subsubsection*.33}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3.4}Conclusion}{15}{subsection.4.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclusion}{16}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Utilisation du \gls {cloudprive}}{17}{appendix.A}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{17}{section.A.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.1}Dashboard}{17}{subsection.A.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.2}Projets}{17}{subsection.A.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.3}Images}{17}{subsection.A.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.4}R\IeC {\'e}seau priv\IeC {\'e} vs. R\IeC {\'e}seau public}{17}{subsection.A.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.5}Groupes de s\IeC {\'e}curit\IeC {\'e}}{17}{subsection.A.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.6}VNC}{17}{subsection.A.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.1.7}Keypair}{18}{subsection.A.1.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.2}Cr\IeC {\'e}ation d'une instance virtuelle}{18}{section.A.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}Administration du \gls {cloudprive}}{20}{appendix.B}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B.1}Gestion avec le Dashboard}{20}{section.B.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B.2}Gestion en ligne de commande}{20}{section.B.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B.3}D\IeC {\'e}pannage \IeC {\`a} l'aide des logs}{20}{section.B.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {C}Installation des syst\IeC {\`e}mes d'exploitation sur les lames}{21}{appendix.C}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.1}Syst\IeC {\`e}mes d'exploitation support\IeC {\'e}s}{21}{section.C.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Syst\IeC {\`e}mes officiellement support\IeC {\'e}s}{21}{subsubsection*.38}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Syst\IeC {\`e}mes que nous avons test\IeC {\'e}s}{21}{subsubsection*.39}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.2}Integrated Lights-Out}{21}{section.C.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.2.1}Connexion}{21}{subsection.C.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Serveur TSE}{21}{subsubsection*.40}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{iLO}{22}{subsubsection*.41}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.2.2}Principales fonctionnalit\IeC {\'e}s}{22}{subsection.C.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Gestion de l'alimentation}{22}{subsubsection*.42}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{M\IeC {\'e}dia virtuel et console distante}{22}{subsubsection*.43}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.3}Installation de CentOS}{22}{section.C.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.3.1}M\IeC {\'e}dia d'installation}{22}{subsection.C.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{La lame a acc\IeC {\`e}s \IeC {\`a} Internet}{22}{subsubsection*.44}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{La lame n'a pas acc\IeC {\`e}s \IeC {\`a} Internet}{22}{subsubsection*.45}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.3.2}Options de boot}{23}{subsection.C.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.3.3}Configuration g\IeC {\'e}n\IeC {\'e}rale}{23}{subsection.C.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Langue et clavier}{23}{subsubsection*.46}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{M\IeC {\'e}thode d'installation}{23}{subsubsection*.47}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{VNC}{24}{subsubsection*.49}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Fuseau horaire}{24}{subsubsection*.50}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Mot de passe}{24}{subsubsection*.51}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Partitionnement}{24}{subsubsection*.52}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Installation et premier red\IeC {\'e}marrage}{24}{subsubsection*.53}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.3.4}Post-configuration}{24}{subsection.C.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Hostname}{24}{subsubsection*.54}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{VLANs}{24}{subsubsection*.55}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.4}Installation de Solaris}{25}{section.C.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {C.4.1}Installation}{25}{subsection.C.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {D}Diagrammes R\IeC {\'e}seau et sch\IeC {\'e}mas de principe}{26}{appendix.D}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {D.1}Les diff\IeC {\'e}rents services d'OpenStack}{26}{section.D.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {D.2}Sch\IeC {\'e}ma global BladeCenter avec Solaris}{27}{section.D.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {D.3}Sch\IeC {\'e}ma global BladeCenter avec QEMU et GlusterFS}{28}{section.D.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {E}Scripts d'automatisation}{29}{appendix.E}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {E.1}Exemple de configuration de MediaWiki avec Juju}{29}{section.E.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {E.2}Exemple de configuration avec Puppet}{31}{section.E.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {F}Fichiers de configuration OpenStack}{33}{appendix.F}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {F.1}Keystone}{33}{section.F.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {F.1.1}keystone.conf}{33}{subsection.F.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {F.2}Glance}{34}{section.F.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {F.2.1}glance-api.conf}{34}{subsection.F.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {F.2.2}glance-api-paste.ini}{35}{subsection.F.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {F.2.3}glance-cache.conf}{35}{subsection.F.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {F.2.4}glance-registry.conf}{35}{subsection.F.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {F.2.5}glance-registry.conf}{35}{subsection.F.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {F.3}Nova}{36}{section.F.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {F.3.1}nova.conf}{36}{subsection.F.3.1}
