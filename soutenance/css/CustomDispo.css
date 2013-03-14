@@ -67,8 +67,8 @@ body {
 }
 
 .slide{
-    width: 1200px;
-    height: 800px;
+    width: 900px;
+    height: 700px;
 }
 
 .nom{
@@ -104,13 +104,13 @@ h1 {
 }
 
 #logouniv {
-  margin-top: 200px;
+  margin-top: 100px;
   height: 150px;
   float: left;
 }
 
 #logoiut {
-  margin-top: 250px;
+  margin-top: 150px;
   height: 110px;
   float: right;
 }
@@ -133,7 +133,7 @@ h1 {
 #but h3{
   font-size: 35pt;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 #cloud h2{
@@ -218,6 +218,10 @@ h1 {
   font-size: 35pt;
   text-align: center;
   margin-top: 50px;
+}
+
+.smallCloud.future{
+  opacity: 0;
 }
 
 .smallOpenStack h2{
