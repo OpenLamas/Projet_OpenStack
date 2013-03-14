@@ -1,0 +1,554 @@
+/*Reset CSS*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/*END Reset*/
+
+/* Palette:
+  blanc:      FBFFE3; 
+
+  vert:       83A300;
+
+  gris:       333333;
+
+  rose foncé: 9E0C39;
+
+  rose clair: E21B5A;  
+
+*/
+
+body {
+    background-color: #FBFFE3; /* Fond blanc cassé */
+    font-family: "Yanone Kaffeesatz";
+    color: #333333;
+}
+
+.slide{
+    width: 1200px;
+    height: 800px;
+}
+
+.nom{
+    margin-bottom: 100px;
+}
+
+#nom_ju{
+    float: left;
+    font-size: 30pt;
+}
+
+#nom_max {
+  float: right;
+  font-size: 30pt;
+}
+
+h1 {
+  padding-top: 75px;
+  font-size: 70pt;
+  color: #E21B5A;
+  font-weight: 700;
+  text-align: center;
+}
+
+#cloudprive {
+  margin-top: 140px;
+}
+
+#tuteur {
+  text-align: center;
+  font-size: 30pt;
+  margin-top: 20px;
+}
+
+#logouniv {
+  margin-top: 200px;
+  height: 150px;
+  float: left;
+}
+
+#logoiut {
+  margin-top: 250px;
+  height: 110px;
+  float: right;
+}
+
+.sommaire li{
+  font-size: 50pt;
+  line-height: 150px;
+  margin-left: 100px;
+}
+
+.sommaire.future{
+  opacity: 0;
+}
+
+#but h2{
+  font-size: 50pt;
+  text-align: center;
+}
+
+#but h3{
+  font-size: 35pt;
+  text-align: center;
+  margin-top: 100px;
+}
+
+#cloud h2{
+  font-size: 50pt;
+  text-align: center;
+}
+
+#cloud h3{
+  font-size: 30pt;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+#cloud img{
+  margin: auto;
+  margin-top: 250px;
+  display: block;
+  width: 400px;
+}
+
+.smallCloud h2{
+  font-size: 50pt;
+  text-align: center;
+}
+
+.smallCloud.future ul{
+  opacity: 0;
+}
+
+.smallCloud ul{
+  margin-top: 100px;
+}
+.smallCloud li{
+  font-size: 30pt;
+  line-height: 150px;
+  margin-left: 200px;
+}
+#cloudModels ul{
+  float: right;
+  margin-right: 200px;
+}
+#cloudModels li{
+  text-align: right;
+}
+
+#PrivatePublic h2, .ppCloud h2{
+  font-size: 50pt;
+  text-align: center;
+}
+
+.ppCloud ul{
+  margin-top: 150px;
+  margin-left: 250px;
+  margin-right: 250px;
+}
+.ppCloud li{
+  font-size: 25pt;
+  line-height: 75px;
+}
+#Private ul{
+  text-align: right;
+}
+
+.ppCloud.future ul{
+  opacity: 0;
+}
+
+.ppCloud.past, .smallCloud.past{
+  opacity: 0;
+}
+
+#logoOpenStack{
+  width: 400px;
+}
+
+#logoOpenStack h2{
+  font-size: 35pt;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.smallOpenStack h2{
+  font-size: 37pt;
+}
+
+.smallOpenStack ul{
+  margin-top: 100px;
+}
+
+.smallOpenStack li{
+  font-size: 30pt;
+  line-height: 75px;
+}
+
+#logoOpenStack2.future{
+  opacity: 0;
+}
+
+#logoOpenStack.past{
+  opacity: 0;
+}
+
+#logoOpenStack2{
+  width: 400px;
+}
+
+#logoOpenStack2 h2{
+  font-size: 35pt;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#middle ul{
+  margin-top: 50px;
+}
+
+#middle li{
+  font-size: 30pt;
+  line-height: 55px
+}
+
+#middle h2{
+  font-size: 40pt;
+  text-align: center;
+}
+
+#middleDef h2{
+  font-size: 100pt;
+}
+
+#middleDef h4{
+  font-size: 25pt;
+}
+
+#middleDef.future h4{
+  opacity: 0;
+}
+
+#WSGIDef #middleHide{
+  visibility: hidden;
+}
+
+#WSGIDef h2{
+  font-size: 100pt;
+  display: inline;
+  margin-left: 15px;
+}
+
+#WSGIDef h4{
+  font-size: 25pt;
+}
+
+#WSGIDef.future h4{
+  opacity: 0;
+}
+
+#deuxWay h2{
+  font-size: 40pt;
+  text-align: center;
+}
+.ways h2{
+  font-size: 35pt;
+  text-align: center;
+}
+
+#API h2{
+  font-size: 40pt;
+}
+#APIDef h2{
+  font-size: 80pt;
+}
+
+#RESTDef h2{
+  font-size: 80pt;
+}
+
+#APIDef h4{
+  margin-left: -50px;
+}
+
+#APIDef.future h4{
+  opacity: 0;
+}
+
+#RESTDef h4{
+  margin-left: 20px;
+}
+
+#RESTDef.future h4{
+  opacity: 0;
+}
+
+#APIimg img{
+  margin: auto;
+  margin-top: 100px;
+  width: 800px;
+}
+
+#APIimg.future{
+  opacity: 0;
+}
+
+#APIPour.future{
+  opacity: 0;
+}
+
+#APIPour h2{
+  font-size: 40pt;
+}
+
+#APIPour ul{
+  margin-top: 50px;
+}
+
+#APIPour li{
+  font-size: 25pt;
+  line-height: 50px;
+}
+
+#APIContre{
+  text-align: right;
+}
+
+#APIContre h2{
+  font-size: 40pt;
+}
+
+#APIContre ul{
+  margin-top: 50px;
+}
+
+#APIContre li{
+  font-size: 25pt;
+  line-height: 50px;
+}
+#APIConcl h4{
+  text-align: center;
+  color: #E21B5A;
+  font-size: 30pt;
+  margin-top: 200px;
+}
+
+#AMPQDef h2{
+  font-size: 80pt;
+}
+
+#AMPQDef.future h4{
+  opacity: 0;
+}
+#AMPQDef h4{
+  font-size: 25pt;
+}
+
+#AMPQImg img{
+  display: block;
+  margin: auto;
+  margin-top: 200px;
+}
+
+#AMPQImg.future{
+  opacity: 0;
+}
+
+#AMQPPour.future{
+  opacity: 0;
+}
+
+#AMQPPour h2{
+  font-size: 40pt;
+}
+
+#AMQPPour ul{
+  margin-top: 50px;
+}
+
+#AMQPPour li{
+  font-size: 25pt;
+  line-height: 50px;
+}
+#AMQPContre.future{
+  opacity: 0;
+}
+
+#AMQPContre{
+  text-align: right;
+}
+
+#AMQPContre h2{
+  font-size: 40pt;
+}
+
+#AMQPContre ul{
+  margin-top: 50px;
+}
+
+#AMQPContre li{
+  font-size: 25pt;
+  line-height: 50px;
+}
+#AMQPConcl h4{
+  text-align: center;
+  color: #E21B5A;
+  font-size: 30pt;
+  margin-top: 200px;
+}
+
+#scheduling h2{
+  font-size: 40pt;
+  text-align: center;
+}
+
+#scheduling h3{
+  text-align: center;
+  font-size: 30pt;
+}
+
+#scheduling img{
+  display: block;
+  margin: auto;
+  margin-top: 100px;
+}
+
+#schedulingEx h2{
+  text-align: center;
+  font-size: 35pt;
+}
+
+#schedulingEx h4{
+  font-size: 25pt;
+  margin-top: 100px;
+}
+
+#schedulingEx ul{
+  margin-top: 15px;
+}
+
+#schedulingEx li{
+  line-height: 30px;
+  font-size: 15pt;
+}
+
+#schedulingEx #ExR{
+  float: right;
+  margin-right: 100px;
+}
+
+#schedulingEx #ExL{
+  float: left;
+  margin-left: 100px;
+}
+
+#bladeCenter h2{
+  text-align: center;
+  font-size: 35pt;
+}
+
+#bladeCenter img{
+  display: block;
+  margin: auto;
+  margin-top: 150px;
+  margin-bottom: 50px;
+}
+
+#bladeCenter h4{
+  text-align: center;
+  font-size: 25pt;
+  line-height: 40px;
+}
+
+#bladeCenterRT h2{
+  text-align: center;
+  font-size: 35pt;
+}
+
+#bladeCenterRT h4{
+  font-size: 25pt;
+  margin-top: 100px;
+}
+
+#bladeCenterRT ul{
+  margin-top: 15px;
+}
+
+#bladeCenterRT li{
+  line-height: 30px;
+  font-size: 15pt;
+}
+
+#bladeCenterRT #ExR{
+  float: right;
+  margin-right: 100px;
+}
+
+#bladeCenterRT #ExL{
+  float: left;
+  margin-left: 100px;
+}
+
+#Concl h2{
+  font-size: 35pt;
+  text-align: center;
+}
+
+#Merci{
+  color: #E21B5A;
+}
+
+#Merci h2{
+  margin-top: 200px;
+  font-size: 40pt;
+  text-align: center;
+}
+
+#Merci h4{
+  margin-top: 100px;
+  font-size: 30pt;
+  text-align: center;
+}
