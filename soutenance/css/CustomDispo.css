@@ -171,6 +171,11 @@ h1 {
   line-height: 150px;
   margin-left: 200px;
 }
+
+.littleList li {
+  margin-top: -60px;
+}
+
 #cloudModels ul{
   float: right;
   margin-right: 200px;
