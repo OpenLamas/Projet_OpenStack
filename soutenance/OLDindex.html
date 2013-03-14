@@ -1,0 +1,271 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Cloud Privé avec OpenStack - Démonstration</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="css/impress-demo.css" rel="stylesheet" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress">
+
+    <div id='home' class="step slide" data-x="0" data-y="0">
+      <h3>Julien Brun</h3><h3 id='nom_max'>Maxime Mouchet</h3>
+      <h1 id='cloudprive'>Cloud Privé</h1><h1>avec</h1><h1>OpenStack</h1>
+      <h2 id='tuteur'>Tuteur : Frédéric Pourraz</h2>
+      <img id='logouniv' src='img/univsavoie.jpg' /><img id='logoiut' src='img/iut.png' />
+    </div>
+
+    <div class="step slide" data-x="1500" data-y="0">
+      <h1>Présentation du projet</h1>
+      <h1>OpenStack vu de l'intérieur</h1>
+      <h1>Conlusion, et perspectives</h1>
+    </div>
+
+    <div class="step slide" data-x="3000" data-y="0">
+      <h1>Notre projet<h1>
+      <h2>But : mettre en place un Cloud Privé à l'IUT</h2>
+    </div>
+
+    <div class='step slide' data-x="3500" data-y='0'>
+      <center><h1 style='font-size: 30pt;'>Le Cloud Computing et la virtualisation</h1></center>
+      <br />
+      =&gt; Dématérialisation et décentralisation.<br />
+      <br />
+      <strong><h2 style='font-size: 25pt;'>Intérêts</h2></strong>
+      <br />
+      <!-- expliquer différences virtualbox etc -->
+      <ul style='list-style-type: disc;'>
+        <li>Mise en production et dimensionnement facilité</li>
+        <li>Réduction des côuts</li>
+        <!-- Pas de matos à entretenir, mettre à jour -->
+      </ul>
+      <br />
+      <strong><h2 style='font-size: 25pt;'>Modèles</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>SaaS</li>
+        <li>PaaS</li>
+        <li>IaaS</li>
+        <li>sth-aaS</li>
+        <!-- DaaS: mashups, NaaS: Software Defined Networking -->
+        <!-- Pas de matos à entretenir, mettre à jour -->
+      </ul>
+    </div>
+
+    <div class='step slide' data-x="4000" data-y='0'>
+      <center><h1 style='font-size: 30pt;'>Cloud public vs. Cloud privé</h1></center>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Cloud public</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>Géré par une entreprise tierce</li>
+        <li>Situé à l'extérieur de l'entreprise</li>
+        <li>Ressources partagés entre les clients</li>
+        <li>Paiement à l'utilisation (par heures)</li>
+      </ul>
+      <br />
+      <strong><h2 style='font-size: 25pt;'>Cloud privé</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>A l'usage exclusif d'une entreprise</li>
+        <li>Achat du matériel</li>
+        <li>Mise en place et administration</li>
+      </ul><br />
+      =&gt; Principalement une problématique de sécurité.<br />
+    </div>
+
+    <div class="step slide" data-x="4500" data-y="0">
+      <center><img src='img/logo-openstack.png' style='width:400px;'/></center>
+      <center><h1 style='margin-top: 100px; font-size: 40pt;'>Qu'est ce que c'est ?</h1></center>
+    </div>
+
+    <div class='step slide' data-x='6000' data-y='0'>
+      <center><h1 style='font-size: 40pt;'>OpenStack, c'est :</h1></center>
+      <ul style='margin-top: 100px; list-style-type: disc;'>
+        <li>Un ensemble de logiciels permettant de construire des infrastructures en tant que service.</li>
+        <li>Une architecture modulaire facilitant le déploiement et la mise à l'échelle.</li>
+        <li>Gratuit et Open Source.</li>
+        <li>Soutenu par des grandes entreprises tels que HP, Cisco, IBM, Intel, ...</li>
+        <li>Une communauté active sur Internet (mailing-lists, wikis, blogs).</li>
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="7500" data-y="0">
+      Juju
+    </div>
+
+    <div class="step slide" data-x="9000" data-y="0">
+      <center><img src='img/logo-openstack.png' style='width:400px;'/></center>
+      <center><h1 style='margin-top: 100px; font-size: 40pt;'>Comment ça marche ?</h1></center>
+    </div>
+
+    <div class="step slide" data-x="10500" data-y="0">
+      <center><h1 style='font-size: 25pt;'><strong>Keystone</strong>, <strong>Nova</strong>, <strong>Cinder</strong>, <strong>Glance</strong>, <strong>Swift</strong>, ...</h1></center>
+      <br /><br />
+      <center><strong style='font-size: 30pt;'>=> <em>middlewares WSGI</em></strong></center><br />
+      <br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <strong>WSGI :</strong> <em>Web Server Gateway Interface</em><br />
+      <!-- WSGI n'est pas un logiciel, juste une spec -->
+      <strong>middleware :</strong> Application WSGI à la fois cliente et serveur<br /><br />
+      <!-- qui implémenter les deux interfaces -->
+    </div>
+
+    <div class='step slide' data-x='12500' data-y='0'>
+      <br /><br /><br /><br /><br /><br /><br />
+      <center><h1 style='font-size: 30pt;'>Deux moyens de communication</h1></center>
+    </div>
+
+    <div class='step slide' data-x='14000' data-y='0'>
+      <strong>Depuis l'extérieur</strong>, une API REST<br />
+      <br />
+      <img src='img/http_get_api.png' style='width: 800px;'/>
+      <br /><br />
+      <strong>API :</strong> <em>Application Programming Interface</em><br />
+      <strong>REST :</strong> <em>REpresentational State Transfer</em><br /><br />
+    </div>
+
+    <div class='step slide' data-x='15500' data-y='0'>
+      <center><h1 style='font-size: 30pt;'>API REST</h1></center>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Avantages</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>Haut niveau, compréhensible</li>
+        <li>Utilisable dans ~ tout les languages de programmation</li>
+      </ul>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Inconvénient</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>Lourd, <em>overhead</em> important (protocole HTTP, mode texte)</li>
+      </ul>
+      <br /><br /><br />
+      <strong><h2 style='font-size: 20pt;'>=> Pas optimisé pour la communication inter-services</h2></strong>
+    </div>
+
+    <div class='step slide' data-x='17000' data-y='0'>
+      <strong>Entre les services</strong>, AMQP<br />
+      <br /><br /><br />
+      <img src='img/amqp.jpg' />
+      <br /><br /><br /><br />
+      <strong>AMQP :</strong> <em>Advanced Message Queuing Protocol</em>
+    </div>
+
+    <div class='step slide' data-x='18500' data-y='0'>
+      <center><h1 style='font-size: 30pt;'>AMQP</h1></center>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Avantages</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>Rapide, faible <em>overhead</em></li>
+        <li>Fiable</li>
+      </ul>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Inconvénients</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>Plus compliqué à implémenter</li>
+        <li>Pas utilisable directement (ex. en ligne de commande)</li>
+      </ul>
+      <br /><br /><br />
+      <strong><h2 style='font-size: 20pt;'>=> Idéal pour la communication inter-services</h2></strong>
+    </div>
+
+
+    <div class="step slide" data-x="20000" data-y="0">
+      <center><h1 style='font-size: 30pt;'>Le scheduling</h1></center>
+      <br /><br />
+      <center><h2 style='font-size: 22pt;'>Comment répartir les instances virtuelles et le stockage ?</h2></center>
+      <br /><br />
+      <center><img src='img/filteringWorkflow1.png' /></center>
+    </div>
+
+    <div class="step slide" data-x="21500" data-y="0">
+      <center><h1 style='font-size: 30pt;'>Exemples</h1></center>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Filters</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>RamFilter</li>
+        <li>CoreFilter</li>
+        <li>SameHostFilter</li>
+        <li>SimpleCIDRAffinityFilter</li>
+      </ul>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Costs and Weights</h2></strong>
+      <br />
+      <ul style='list-style-type: disc;'>
+        <li>fill_first_cost_fn</li>
+        <li>retry_host_cost_fn</li>
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="23000" data-y="0">
+      <center><h1 style='font-size: 30pt;'>BladeCenter</h1></center>
+      <!-- blade == lame -->
+      <br /><br />
+      <center><img src='img/blade.jpg' style='width:300px;'/></center>
+      <br /><br />
+      <center>
+      <ul style=''>
+        <li>Fiabilité</li>
+        <!-- réseau redondant etc -->
+        <li>Scalabilité</li>
+        <li>Haute densité</li>
+        <li>Stockage indépendant</li>
+      </ul>
+      </center>
+    </div>
+
+    <div class="step slide" data-x="24500" data-y="0">
+      <center><h1 style='font-size: 30pt;'>Le BladeCenter R&amp;T</h1></center>
+      <br /><br />
+      <strong><h2 style='font-size: 25pt;'>Caractéristiques</h2></strong>
+      <br />
+      <ul>
+        <li>Serveurs blade HP de 2007</li>
+        <li>Bi-processeurs 64 bits</li>
+        <li>4 ou 8 Go de RAM</li>
+        <li>Stockage SAN HP StorageWorks</li>
+      </ul>
+      <br />
+      <strong><h2 style='font-size: 25pt;'>Mais... pas adapté à la virtualisation</h2></strong>
+      <br />
+      <ul style=''>
+        <li>Processeurs anciens qui ne supportent pas les extensions VT</li>
+        <li>Chipsets incompatibles avec les systèmes récents</li>
+        <li>Manque de RAM</li>
+      </ul>
+    </div>
+
+    <div class="step slide" data-x="63000" data-y="0">
+      Conclusion suite
+    </div>
+
+<div class="hint">
+    <p>Use a spacebar or arrow keys to navigate</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
