@@ -54,6 +54,10 @@
       <li>Mise en production et dimensionnement facilité</li>
       <li>Réduction des côuts</li>
     </ul>
+    <div class='notes'>
+      Expliquer différences Virtualbox etc...<br />
+      Pas de matériel à entretenir, mettre à jour
+    </div>
   </div>
   <div id="cloudModels" class="smallCloud step slide littleList" data-x="5000" data-y="300" data-scale="0.7">
     <h2>Modèles</h2>
@@ -61,8 +65,11 @@
       <li>SaaS</li>
       <li>PaaS</li>
       <li>IaaS</li>
-      <li>sth-aaS</li>
+      <li>*-aaS</li>
     </ul>
+    <div class='notes'>
+      DaaS: mashups, NaaS: Software Defined Networking<br />
+    </div>
   </div>
   <div id="PrivatePublic" class="step slide" data-x="6000" data-y="0">
     <h2>Deux choix</h2>
@@ -107,7 +114,8 @@
     </ul>
   </div>
   <div id="OpenStackStack" class="step slide smallOpenStack" data-x="7000" data-y="800" data-scale="0.7">
-    <h2>Stack OpenStack</h2>
+    <h2>Architecture OpenStack</h2>
+    <img id='SchemaOpenStack' src='img/openstack-schema.png' />
   </div>
   <div id="logoOpenStack2" class="step slide" data-x="6000" data-y="700" data-scale="1.5">
     <img src="img/logo-openstack.png" />
@@ -129,9 +137,17 @@
     <h2>WSGI</h2>
     <h4>Web Server Gateway Interface</h4>
     <div class="notes">
-      WSGI n'est pas un logiciel, juste une spécification
+      WSGI n'est pas un logiciel, juste une spécification<br />
+      "Qui implémente les deux interfaces"
     </div>
   </div>
+  <div id="middle2" class="step slide" data-x="6000" data-y="2000">
+    <div class='notes'>
+      Python =&gt; facilement portable<br />
+      Modulaire
+    </div>
+  </div>
+
   <div id="deuxWay" class="step slide" data-x="6000" data-y="3000">
     <h2>Deux moyens de communication</h2>
   </div>
@@ -230,6 +246,10 @@
     <h4>Scalabilité</h4>
     <h4>Haute densité</h4>
     <h4>Stockage indépendant</h4>
+    <div class='notes'>
+      blade == lame<br />
+      Réseau redondant
+    </div>
   </div>
   <div id="bladeCenterRT" class="step slide" data-x="6000" data-y="6500">
     <h2>Le BladeCenter R&amp;T</h2>
@@ -253,6 +273,18 @@
   </div>
   <div id="Concl" class="step slide" data-x="7500" data-y="6500">
     <h2>Conclusion</h2>
+    <ul>
+      <li>Tout le cahier des charges à été réalisé</li>
+      <li>Limité par le matériel</li>
+    </ul>
+    <br>
+    <strong>Perspectives</strong>
+    <br />
+    <ul>
+      <li>Utiliser du matériel plus récent</li>
+      <li>Installer un hyperviseur plus performant</li>
+      <li>Augmenter la redondance</li>
+    </ul>
   </div>
   <div id="Merci" class="step slide" data-x="9000" data-y="6500">
     <h2>MERCI</h2>

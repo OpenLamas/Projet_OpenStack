@@ -66,6 +66,10 @@ body {
     color: #333333;
 }
 
+.notes {
+  display: none;
+}
+
 .slide{
     width: 1200px;
     height: 800px;
@@ -113,6 +117,12 @@ h1 {
   margin-top: 250px;
   height: 110px;
   float: right;
+}
+
+#SchemaOpenStack {
+  display: block;
+  margin: auto;
+  margin-top: 200px;
 }
 
 .sommaire li{
