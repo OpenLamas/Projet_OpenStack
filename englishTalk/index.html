@@ -1,0 +1,167 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Cloud Privé avec OpenStack - Démonstration</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="css/CustomDispo.css" rel="stylesheet" />
+</head>
+
+<body class="impress-not-supported">
+<div id="impress">
+  <div id="home" class="step slide" data-x="0" data-y="0">
+    <div class="nom">
+      <h3 id="nom_ju">Julien Brun</h3><h3 id='nom_max'>Maxime Mouchet</h3>
+    </div>
+    <h1 id='cloudprive'>Private Cloud<br />with OpenStack</h1>
+    <h1 id='tuteur'>Tuteur : Frédéric Pourraz</h1>
+    <img id='logouniv' src='img/univsavoie.jpg' /><img id='logoiut' src='img/iut.png' />
+  </div>
+  <div id="but" class="step slide" data-x="1500" data-y="0">
+    <h2>Our goal:</h2>
+    <h2>Deploy a Private Cloud</h2>
+    <div class='notes'>
+    </div>
+  </div>
+  <div id="Cloud" class="step slide" data-x="3000" data-y="0">
+    <h2>Cloud ?</h2>
+    <ul>
+      <li>Easy deployment</li>
+      <li>Cheaper</li>
+    </ul>
+  </div>
+  <div id="PrivateCloud" class="step slide" data-x="4500" data-y="0">
+    <h2>Private ?</h2>
+    <ul>
+      <li>Exclusive to the company</li>
+      <li>Security</li>
+      <li>High initial cost</li>
+    </ul>
+    <div class='notes'>
+    </div>
+  </div>
+  <div id="PublicCloud" class="step slide" data-x="6000" data-y="0">
+    <h2>Public ?</h2>
+    <ul>
+      <li>Pay as you go</li>
+      <li>Easy scaling</li>
+      <li>Remote data</li>
+    </ul>
+    <div class='notes'>
+    </div>
+  </div>
+  <div id="openstack" class="smallCloud step slide littleList" data-x="7500" data-y="0">
+    <img src="img/logo-openstack.png" />
+    <h3>What ?</h3>
+    <h3>Who ?</h3>
+    <h3>Where ?</h3>
+    <div class='notes'>
+    </div>
+  </div>
+  <div id="ProCon" class="step slide" data-x="9000" data-y="0">
+    <div class="left">
+      <h3>Pro</h3>
+      <ul>
+        <li>Free</li>
+        <li>OpenSource</li>
+        <li>Big community</li>
+      </ul>
+    </div>
+    <div class="right">
+     <h3>Con</h3>
+     <ul>
+       <li>Young</li>
+       <li>Require heavy ressources</li>
+     </ul>
+   </div>
+  </div>
+  <div id="whatFor" class="step slide" data-x="10500" data-y="0">
+    <h2>How it works ?</h2>
+    <ul>
+      <li>Many services (Nova, Horizon, Swift...)</li>
+      <li>He isn't the hypervisor</li>
+    </ul>
+    <div class='notes'>
+    </div>
+  </div>
+  <div id="bladeCenter" class="step slide" data-x="12000" data-y="0">
+    <h2>BladeCenter</h2>
+    <img src='img/blade.jpg' style='width:300px;'/>
+    <h4>Reliability</h4>
+    <h4>Scalability</h4>
+    <h4>High density</h4>
+    <h4>Remote storage</h4>
+    <div class='notes'>
+    </div>
+  </div>
+  <div id="bladeCenterRT" class="step slide" data-x="13500" data-y="0">
+    <h2>The R&T BladeCenter</h2>
+    <div class="left">
+      <h4>Feature</h4>
+      <ul>
+        <li>HP Blade server from 2007</li>
+        <li>Bi-processor</li>
+        <li>4 or 8GB of RAM</li>
+        <li>HP SAN Storage</li>
+      </ul>
+    </div>
+    <div class="right">
+      <h4>But... it's not adapted to virtualization</h4>
+      <ul>
+        <li>Old processor without VT extentions</li>
+        <li>Incompation with the newer operating systems</li>
+        <li>Lack of RAM</li>
+      </ul>
+    <div class='notes'>
+    </div>
+    </div>
+  </div>
+  <div id="Problems" class="slide step" data-x="15000" data-y="0">
+    <h2>Problems</h2>
+    <ul>
+      <li>Operating System compatibility</li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div id="Concl" class="step slide" data-x="16500" data-y="0">
+    <h2>Conclusion</h2>
+    
+    <ul>
+      <li>Hardware limitation</li>
+      <li>But we did everything we planned</li>
+    </ul>
+  </div>
+  
+  <div id="Persp" class="step slide" data-x="18000" data-y="0">
+    <h2>And now ?</h2>
+    <ul>
+      <li>More recent hardware</li>
+      <li>Increase redundancy</li>
+      <li>Automatisation</li>
+    </ul>
+    <div class='notes'>
+    </div>
+  </div>
+  <div id="Merci" class="step slide" data-x="19500" data-y="0">
+    <h2>Thanks !</h2>
+    <h4>Questions ?</h4>
+  </div>
+</div>
+
+
+    
+<script src="js/impress.js"></script>
+<script src="js/impressConsole.js"></script>
+<script>
+    impress().init();
+    console().init();
+    console().open(); // If you want them to open automatically
+</script>
+
+</body>
+</html>
